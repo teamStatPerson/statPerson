@@ -49,6 +49,9 @@ interface Person{
 
 interface Page{
 	String getURL();
+	
+	// return -1, if Page never scan
 	long getFoundDateTime();
+	// return -1, if Page never scan
 	long getLastScanTime();
 }
