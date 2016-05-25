@@ -14,9 +14,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.proba.statperson.fragments.FragmentDailyStat;
+import com.proba.statperson.fragments.FragmentDate;
+import com.proba.statperson.fragments.FragmentKeyWords;
 import com.proba.statperson.fragments.FragmentPersons;
 import com.proba.statperson.fragments.FragmentSites;
 import com.proba.statperson.fragments.FragmentStatus;
+import com.proba.statperson.fragments.FragmentTotalStat;
+import com.proba.statperson.fragments.FragmentUsers;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,6 +29,11 @@ public class MainActivity extends AppCompatActivity
     FragmentPersons fragmentPersons;
     FragmentSites fragmentSites;
     FragmentStatus fragmentStatus;
+    FragmentTotalStat fragmentTotalStat;
+    FragmentDailyStat fragmentDailyStat;
+    FragmentDate fragmentDate;
+    FragmentKeyWords fragmentKeyWords;
+    FragmentUsers fragmentUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +63,11 @@ public class MainActivity extends AppCompatActivity
         fragmentPersons = new FragmentPersons();
         fragmentSites = new FragmentSites();
         fragmentStatus = new FragmentStatus();
+        fragmentTotalStat = new FragmentTotalStat();
+        fragmentDailyStat = new FragmentDailyStat();
+        fragmentDate = new FragmentDate();
+        fragmentKeyWords = new FragmentKeyWords();
+        fragmentUsers = new FragmentUsers();
     }
 
     @Override
@@ -101,6 +116,16 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.container, fragmentSites);
         } else if (id == R.id.persons) {
             fragmentTransaction.replace(R.id.container, fragmentPersons);
+        } else if (id == R.id.total_stat) {
+            fragmentTransaction.replace(R.id.container, fragmentTotalStat);
+        } else if (id == R.id.daily_stat) {
+            fragmentTransaction.replace(R.id.container, fragmentDailyStat);
+        } else if (id == R.id.date) {
+            fragmentTransaction.replace(R.id.container, fragmentDate);
+        } else if (id == R.id.key_words) {
+            fragmentTransaction.replace(R.id.container, fragmentKeyWords);
+        } else if (id == R.id.users) {
+            fragmentTransaction.replace(R.id.container, fragmentUsers);
         } fragmentTransaction.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

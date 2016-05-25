@@ -13,14 +13,20 @@
     <string name="stat">Statistic</string>
     <string name="total_stat">Total Statistic</string>
     <string name="daily_stat">Daily Statistic</string>
+    <string name="date">Date</string>
     <string name="persons">Persons</string>
     <string name="putin">Putin</string>
     <string name="medvedev">Medvedev</string>
     <string name="navalny">Navalny</string>
+    <string name="key_words">Key words</string>
+    <string name="users">Users</string>
 
     <string name="fragment_persons">Choice person</string>
     <string name="fragment_sites">Choice site</string>
     <string name="fragment_status">Choice status</string>
+    <string name="fragment_date">Choice date</string>
+    <string name="fragment_key_words">Choice key words</string>
+    <string name="fragment_users">Choice users</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
