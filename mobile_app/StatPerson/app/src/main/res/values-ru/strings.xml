@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="status">Статус</string>
+    <string name="admin">Администратор</string>
+    <string name="user">Пользователь</string>
+    <string name="sites">Сайты</string>
+    <string name="stat">Статистика</string>
+    <string name="total_stat">Общая статистика</string>
+    <string name="daily_stat">Ежедневная статистика</string>
+    <string name="persons">Личности</string>
+    <string name="putin">Путин</string>
+    <string name="medvedev">Медведев</string>
+    <string name="navalny">Навальный</string>
+
+    <string name="fragment_persons">Выбор личности</string>
+    <string name="fragment_sites">Выбор сайта</string>
+    <string name="fragment_status">Выбор статуса</string>
+
+</resources>

@@ -5,4 +5,23 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="status">Status</string>
+    <string name="admin">Administrator</string>
+    <string name="user">User</string>
+    <string name="sites">Sites</string>
+    <string name="stat">Statistic</string>
+    <string name="total_stat">Total Statistic</string>
+    <string name="daily_stat">Daily Statistic</string>
+    <string name="persons">Persons</string>
+    <string name="putin">Putin</string>
+    <string name="medvedev">Medvedev</string>
+    <string name="navalny">Navalny</string>
+
+    <string name="fragment_persons">Choice person</string>
+    <string name="fragment_sites">Choice site</string>
+    <string name="fragment_status">Choice status</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
