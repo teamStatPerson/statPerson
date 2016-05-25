@@ -9,6 +9,8 @@
     <string name="daily_stat">Ежедневная статистика</string>
     <string name="date">Дата</string>
     <string name="persons">Личности</string>
+    <string name="name">Имя</string>
+    <string name="quantity">Количество упоминаний</string>
     <string name="putin">Путин</string>
     <string name="medvedev">Медведев</string>
     <string name="navalny">Навальный</string>
