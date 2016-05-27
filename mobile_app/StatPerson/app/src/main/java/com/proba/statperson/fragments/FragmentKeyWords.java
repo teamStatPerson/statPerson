@@ -1,11 +1,14 @@
 package com.proba.statperson.fragments;
 
 import android.app.Fragment;
+import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 
 import com.proba.statperson.R;
 
@@ -17,7 +20,7 @@ import com.proba.statperson.R;
  * Use the {@link FragmentKeyWords#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentKeyWords extends Fragment {
+public class FragmentKeyWords extends ListFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,6 +31,9 @@ public class FragmentKeyWords extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    final String[] keyWordsPutin = new String[]{"Путиным", "Путину", "Путина", "Путине"};
+
 
     public FragmentKeyWords() {
         // Required empty public constructor
@@ -64,7 +70,10 @@ public class FragmentKeyWords extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_key_words, container, false);
+        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_list_item_1, keyWordsPutin);
+        setListAdapter(adapter);
+        return inflater.inflate(R.layout.fragment_key_words, null);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

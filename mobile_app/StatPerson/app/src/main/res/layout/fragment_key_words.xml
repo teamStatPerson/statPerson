@@ -1,14 +1,58 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.proba.statperson.fragments.FragmentKeyWords">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.proba.statperson.fragments.FragmentKeyWords">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
+        android:id="@+id/textViewKeyWords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/key_words"
+        android:textColor="#03A9F4"
+        android:padding="16dp"
+        android:textSize="30sp">
+    </TextView>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/textViewPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/person"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/textViewPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/putin"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@id/android:list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
+    <TextView
+        android:id="@id/android:empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/fragment_key_words"
-        android:textSize="20dp"/>
+        android:textSize="20sp">
+    </TextView>
 
-</FrameLayout>
+</LinearLayout>
