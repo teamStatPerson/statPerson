@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQLtut - statperson@localhost" uuid="b86d812b-7d93-46b9-8114-8877258927db">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>statperson.*</schema-pattern>
+      <default-schemas>statperson.*</default-schemas>
+    </data-source>
+  </component>
+</project>
