@@ -14,7 +14,9 @@
     <string name="total_stat">Total Statistic</string>
     <string name="daily_stat">Daily Statistic</string>
     <string name="date">Date</string>
+    <string name="total">Total for period:</string>
     <string name="persons">Persons</string>
+    <string name="person">Person: </string>
     <string name="name">Name</string>
     <string name="quantity">Quantity</string>
     <string name="putin">Putin</string>
@@ -22,6 +24,9 @@
     <string name="navalny">Navalny</string>
     <string name="key_words">Key words</string>
     <string name="users">Users</string>
+    <string name="button_apply">Apply</string>
+    <string name="period_from">Period from: </string>
+    <string name="period_till">till: </string>
 
     <string name="fragment_persons">Choice person</string>
     <string name="fragment_sites">Choice site</string>
