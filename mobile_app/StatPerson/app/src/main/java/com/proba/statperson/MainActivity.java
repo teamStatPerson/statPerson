@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.proba.statperson.fragments.FragmentDailyStat;
 import com.proba.statperson.fragments.FragmentDate;
@@ -131,5 +133,52 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onClickPerson(View view) {
+        showPopupMenuPersons(view);
+    }
+    private void showPopupMenuPersons(View v) {
+        PopupMenu popupMenu = new PopupMenu(this, v);
+        popupMenu.inflate(R.menu.popupmenupersons);
+
+        popupMenu
+                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId()) {
+
+                            case R.id.putin:
+                                Toast.makeText(getApplicationContext(),
+                                        "Вы выбрали Путин",
+                                        Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.medvedev:
+                                Toast.makeText(getApplicationContext(),
+                                        "Вы выбрали Медведев",
+                                        Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.navalny:
+                                Toast.makeText(getApplicationContext(),
+                                        "Вы выбрали Навальный",
+                                        Toast.LENGTH_SHORT).show();
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+
+            @Override
+            public void onDismiss(PopupMenu menu) {
+                Toast.makeText(getApplicationContext(), "onDismiss",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+        popupMenu.show();
     }
 }

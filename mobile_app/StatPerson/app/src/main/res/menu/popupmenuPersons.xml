@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menugrouppersons" >
+        <item
+            android:id="@+id/putin"
+            android:title="@string/putin"/>
+        <item
+            android:id="@+id/medvedev"
+            android:title="@string/medvedev"/>
+        <item
+            android:id="@+id/navalny"
+            android:title="@string/navalny">
+        </item>
+    </group>
+
+</menu>

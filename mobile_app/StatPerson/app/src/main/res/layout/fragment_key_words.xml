@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:text="@string/person"
             android:textColor="#03A9F4"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:onClick="onClickPerson"/>
 
         <TextView
             android:id="@+id/textViewPersonName"
@@ -37,7 +38,8 @@
             android:layout_height="wrap_content"
             android:text="@string/putin"
             android:textColor="#03A9F4"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:onClick="onClickPerson"/>
 
     </LinearLayout>
 
