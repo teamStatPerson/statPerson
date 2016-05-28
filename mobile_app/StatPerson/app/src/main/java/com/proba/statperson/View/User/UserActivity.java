@@ -1,4 +1,4 @@
-package com.proba.statperson;
+package com.proba.statperson.View.User;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -16,16 +16,17 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.proba.statperson.fragments.FragmentDailyStat;
-import com.proba.statperson.fragments.FragmentDate;
-import com.proba.statperson.fragments.FragmentKeyWords;
-import com.proba.statperson.fragments.FragmentPersons;
-import com.proba.statperson.fragments.FragmentSites;
-import com.proba.statperson.fragments.FragmentStatus;
-import com.proba.statperson.fragments.FragmentTotalStat;
-import com.proba.statperson.fragments.FragmentUsers;
+import com.proba.statperson.R;
+import com.proba.statperson.View.User.fragments.FragmentDailyStat;
+import com.proba.statperson.View.User.fragments.FragmentDate;
+import com.proba.statperson.View.User.fragments.FragmentKeyWords;
+import com.proba.statperson.View.User.fragments.FragmentPersons;
+import com.proba.statperson.View.User.fragments.FragmentSites;
+import com.proba.statperson.View.User.fragments.FragmentStatus;
+import com.proba.statperson.View.User.fragments.FragmentTotalStat;
+import com.proba.statperson.View.User.fragments.FragmentUsers;
 
-public class MainActivity extends AppCompatActivity
+public class UserActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FragmentPersons fragmentPersons;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_admin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity
     }
     private void showPopupMenuPersons(View v) {
         PopupMenu popupMenu = new PopupMenu(this, v);
-        popupMenu.inflate(R.menu.popupmenupersons);
+        popupMenu.inflate(R.menu.popupmenu_persons);
 
         popupMenu
                 .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

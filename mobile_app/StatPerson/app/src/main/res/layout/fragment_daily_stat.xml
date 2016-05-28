@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.proba.statperson.fragments.FragmentDailyStat">
+                tools:context=".View.Admin.fragments.FragmentDailyStat">
 
     <TextView
         android:id="@+id/textViewSiteName"

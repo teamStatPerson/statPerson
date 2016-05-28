@@ -1,23 +1,26 @@
-package com.proba.statperson.fragments;
+package com.proba.statperson.View.Admin.fragments;
 
 import android.app.Fragment;
+import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 
 import com.proba.statperson.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentDate.OnFragmentInteractionListener} interface
+ * {@link FragmentKeyWords.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentDate#newInstance} factory method to
+ * Use the {@link FragmentKeyWords#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentDate extends Fragment {
+public class FragmentKeyWords extends ListFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +32,12 @@ public class FragmentDate extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public FragmentDate() {
+    final String[] keyWordsPutin = new String[]{"Путиным", "Путину", "Путина", "Путине"};
+    final String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
+    final String[] keyWordsNavalny = new String[]{"Навальным", "Навальному", "Навального", "Навальном"};
+
+
+    public FragmentKeyWords() {
         // Required empty public constructor
     }
 
@@ -39,11 +47,11 @@ public class FragmentDate extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentDate.
+     * @return A new instance of fragment FragmentKeyWords.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentDate newInstance(String param1, String param2) {
-        FragmentDate fragment = new FragmentDate();
+    public static FragmentKeyWords newInstance(String param1, String param2) {
+        FragmentKeyWords fragment = new FragmentKeyWords();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,7 +72,10 @@ public class FragmentDate extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_date, container, false);
+        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_list_item_1, keyWordsPutin);
+        setListAdapter(adapter);
+        return inflater.inflate(R.layout.fragment_key_words, null);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
