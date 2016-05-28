@@ -1,26 +1,23 @@
-package com.proba.statperson.fragments;
+package com.proba.statperson.View.User.fragments;
 
 import android.app.Fragment;
-import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 
 import com.proba.statperson.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentSites.OnFragmentInteractionListener} interface
+ * {@link FragmentDailyStat.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentSites#newInstance} factory method to
+ * Use the {@link FragmentDailyStat#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentSites extends ListFragment {
+public class FragmentDailyStat extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,9 +29,7 @@ public class FragmentSites extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
-    final String[] sites = new String[]{"lenta.ru", "test.ru", "primer.ru"};
-
-    public FragmentSites() {
+    public FragmentDailyStat() {
         // Required empty public constructor
     }
 
@@ -44,11 +39,11 @@ public class FragmentSites extends ListFragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentSites.
+     * @return A new instance of fragment FragmentDailyStat.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentSites newInstance(String param1, String param2) {
-        FragmentSites fragment = new FragmentSites();
+    public static FragmentDailyStat newInstance(String param1, String param2) {
+        FragmentDailyStat fragment = new FragmentDailyStat();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,10 +63,8 @@ public class FragmentSites extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, sites);
-        setListAdapter(adapter);
-        return inflater.inflate(R.layout.fragment_sites, null);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_daily_stat, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

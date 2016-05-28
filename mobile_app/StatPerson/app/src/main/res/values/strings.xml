@@ -36,5 +36,7 @@
     <string name="fragment_users">Choice users</string>
 
     <string name="site_name">Site: lenta.ru</string>
+    <string name="admin_role">Enter as administrator</string>
+    <string name="user_role">Enter as user</string>
 
 </resources>

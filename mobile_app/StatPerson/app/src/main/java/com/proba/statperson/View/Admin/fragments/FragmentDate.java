@@ -1,4 +1,4 @@
-package com.proba.statperson.fragments;
+package com.proba.statperson.View.Admin.fragments;
 
 import android.app.Fragment;
 import android.net.Uri;
@@ -12,12 +12,12 @@ import com.proba.statperson.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentStatus.OnFragmentInteractionListener} interface
+ * {@link FragmentDate.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentStatus#newInstance} factory method to
+ * Use the {@link FragmentDate#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentStatus extends Fragment {
+public class FragmentDate extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +29,7 @@ public class FragmentStatus extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public FragmentStatus() {
+    public FragmentDate() {
         // Required empty public constructor
     }
 
@@ -39,11 +39,11 @@ public class FragmentStatus extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentStatus.
+     * @return A new instance of fragment FragmentDate.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentStatus newInstance(String param1, String param2) {
-        FragmentStatus fragment = new FragmentStatus();
+    public static FragmentDate newInstance(String param1, String param2) {
+        FragmentDate fragment = new FragmentDate();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,7 +64,7 @@ public class FragmentStatus extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_status, container, false);
+        return inflater.inflate(R.layout.fragment_date, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -1,5 +1,4 @@
-package com.proba.statperson.fragments;
-
+package com.proba.statperson.View.User.fragments;
 
 import android.app.Fragment;
 import android.app.ListFragment;
@@ -16,12 +15,12 @@ import com.proba.statperson.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentPersons.OnFragmentInteractionListener} interface
+ * {@link FragmentSites.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentPersons#newInstance} factory method to
+ * Use the {@link FragmentSites#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentPersons extends ListFragment {
+public class FragmentSites extends ListFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,9 +32,9 @@ public class FragmentPersons extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
-    final String[] persons = new String[]{"Путин", "Медведев", "Навальный"};
+    final String[] sites = new String[]{"lenta.ru", "test.ru", "primer.ru"};
 
-    public FragmentPersons() {
+    public FragmentSites() {
         // Required empty public constructor
     }
 
@@ -45,11 +44,11 @@ public class FragmentPersons extends ListFragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentPersons.
+     * @return A new instance of fragment FragmentSites.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentPersons newInstance(String param1, String param2) {
-        FragmentPersons fragment = new FragmentPersons();
+    public static FragmentSites newInstance(String param1, String param2) {
+        FragmentSites fragment = new FragmentSites();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,11 +68,10 @@ public class FragmentPersons extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, persons);
+                android.R.layout.simple_list_item_1, sites);
         setListAdapter(adapter);
-        return inflater.inflate(R.layout.fragment_persons, null);
+        return inflater.inflate(R.layout.fragment_sites, null);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -82,8 +80,8 @@ public class FragmentPersons extends ListFragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-/*    @Override
+/*
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {

@@ -28,5 +28,7 @@
     <string name="fragment_date">Выбор даты</string>
     <string name="fragment_key_words">Выбор ключевых слов</string>
     <string name="fragment_users">Выбор пользователя</string>
+    <string name="admin_role">Войти как администратор</string>
+    <string name="user_role">Войти как пользователь</string>
 
 </resources>
