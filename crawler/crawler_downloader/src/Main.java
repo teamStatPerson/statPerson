@@ -10,10 +10,13 @@ import java.util.regex.Pattern;
 public class Main {
 
         public static void main(String[] args) {
-            String fileNameRobots = "C://temp/robots.txt";
+/*            String fileNameRobots = "C://temp/robots.txt";
             ParsingRobots parsingRobots = new ParsingRobots(fileNameRobots);
             String URLSiteMap = parsingRobots.getURLSiteMap();
             parsingRobots.printURLSiteMap();
-            System.out.println(URLSiteMap);
+            System.out.println(URLSiteMap);*/
+            //ParsingXML parsingXML = new ParsingXML("C://temp/sitemap7/sitemap7.xml");
+            ParsingXML parsingXML = new ParsingXML();
+            //parsingXML.parseXML();
         }
 }

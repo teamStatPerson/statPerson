@@ -55,10 +55,10 @@ public class WorkWithSitemap {
             matcher.find();
             String xml = matcher.group();
             listXML.add(xml);
-//            System.out.println("Добавили XML - " + xml);
+            System.out.println("Добавили XML - " + xml);
         } else {
             listUrl.add(url);
-//            System.out.println("Добавили URL - " + url);
+            System.out.println("Добавили URL - " + url);
         }
     }
 
