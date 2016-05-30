@@ -9,18 +9,40 @@ import org.jsoup.select.Elements;
  */
 public class ParsingXML {
 
+  private String urlXML;
   private List<String> listUrl;
-  private List<String> listUrlXMLqz;
+  private List<String> listUrlXMLqz; //файлы архивов qz, например https://lenta.ru/news/sitemap3.xml.gz
 
-  public ParsingXML() {
-      listUrl = new ArrayList<String>();
-      listUrlXMLqz = new ArrayList<String>();
-      parseXML("https://lenta.ru/sitemap.xml");
-      for (String urlXMLqz: listUrlXMLqz
-           ) {
-        parseXML(urlXMLqz.substring(0, urlXMLqz.length()-3));
-      }
+  public ParsingXML(String _urlXML) {
+      urlXML = _urlXML;
+      doParseXML();
+
   }
+
+    private void doParseXML() {
+        listUrl = new ArrayList<String>();
+        listUrlXMLqz = new ArrayList<String>();
+        parseXML(urlXML);
+        if (listUrlXMLqz !=null) {
+            parseXMLqz(listUrlXMLqz);
+        }
+        else System.out.println("пустой");
+    }
+
+    private void parseXMLqz(List<String> listUrlXMLqz) {
+        for (String urlXMLqz: listUrlXMLqz
+                ) {
+            String urlXMLtemp = urlXMLqz.substring(0, urlXMLqz.length()-3); //
+            parseXML(urlXMLtemp);
+        }
+    }
+
+    public void printUrlTotal() {
+        for (String url : listUrl
+                ) {
+            System.out.println("url = " + url);
+        }
+    }
 
     public void parseXML(String urlXML) {
         DownloaderXML downloaderXML = new DownloaderXML(urlXML);
@@ -39,7 +61,7 @@ public class ParsingXML {
    private void addUrl(String url) {
     boolean qzXML = url.matches("^http(.*).[xml.qz]$"); // проверка есть ли файл с qz архивом
         if (qzXML) {
-            listUrlXMLqz.add(url);
+          listUrlXMLqz.add(url);
         } else {
             listUrl.add(url);
         }

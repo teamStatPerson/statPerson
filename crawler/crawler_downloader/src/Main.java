@@ -11,12 +11,16 @@ public class Main {
 
         public static void main(String[] args) {
 /*            String fileNameRobots = "C://temp/robots.txt";
+
             ParsingRobots parsingRobots = new ParsingRobots(fileNameRobots);
             String URLSiteMap = parsingRobots.getURLSiteMap();
             parsingRobots.printURLSiteMap();
             System.out.println(URLSiteMap);*/
             //ParsingXML parsingXML = new ParsingXML("C://temp/sitemap7/sitemap7.xml");
-            ParsingXML parsingXML = new ParsingXML();
+           // String s1 = "http://www.news29.ru/sitemap.xml";
+            String s2 = "https://lenta.ru/sitemap.xml";
+            ParsingXML parsingXML = new ParsingXML(s2);
+          //  parsingXML.printUrlTotal();
             //parsingXML.parseXML();
         }
 }
