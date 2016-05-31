@@ -41,7 +41,7 @@ public class UserActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
+        setContentView(R.layout.activity_user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -113,9 +113,7 @@ public class UserActivity extends AppCompatActivity
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
-        if (id == R.id.status) {
-            fragmentTransaction.replace(R.id.container, fragmentStatus);
-        } else if (id == R.id.sites) {
+        if (id == R.id.sites) {
             fragmentTransaction.replace(R.id.container, fragmentSites);
         } else if (id == R.id.persons) {
             fragmentTransaction.replace(R.id.container, fragmentPersons);
@@ -127,9 +125,8 @@ public class UserActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.container, fragmentDate);
         } else if (id == R.id.key_words) {
             fragmentTransaction.replace(R.id.container, fragmentKeyWords);
-        } else if (id == R.id.users) {
-            fragmentTransaction.replace(R.id.container, fragmentUsers);
-        } fragmentTransaction.commit();
+        }
+        fragmentTransaction.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -139,6 +136,7 @@ public class UserActivity extends AppCompatActivity
     public void onClickPerson(View view) {
         showPopupMenuPersons(view);
     }
+
     private void showPopupMenuPersons(View v) {
         PopupMenu popupMenu = new PopupMenu(this, v);
         popupMenu.inflate(R.menu.popupmenu_persons);
