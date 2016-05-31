@@ -1,6 +1,6 @@
 package com.proba.statperson.view.user.fragments;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,8 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.proba.statperson.R;
+import com.proba.statperson.events.PersonEvent;
+import com.proba.statperson.interfaces.SetPersonName;
+import com.proba.statperson.utils.EventBus;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,9 +37,14 @@ public class FragmentKeyWords extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
-    final String[] keyWordsPutin = new String[]{"Путиным", "Путину", "Путина", "Путине"};
-    final String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
-    final String[] keyWordsNavalny = new String[]{"Навальным", "Навальному", "Навального", "Навальном"};
+    private SetPersonName mSetPersonName;
+
+    static TextView textViewPersonName;
+
+    static String[] keyWordsPerson = new String[]{"", "", "", ""};
+    static String[] keyWordsPutin = new String[]{"Путиным", "Путину", "Путина", "Путине"};
+    static String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
+    static String[] keyWordsNavalny = new String[]{"Навальным", "Навальному", "Навального", "Навальном"};
 
 
     public FragmentKeyWords() {
@@ -62,20 +72,51 @@ public class FragmentKeyWords extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_list_item_1, keyWordsPerson);
+        setListAdapter(adapter);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
+    public String[] onPersonEvent(PersonEvent event) {
+        if (event.person.equals("putin")) {
+            keyWordsPerson = keyWordsPutin;
+            mSetPersonName.showPersonName(getString(R.string.putin));
+            Toast.makeText(getActivity(), "Putin", Toast.LENGTH_LONG).show();
+        } else if (event.person.equals("medvedev")) {
+            keyWordsPerson = keyWordsMedvedev;
+            mSetPersonName.showPersonName(getString(R.string.medvedev));
+        } else if (event.person.equals("navalny")) {
+            keyWordsPerson = keyWordsNavalny;
+            mSetPersonName.showPersonName(getString(R.string.navalny));
+        } else {
+            return keyWordsPerson;
+        }
+        return keyWordsPerson;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, keyWordsPutin);
-        setListAdapter(adapter);
-        return inflater.inflate(R.layout.fragment_key_words, null);
+        View rootView =
+                inflater.inflate(R.layout.fragment_key_words, container, false);
+        textViewPersonName = (TextView) rootView.findViewById(R.id.textViewPersonName);
+        return rootView;
+
+    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mSetPersonName = (SetPersonName)getActivity();
+    }
+
+    public static void changeText(String data) {
+        textViewPersonName.setText(data);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -84,18 +125,19 @@ public class FragmentKeyWords extends ListFragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+
+    /*
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            if (context instanceof OnFragmentInteractionListener) {
+                mListener = (OnFragmentInteractionListener) context;
+            } else {
+                throw new RuntimeException(context.toString()
+                        + " must implement OnFragmentInteractionListener");
+            }
         }
-    }
-*/
+    */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -115,5 +157,19 @@ public class FragmentKeyWords extends ListFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // регистрация приемника при старте фрагмента
+        EventBus.getInstance().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        // отписываемся от регистрации при закрытии фрагмента
+        EventBus.getInstance().unregister(this);
+        super.onStop();
     }
 }

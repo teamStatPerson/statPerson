@@ -1,5 +1,6 @@
 package com.proba.statperson.view.user;
 
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,11 +14,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.proba.statperson.events.StatusEvent;
 import com.proba.statperson.R;
+import com.proba.statperson.events.PersonEvent;
+import com.proba.statperson.events.StatusEvent;
 import com.proba.statperson.interfaces.FabProvider;
+import com.proba.statperson.interfaces.SetPersonName;
 import com.proba.statperson.utils.EventBus;
 import com.proba.statperson.view.user.fragments.FragmentDailyStat;
 import com.proba.statperson.view.user.fragments.FragmentDate;
@@ -29,8 +32,7 @@ import com.proba.statperson.view.user.fragments.FragmentTotalStat;
 import com.proba.statperson.view.user.fragments.FragmentUsers;
 import com.squareup.otto.Subscribe;
 
-public class UserActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class UserActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SetPersonName {
 
     FragmentPersons fragmentPersons;
     FragmentSites fragmentSites;
@@ -41,6 +43,8 @@ public class UserActivity extends AppCompatActivity
     FragmentKeyWords fragmentKeyWords;
     FragmentUsers fragmentUsers;
     private FloatingActionButton fab;
+    SetPersonName setPersonName;
+    TextView textViewPersonName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,22 +52,14 @@ public class UserActivity extends AppCompatActivity
         setContentView(R.layout.activity_user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-/*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-*/
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        FragmentManager fragmentManager = getFragmentManager();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -75,6 +71,8 @@ public class UserActivity extends AppCompatActivity
         fragmentDate = new FragmentDate();
         fragmentKeyWords = new FragmentKeyWords();
         fragmentUsers = new FragmentUsers();
+
+        textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
     }
 
     @Override
@@ -85,6 +83,14 @@ public class UserActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void showPersonName(String data) {
+        FragmentManager manager = getFragmentManager();
+        FragmentKeyWords FragmentKeyWords =
+                (FragmentKeyWords) manager.findFragmentById(R.id.FragmentKeyWords);
+        FragmentKeyWords.changeText(data);
     }
 
     @Override
@@ -105,7 +111,6 @@ public class UserActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -154,19 +159,16 @@ public class UserActivity extends AppCompatActivity
                         switch (item.getItemId()) {
 
                             case R.id.putin:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали Путин",
-                                        Toast.LENGTH_SHORT).show();
+                                EventBus.getInstance().post(new PersonEvent("putin"));
+                                showPersonName(" " + getString(R.string.putin));
                                 return true;
                             case R.id.medvedev:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали Медведев",
-                                        Toast.LENGTH_SHORT).show();
+                                EventBus.getInstance().post(new PersonEvent("medvedev"));
+                                showPersonName(" " + getString(R.string.medvedev));
                                 return true;
                             case R.id.navalny:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали Навальный",
-                                        Toast.LENGTH_SHORT).show();
+                                EventBus.getInstance().post(new PersonEvent("navalny"));
+                                showPersonName(" " + getString(R.string.navalny));
                                 return true;
                             default:
                                 return false;
@@ -178,8 +180,8 @@ public class UserActivity extends AppCompatActivity
 
             @Override
             public void onDismiss(PopupMenu menu) {
-                Toast.makeText(getApplicationContext(), "onDismiss",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "onDismiss",
+//                        Toast.LENGTH_SHORT).show();
             }
         });
         popupMenu.show();
@@ -203,7 +205,7 @@ public class UserActivity extends AppCompatActivity
         if (event.equals("user")) {
             fab.hide();
         } else {
-            fab.show();
+            fab.hide();
         }
     }
 }

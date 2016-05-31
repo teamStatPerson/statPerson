@@ -41,13 +41,12 @@ public class MainActivity extends AppCompatActivity {
     private void startUserOrAdminActivity(int checkedRadioButtonId) {
         switch (checkedRadioButtonId) {
             case R.id.rb_admin:
-//                EventBus.getInstance().post(new StatusEvent((String) parent.getItemAtPosition(position)));
-                EventBus.getInstance().post(new StatusEvent("Selected admin"));
+                EventBus.getInstance().post(new StatusEvent("admin"));
                 Intent intentAdmin = new Intent(getApplicationContext(), AdminActivity.class);
                 startActivity(intentAdmin);
                 break;
             case R.id.rb_user:
-                EventBus.getInstance().post(new StatusEvent("Selected user"));
+                EventBus.getInstance().post(new StatusEvent("user"));
                 Intent intentUser = new Intent(getApplicationContext(), UserActivity.class);
                 startActivity(intentUser);
                 break;
@@ -68,6 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe
     public void onStatusEvent(StatusEvent event) {
-        Toast.makeText(this, "Status selected: " + event.status, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, event.status, Toast.LENGTH_LONG).show();
     }
 }
