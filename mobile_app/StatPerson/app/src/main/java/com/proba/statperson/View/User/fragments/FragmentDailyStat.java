@@ -1,13 +1,18 @@
-package com.proba.statperson.View.User.fragments;
+package com.proba.statperson.view.user.fragments;
 
 import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.proba.statperson.R;
+import com.proba.statperson.events.StatusEvent;
+import com.proba.statperson.interfaces.FabProvider;
+import com.proba.statperson.utils.EventBus;
+import com.squareup.otto.Subscribe;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +31,7 @@ public class FragmentDailyStat extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private FloatingActionButton fab;
     private OnFragmentInteractionListener mListener;
 
     public FragmentDailyStat() {
@@ -73,18 +78,19 @@ public class FragmentDailyStat extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+
+    /*
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            if (context instanceof OnFragmentInteractionListener) {
+                mListener = (OnFragmentInteractionListener) context;
+            } else {
+                throw new RuntimeException(context.toString()
+                        + " must implement OnFragmentInteractionListener");
+            }
         }
-    }
-*/
+    */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -96,7 +102,7 @@ public class FragmentDailyStat extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
@@ -104,5 +110,27 @@ public class FragmentDailyStat extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getInstance().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getInstance().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe
+    public void onStatusEvent(StatusEvent event) {
+        fab = ((FabProvider) getActivity()).getFloatingActionButton();
+        if (event.equals("user")) {
+            fab.hide();
+        } else {
+            fab.show();
+        }
     }
 }

@@ -1,6 +1,6 @@
-package com.proba.statperson.Presenter;
+package com.proba.statperson.interfaces;
 
-import com.proba.statperson.Presenter.CatalogElement.CatalogElement;
+import com.proba.statperson.presenter.CatalogElement.CatalogElement;
 
 /**
  * Created by vadik on 30.05.2016.

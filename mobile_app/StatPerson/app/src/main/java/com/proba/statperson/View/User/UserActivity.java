@@ -1,10 +1,9 @@
-package com.proba.statperson.View.User;
+package com.proba.statperson.view.user;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,15 +15,19 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.proba.statperson.events.StatusEvent;
 import com.proba.statperson.R;
-import com.proba.statperson.View.User.fragments.FragmentDailyStat;
-import com.proba.statperson.View.User.fragments.FragmentDate;
-import com.proba.statperson.View.User.fragments.FragmentKeyWords;
-import com.proba.statperson.View.User.fragments.FragmentPersons;
-import com.proba.statperson.View.User.fragments.FragmentSites;
-import com.proba.statperson.View.User.fragments.FragmentStatus;
-import com.proba.statperson.View.User.fragments.FragmentTotalStat;
-import com.proba.statperson.View.User.fragments.FragmentUsers;
+import com.proba.statperson.interfaces.FabProvider;
+import com.proba.statperson.utils.EventBus;
+import com.proba.statperson.view.user.fragments.FragmentDailyStat;
+import com.proba.statperson.view.user.fragments.FragmentDate;
+import com.proba.statperson.view.user.fragments.FragmentKeyWords;
+import com.proba.statperson.view.user.fragments.FragmentPersons;
+import com.proba.statperson.view.user.fragments.FragmentSites;
+import com.proba.statperson.view.user.fragments.FragmentStatus;
+import com.proba.statperson.view.user.fragments.FragmentTotalStat;
+import com.proba.statperson.view.user.fragments.FragmentUsers;
+import com.squareup.otto.Subscribe;
 
 public class UserActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +40,7 @@ public class UserActivity extends AppCompatActivity
     FragmentDate fragmentDate;
     FragmentKeyWords fragmentKeyWords;
     FragmentUsers fragmentUsers;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,7 @@ public class UserActivity extends AppCompatActivity
         setContentView(R.layout.activity_user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+/*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +57,7 @@ public class UserActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
+*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -179,5 +183,27 @@ public class UserActivity extends AppCompatActivity
             }
         });
         popupMenu.show();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getInstance().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getInstance().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe
+    public void onStatusEvent(StatusEvent event) {
+        fab = ((FabProvider) this).getFloatingActionButton();
+        if (event.equals("user")) {
+            fab.hide();
+        } else {
+            fab.show();
+        }
     }
 }

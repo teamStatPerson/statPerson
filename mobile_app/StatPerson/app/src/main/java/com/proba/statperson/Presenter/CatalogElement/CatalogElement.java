@@ -1,4 +1,4 @@
-package com.proba.statperson.Presenter.CatalogElement;
+package com.proba.statperson.presenter.CatalogElement;
 
 /**
  * Created by vadik on 30.05.2016.

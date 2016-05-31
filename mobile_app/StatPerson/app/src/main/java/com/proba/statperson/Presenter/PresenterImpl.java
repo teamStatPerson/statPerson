@@ -1,4 +1,4 @@
-package com.proba.statperson.Presenter;
+package com.proba.statperson.presenter;
 
 /**
  * Created by vadik on 30.05.2016.

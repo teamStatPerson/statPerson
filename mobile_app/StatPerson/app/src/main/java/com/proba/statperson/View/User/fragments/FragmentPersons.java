@@ -1,4 +1,4 @@
-package com.proba.statperson.View.User.fragments;
+package com.proba.statperson.view.user.fragments;
 
 
 import android.app.Fragment;
