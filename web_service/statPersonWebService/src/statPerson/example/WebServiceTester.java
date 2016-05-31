@@ -1,4 +1,4 @@
-package com.tutorialspoint;
+package statPerson.example;
 
 import java.util.List;
 

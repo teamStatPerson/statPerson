@@ -1,4 +1,4 @@
-package com.tutorialspoint;
+package statPerson.example;
 
 import java.io.IOException;
 import java.util.List;

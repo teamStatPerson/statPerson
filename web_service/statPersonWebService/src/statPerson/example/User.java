@@ -1,4 +1,4 @@
-package com.tutorialspoint;
+package statPerson.example;
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
