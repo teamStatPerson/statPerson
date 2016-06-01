@@ -1,7 +1,7 @@
 package statPerson;
 // interface for administrator - Version 1.0
 
-interface AdministratorAPI{
+interface iAdministratorAPI{
 	// return null, if Administrator is not exist
 	Administrator getAdministrator(String email, String password);
 	
@@ -26,22 +26,6 @@ interface AdministratorAPI{
 	Keyword[] getKeywords(Administrator administrator, Person person);
 	void addKeyword(Administrator administrator, Keyword keyword);
 	void removeKeyword(Administrator administrator, Keyword keyword);
-}
-
-interface User{
-	String getEmail();
-}
-
-interface Administrator{
-	String getEmail();
-}
-
-interface Site{
-	String getSiteUrl();
-}
-
-interface Keyword{
-	String getKeywordName();
 }
 
 interface Person{
