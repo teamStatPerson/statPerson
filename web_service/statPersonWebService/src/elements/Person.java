@@ -13,7 +13,7 @@ public class Person implements Serializable {
 	private int id;
 	private String name;
 	
-	Person(){}
+	public Person(){}
 
 	public Person(int id, String name) {
 		super();

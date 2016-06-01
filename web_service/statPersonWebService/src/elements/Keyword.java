@@ -14,7 +14,7 @@ public class Keyword implements Serializable {
 	private String name;
 	private int idPerson;
 	
-	Keyword(){}
+	public Keyword(){}
 
 	public Keyword(int id, String name, int idPerson) {
 		super();

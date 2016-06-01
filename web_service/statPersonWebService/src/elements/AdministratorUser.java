@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "userAdministrator")
+@XmlRootElement(name = "administratorUser")
 public class AdministratorUser implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
@@ -13,7 +13,7 @@ public class AdministratorUser implements Serializable  {
 	private int idAdministrator;
 	private int idUser;
 	
-	AdministratorUser(){}
+	public AdministratorUser(){}
 
 	public AdministratorUser(int idAdministrator, int idUser) {
 		super();

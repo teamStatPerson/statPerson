@@ -13,7 +13,7 @@ public class AdministratorConnect implements Serializable  {
 	private int idAdministrator;
 	private int idAdministratorSecondary;
 	
-	AdministratorConnect(){}
+	public AdministratorConnect(){}
 
 	public AdministratorConnect(int idAdministrator, int idAdministratorSecondary) {
 		super();

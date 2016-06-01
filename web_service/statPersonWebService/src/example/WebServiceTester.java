@@ -1,4 +1,4 @@
-package statPerson.example;
+package example;
 
 import java.util.List;
 

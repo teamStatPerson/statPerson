@@ -13,7 +13,7 @@ public class Site implements Serializable {
 	private int id;
 	private String url;
 	
-	Site(){}
+	public Site(){}
 	public Site(int id, String url) {
 		super();
 		this.id = id;

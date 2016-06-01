@@ -17,7 +17,7 @@ public class Page implements Serializable {
 	private Date foundDateTime;
 	private Date lastScanDate;
 	
-	Page(){}
+	public Page(){}
 
 	public Page(int id, String url, int idSite, Date foundDateTime, Date lastScanDate) {
 		super();

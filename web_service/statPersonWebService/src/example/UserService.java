@@ -1,4 +1,4 @@
-package statPerson.example;
+package example;
 
 import java.io.IOException;
 import java.util.List;

@@ -13,7 +13,7 @@ public class AdministratorSite implements Serializable  {
 	private int idAdministrator;
 	private int idSite;
 	
-	AdministratorSite(){}
+	public AdministratorSite(){}
 
 	public AdministratorSite(int idAdministrator, int idSite) {
 		super();

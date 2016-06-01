@@ -13,7 +13,7 @@ public class AdministratorPerson implements Serializable  {
 	private int idAdministrator;
 	private int idPerson;
 	
-	AdministratorPerson(){}
+	public AdministratorPerson(){}
 
 	public AdministratorPerson(int idAdministrator, int idPerson) {
 		super();
