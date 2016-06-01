@@ -1,4 +1,4 @@
-package statPerson;
+package statPerson.example;
 
 public class Employee {
 	   private int id;

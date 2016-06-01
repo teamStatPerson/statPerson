@@ -1,4 +1,4 @@
-package statPerson;
+package statPerson.example;
 
 import java.util.List; 
 import java.util.Date;
