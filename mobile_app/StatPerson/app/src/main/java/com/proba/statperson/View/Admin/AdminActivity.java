@@ -16,9 +16,7 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.proba.statperson.events.StatusEvent;
 import com.proba.statperson.R;
-import com.proba.statperson.utils.EventBus;
 import com.proba.statperson.view.admin.fragments.FragmentDailyStat;
 import com.proba.statperson.view.admin.fragments.FragmentDate;
 import com.proba.statperson.view.admin.fragments.FragmentKeyWords;
@@ -27,7 +25,6 @@ import com.proba.statperson.view.admin.fragments.FragmentSites;
 import com.proba.statperson.view.admin.fragments.FragmentStatus;
 import com.proba.statperson.view.admin.fragments.FragmentTotalStat;
 import com.proba.statperson.view.admin.fragments.FragmentUsers;
-import com.squareup.otto.Subscribe;
 
 public class AdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -186,22 +183,5 @@ public class AdminActivity extends AppCompatActivity
             }
         });
         popupMenu.show();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getInstance().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        EventBus.getInstance().unregister(this);
-        super.onStop();
-    }
-
-    @Subscribe
-    public void onStatusEvent(StatusEvent event) {
-        Toast.makeText(this, "Status selected: " + event.status, Toast.LENGTH_LONG).show();
     }
 }

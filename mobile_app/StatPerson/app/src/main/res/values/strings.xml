@@ -39,4 +39,9 @@
     <string name="admin_role">Enter as administrator</string>
     <string name="user_role">Enter as user</string>
 
+    <string name="site_lenta">lenta.ru</string>
+    <string name="site_test">test.ru</string>
+    <string name="site_sample">sample.ru</string>
+
+
 </resources>

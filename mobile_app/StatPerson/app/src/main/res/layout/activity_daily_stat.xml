@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.proba.statperson.view.user.DailyStatActivity">
+
+    <TextView
+        android:id="@+id/textViewDailyStat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/daily_stat"
+        android:textColor="#03A9F4"
+        android:textSize="20sp"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDailyStat"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/textViewSite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSite"
+            android:text="@string/sites"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/textViewSiteName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSite"
+            android:text="@string/fragment_sites"
+            android:textColor="#03A9F4"
+            android:textSize="30sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutSite"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/textViewPeriodFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/period_from"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/editTextDateFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="date"/>
+
+        <TextView
+            android:id="@+id/textViewPeriodTill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/period_till"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/editTextDateTill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="date"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutPeriod"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:id="@+id/textViewPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickPerson"
+            android:text="@string/person"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/textViewPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickPerson"
+            android:text="@string/fragment_persons"
+            android:textColor="#03A9F4"
+            android:textSize="30sp"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutPerson">
+
+        <TableLayout
+            android:id="@+id/tableDailyStat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:id="@+id/tableRowHead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:text="@string/date"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/textViewQuantity"
+                    android:text="@string/quantity"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/textViewDate1"
+                    android:text="15.02.2016"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/textViewQuantity1"
+                    android:text="1"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/textViewDate2"
+                    android:text="16.02.2016"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/textViewQuantity2"
+                    android:text="2"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/textViewDate3"
+                    android:text="17.02.2016"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/textViewQuantity3"
+                    android:text="3"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/textViewDate4"
+                    android:text="18.02.2016"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/textViewQuantity4"
+                    android:text="0"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/textViewDate5"
+                    android:text="19.02.2016"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/textViewQuantity5"
+                    android:text="3"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/textViewDate6"
+                    android:text="17.02.2016"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/textViewQuantity6"
+                    android:text="5"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRowTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/textViewTotal"
+                    android:text="@string/total"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/textViewQuantityTotal"
+                    android:text="14"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:typeface="serif">
+                </TextView>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+</RelativeLayout>

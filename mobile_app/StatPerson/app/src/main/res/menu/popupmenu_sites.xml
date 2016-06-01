@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menugroupsites" >
+        <item
+            android:id="@+id/lenta"
+            android:title="@string/site_lenta"/>
+        <item
+            android:id="@+id/test"
+            android:title="@string/site_test"/>
+        <item
+            android:id="@+id/sample"
+            android:title="@string/site_sample">
+        </item>
+    </group>
+
+</menu>

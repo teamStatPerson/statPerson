@@ -1,11 +1,7 @@
 package com.proba.statperson.view.user;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -13,51 +9,64 @@ import android.widget.TextView;
 
 import com.proba.statperson.R;
 
-public class UserActivity extends AppCompatActivity  {
+public class DailyStatActivity extends AppCompatActivity {
 
-    private FloatingActionButton fab;
     TextView textViewPersonName;
     TextView textViewSiteName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_daily_stat);
 
         textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
         textViewSiteName = (TextView) findViewById(R.id.textViewSiteName);
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+    public void onClickPerson(View view) {
+        showPopupMenuPersons(view);
+    }
+
+    private void showPopupMenuPersons(View v) {
+        PopupMenu popupMenu = new PopupMenu(this, v);
+        popupMenu.inflate(R.menu.popupmenu_persons);
+
+        popupMenu
+                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId()) {
+
+                            case R.id.putin:
+                                showPersonName(" " + getString(R.string.putin));
+                                return true;
+                            case R.id.medvedev:
+                                showPersonName(" " + getString(R.string.medvedev));
+                                return true;
+                            case R.id.navalny:
+                                showPersonName(" " + getString(R.string.navalny));
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(UserActivity.this, DailyStatActivity.class);
-                startActivity(intent);
+            public void onDismiss(PopupMenu menu) {
+//                Toast.makeText(getApplicationContext(), "onDismiss",
+//                        Toast.LENGTH_SHORT).show();
             }
         });
+        popupMenu.show();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void showPersonName(String data) {
+        textViewPersonName.setText(data);
     }
 
     public void showSiteName(String data) {
