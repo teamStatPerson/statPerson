@@ -48,52 +48,57 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayoutPeriod"
+        android:id="@+id/linearLayoutPeriodFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayoutSite"
         android:orientation="horizontal"
         android:paddingLeft="16dp">
 
-        <TextView
+    <TextView
             android:id="@+id/textViewPeriodFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/period_from"
             android:textColor="#03A9F4"
-            android:textSize="20sp"/>
-
-        <EditText
-            android:id="@+id/editTextDateFrom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="date"/>
+            android:textSize="20sp"
+            android:onClick="onClickDateFrom"/>
 
         <TextView
+            android:id="@+id/textViewDateFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPeriodTill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutPeriodFrom"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp">
+
+    <TextView
             android:id="@+id/textViewPeriodTill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/period_till"
+            android:onClick="onClickDateTill"
             android:textColor="#03A9F4"
             android:textSize="20sp"/>
 
-        <EditText
-            android:id="@+id/editTextDateTill"
+        <TextView
+            android:id="@+id/textViewDateTill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="date"/>
-
+            android:ems="10"/>
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/linearLayoutPerson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayoutPeriod"
+        android:layout_below="@+id/linearLayoutPeriodTill"
         android:orientation="horizontal"
         android:paddingLeft="16dp">
 

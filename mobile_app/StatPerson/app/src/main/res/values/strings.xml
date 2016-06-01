@@ -32,6 +32,8 @@
     <string name="fragment_sites">Choice site</string>
     <string name="fragment_status">Choice status</string>
     <string name="fragment_date">Choice date</string>
+    <string name="choose_date">Choose date</string>
+    <string name="ready">Ready</string>
     <string name="fragment_key_words">Choice key words</string>
     <string name="fragment_users">Choice users</string>
 
