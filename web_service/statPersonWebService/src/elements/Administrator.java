@@ -75,4 +75,44 @@ public class Administrator implements Serializable {
 	public boolean getSecondaryAdministrator() {
 		return secondaryAdministrator;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Administrator other = (Administrator) obj;
+		if (dateRegistration == null) {
+			if (other.dateRegistration != null)
+				return false;
+		} else if (!dateRegistration.equals(other.dateRegistration))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (id != other.id)
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (secondaryAdministrator != other.secondaryAdministrator)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Administrator [id=" + id + ", email=" + email + ", password=" + password + ", dateRegistration="
+				+ dateRegistration + ", secondaryAdministrator=" + secondaryAdministrator + "]";
+	}
+	
+	
+	
 }

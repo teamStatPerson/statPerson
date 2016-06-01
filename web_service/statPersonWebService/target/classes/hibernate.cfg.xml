@@ -13,7 +13,7 @@
         
         <property name="javax.persistence.validation.mode">none</property>
         
-   		<mapping resource="Employee.hbm.xml"/>
+   		<mapping resource="/elements/Administrator.hbm.xml"/>
 
 	</session-factory>
 </hibernate-configuration>

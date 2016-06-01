@@ -15,7 +15,7 @@ import statPerson.Utils;
 public class AdministratorAPITest {
 
 	private Administrator administratorInput;
-	private Integer idAdministratorOutput = null;
+	private Administrator administratorOutput;
 
 	@Before
 	public void createTestAdministator() {
@@ -24,31 +24,33 @@ public class AdministratorAPITest {
 
 	@Test
 	public void testGetAdministrator() {
-		Administrator administratorOutput = null;
 		try {
-			idAdministratorOutput = AdministratorAPI.addPrimaryAdministrator(administratorInput.getEmail(),
+			while (AdministratorAPI.isExistAdministrator(administratorInput.getEmail(),
+					administratorInput.getPassword())) {
+				AdministratorAPI.removeAdministrator(administratorInput.getEmail(), administratorInput.getPassword());
+			}
+		} catch (NotCorrectInputData e1) {
+			e1.printStackTrace();
+		}
+		try {
+			administratorOutput = AdministratorAPI.addPrimaryAdministrator(administratorInput.getEmail(),
 					administratorInput.getPassword());
-
-			administratorOutput = AdministratorAPI.getAdministrator(idAdministratorOutput);
 
 		} catch (AdministratorManyAccounts e) {
 			e.printStackTrace();
-		} catch (AdministratorNotExist e) {
-			e.printStackTrace();
 		} catch (NotCorrectInputData e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		Assert.assertTrue(administratorInput.equals(administratorOutput));
+		Assert.assertTrue(administratorInput.getEmail().equals(administratorOutput.getEmail()));
+		Assert.assertTrue(administratorInput.getPassword().equals(administratorOutput.getPassword()));
 	}
 
 	@After
 	public void removeTestAdministrator() {
 		try {
-			AdministratorAPI.removeAdministrator(idAdministratorOutput);
+			AdministratorAPI.removeAdministrator(administratorOutput.getEmail(),administratorOutput.getPassword());
 		} catch (NotCorrectInputData e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

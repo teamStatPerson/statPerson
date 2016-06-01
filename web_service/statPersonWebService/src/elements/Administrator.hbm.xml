@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-configuration SYSTEM "hibernate-configuration-3.0.dtd">
+
+
+<hibernate-mapping>
+	<class name="elements.Administrator" table="ADMINISTRATOR">
+		<id name="id" type="int" column="ID">
+			<generator class="native" />
+		</id>
+		<property name="email" type="java.lang.String">
+			<column name="EMAIL" />
+		</property>
+		<property name="password" type="java.lang.String">
+			<column name="PASSWORD" />
+		</property>
+		<property name="dateRegistration" type="java.sql.Date">
+			<column name="DATEREGISTRATION" />
+		</property>
+		<property name="secondaryAdministrator" type="boolean">
+			<column name="SECONDARYADMINISTRATOR" />
+		</property>
+	</class>
+</hibernate-mapping>
