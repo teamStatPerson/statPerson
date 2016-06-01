@@ -11,6 +11,7 @@ import com.proba.statperson.R;
 import com.proba.statperson.view.admin.AdminActivity;
 import com.proba.statperson.view.user.UserActivity;
 
+
 /**
  * Created by vadik on 28.05.2016.
  */

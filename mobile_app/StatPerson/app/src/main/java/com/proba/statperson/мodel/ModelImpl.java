@@ -1,4 +1,4 @@
-package com.proba.statperson.model;
+package com.proba.statperson.мodel;
 
 /**
  * Created by vadik on 30.05.2016.
