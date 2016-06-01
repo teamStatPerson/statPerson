@@ -10,7 +10,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
 public class WebServiceTester  {
-
+/*
    private Client client;
    private String REST_SERVICE_URL = "http://localhost:8080/UserManagement/rest/UserService/users";
    private static final String SUCCESS_RESULT="<result>success</result>";
@@ -127,5 +127,5 @@ public class WebServiceTester  {
       }
 
       System.out.println("Test case name: testDeleteUser, Result: " + result );
-   }
+   }*/
 }

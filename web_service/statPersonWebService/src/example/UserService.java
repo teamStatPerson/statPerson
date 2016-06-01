@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/UserService")
 public class UserService {
-	
+	/*
    UserDao userDao = new UserDao();
    private static final String SUCCESS_RESULT="<result>success</result>";
    private static final String FAILURE_RESULT="<result>failure</result>";
@@ -87,5 +87,5 @@ public class UserService {
    @Produces(MediaType.APPLICATION_XML)
    public String getSupportedOperations(){
       return "<operations>GET, PUT, POST, DELETE</operations>";
-   }
+   }*/
 }

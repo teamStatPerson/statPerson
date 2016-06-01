@@ -37,6 +37,8 @@ public class ManageEmployee {
       /* List down new list of the employees */
       ME.listEmployees();
    }
+   
+  
    /* Method to CREATE an employee in the database */
    public Integer addEmployee(String fname, String lname, int salary){
       Session session = factory.openSession();
@@ -55,6 +57,7 @@ public class ManageEmployee {
       }
       return employeeID;
    }
+   
    /* Method to  READ all the employees */
    public void listEmployees( ){
       Session session = factory.openSession();
@@ -77,6 +80,7 @@ public class ManageEmployee {
          session.close(); 
       }
    }
+   
    /* Method to UPDATE salary for an employee */
    public void updateEmployee(Integer EmployeeID, int salary ){
       Session session = factory.openSession();
@@ -95,6 +99,7 @@ public class ManageEmployee {
          session.close(); 
       }
    }
+   
    /* Method to DELETE an employee from the records */
    public void deleteEmployee(Integer EmployeeID){
       Session session = factory.openSession();

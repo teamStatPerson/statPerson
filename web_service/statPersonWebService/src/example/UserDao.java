@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
+	/*
    public List<User> getAllUsers(){
       List<User> userList = null;
       try {
@@ -106,5 +107,5 @@ public class UserDao {
       } catch (IOException e) {
          e.printStackTrace();
       }
-   }
+   }*/
 }

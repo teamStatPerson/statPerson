@@ -19,8 +19,11 @@ public class Administrator implements Serializable {
 
 	public Administrator(){}
 
-	public Administrator(int id, String email, String password, Date dateRegistration, boolean secondaryAdministrator) {
-		this.id = id;
+	public Administrator(
+			String email, 
+			String password, 
+			Date dateRegistration, 
+			boolean secondaryAdministrator) {
 		this.email = email;
 		this.password = password;
 		this.dateRegistration = dateRegistration;
