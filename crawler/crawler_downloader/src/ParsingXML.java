@@ -11,7 +11,7 @@ public class ParsingXML {
 
   private String urlXML;
   private List<String> listUrl;
-  private List<String> listUrlXMLqz; //файлы архивов qz, например https://lenta.ru/news/sitemap3.xml.gz
+  private List<String> listUrlXMLgz; //файлы архивов gz, например https://lenta.ru/news/sitemap3.xml.gz
 
   public ParsingXML(String _urlXML) {
       urlXML = _urlXML;
@@ -19,27 +19,29 @@ public class ParsingXML {
 
   }
 
-    private void doParseXML() {
+  public List<String> doParseXML() {
         listUrl = new ArrayList<String>();
-        listUrlXMLqz = new ArrayList<String>();
-        parseXML(urlXML);
-        if (listUrlXMLqz !=null) {
-            parseXMLqz(listUrlXMLqz);
+        listUrlXMLgz = new ArrayList<String>();
+        parseXML(urlXML + "/sitemap.xml");
+        if (!(listUrlXMLgz.isEmpty())) {
+            parseXMLgz(listUrlXMLgz);
         }
-        else System.out.println("пустой");
+
+        if (listUrl.isEmpty()&(listUrlXMLgz.isEmpty())){ // если sitemap пустой, то возвращаем главную страницу
+            listUrl.add(urlXML);
+        }
+      return listUrl;
     }
 
-    private void parseXMLqz(List<String> listUrlXMLqz) {
-        for (String urlXMLqz: listUrlXMLqz
-                ) {
-            String urlXMLtemp = urlXMLqz.substring(0, urlXMLqz.length()-3); //
+    private void parseXMLgz(List<String> listUrlXMLgz) {
+        for (String urlXMLgz: listUrlXMLgz) {
+            String urlXMLtemp = urlXMLgz.substring(0, urlXMLgz.length()-3); // приведение gz архива к виду url
             parseXML(urlXMLtemp);
         }
     }
 
     public void printUrlTotal() {
-        for (String url : listUrl
-                ) {
+        for (String url : listUrl) {
             System.out.println("url = " + url);
         }
     }
@@ -59,11 +61,11 @@ public class ParsingXML {
     }
 
    private void addUrl(String url) {
-    boolean qzXML = url.matches("^http(.*).[xml.qz]$"); // проверка есть ли файл с qz архивом
-        if (qzXML) {
-          listUrlXMLqz.add(url);
-        } else {
-            listUrl.add(url);
+    boolean gzXML = url.matches("^http(.*).[xml.gz]$"); // проверка есть ли файл с gz архивом
+        if (gzXML) {
+          listUrlXMLgz.add(url);
+         } else {
+           listUrl.add(url);
         }
     }
 
