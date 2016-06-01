@@ -5,22 +5,20 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "keyword")
-public class Keyword implements Serializable {
+@XmlRootElement(name = "person")
+public class Person implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	private int id;
 	private String name;
-	private int idPerson;
 	
-	Keyword(){}
+	Person(){}
 
-	public Keyword(int id, String name, int idPerson) {
+	public Person(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.idPerson = idPerson;
 	}
 
 	public int getId() {
@@ -41,15 +39,6 @@ public class Keyword implements Serializable {
 		this.name = name;
 	}
 
-	public int getIdPerson() {
-		return idPerson;
-	}
-
-	@XmlElement
-	public void setIdPerson(int idPerson) {
-		this.idPerson = idPerson;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -58,10 +47,8 @@ public class Keyword implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Keyword other = (Keyword) obj;
+		Person other = (Person) obj;
 		if (id != other.id)
-			return false;
-		if (idPerson != other.idPerson)
 			return false;
 		if (name == null) {
 			if (other.name != null)

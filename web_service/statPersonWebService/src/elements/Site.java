@@ -1,4 +1,4 @@
-package statPerson;
+package elements;
 
 import java.io.Serializable;
 

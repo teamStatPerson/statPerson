@@ -5,42 +5,31 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "keyword")
-public class Keyword implements Serializable {
-	
+@XmlRootElement(name = "administratorPerson")
+public class AdministratorPerson implements Serializable  {
+
 	private static final long serialVersionUID = 1L;
 
-	private int id;
-	private String name;
+	private int idAdministrator;
 	private int idPerson;
 	
-	Keyword(){}
+	AdministratorPerson(){}
 
-	public Keyword(int id, String name, int idPerson) {
+	public AdministratorPerson(int idAdministrator, int idPerson) {
 		super();
-		this.id = id;
-		this.name = name;
+		this.idAdministrator = idAdministrator;
 		this.idPerson = idPerson;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdAdministrator() {
+		return idAdministrator;
 	}
 
 	@XmlElement
-	public void setId(int id) {
-		this.id = id;
+	public void setIdAdministrator(int idAdministrator) {
+		this.idAdministrator = idAdministrator;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	@XmlElement
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
 	public int getIdPerson() {
 		return idPerson;
 	}
@@ -58,16 +47,12 @@ public class Keyword implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Keyword other = (Keyword) obj;
-		if (id != other.id)
+		AdministratorPerson other = (AdministratorPerson) obj;
+		if (idAdministrator != other.idAdministrator)
 			return false;
 		if (idPerson != other.idPerson)
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
 		return true;
 	}
+	
 }
