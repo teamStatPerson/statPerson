@@ -32,11 +32,18 @@
     <string name="fragment_sites">Choice site</string>
     <string name="fragment_status">Choice status</string>
     <string name="fragment_date">Choice date</string>
+    <string name="choose_date">Choose date</string>
+    <string name="ready">Ready</string>
     <string name="fragment_key_words">Choice key words</string>
     <string name="fragment_users">Choice users</string>
 
     <string name="site_name">Site: lenta.ru</string>
     <string name="admin_role">Enter as administrator</string>
     <string name="user_role">Enter as user</string>
+
+    <string name="site_lenta">lenta.ru</string>
+    <string name="site_test">test.ru</string>
+    <string name="site_sample">sample.ru</string>
+
 
 </resources>

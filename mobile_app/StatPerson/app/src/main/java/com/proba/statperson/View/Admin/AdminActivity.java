@@ -1,4 +1,4 @@
-package com.proba.statperson.View.Admin;
+package com.proba.statperson.view.admin;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -16,18 +16,23 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.proba.statperson.presenter.PresenterImpl;
 import com.proba.statperson.R;
-import com.proba.statperson.View.Admin.fragments.FragmentDailyStat;
-import com.proba.statperson.View.Admin.fragments.FragmentDate;
-import com.proba.statperson.View.Admin.fragments.FragmentKeyWords;
-import com.proba.statperson.View.Admin.fragments.FragmentPersons;
-import com.proba.statperson.View.Admin.fragments.FragmentSites;
-import com.proba.statperson.View.Admin.fragments.FragmentStatus;
-import com.proba.statperson.View.Admin.fragments.FragmentTotalStat;
-import com.proba.statperson.View.Admin.fragments.FragmentUsers;
+import com.proba.statperson.Constants;
+import com.proba.statperson.interfaces.IPresenter;
+import com.proba.statperson.view.admin.fragments.FragmentDailyStat;
+import com.proba.statperson.view.admin.fragments.FragmentDate;
+import com.proba.statperson.view.admin.fragments.FragmentKeyWords;
+import com.proba.statperson.view.admin.fragments.FragmentPersons;
+import com.proba.statperson.view.admin.fragments.FragmentSites;
+import com.proba.statperson.view.admin.fragments.FragmentStatus;
+import com.proba.statperson.view.admin.fragments.FragmentTotalStat;
+import com.proba.statperson.view.admin.fragments.FragmentUsers;
 
 public class AdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private IPresenter presenter;
 
     FragmentPersons fragmentPersons;
     FragmentSites fragmentSites;
@@ -42,6 +47,11 @@ public class AdminActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+
+        init();
+    }
+
+    private void init() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -62,6 +72,8 @@ public class AdminActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        presenter = new PresenterImpl();
 
         fragmentPersons = new FragmentPersons();
         fragmentSites = new FragmentSites();
@@ -117,8 +129,14 @@ public class AdminActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.container, fragmentStatus);
         } else if (id == R.id.sites) {
             fragmentTransaction.replace(R.id.container, fragmentSites);
+
+//            getCatalogElements(Constants.SITES_CATALOG_INDEX);
+
         } else if (id == R.id.persons) {
             fragmentTransaction.replace(R.id.container, fragmentPersons);
+
+//            getCatalogElements(Constants.PERSONS_CATALOG_INDEX);
+
         } else if (id == R.id.total_stat) {
             fragmentTransaction.replace(R.id.container, fragmentTotalStat);
         } else if (id == R.id.daily_stat) {
@@ -127,18 +145,34 @@ public class AdminActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.container, fragmentDate);
         } else if (id == R.id.key_words) {
             fragmentTransaction.replace(R.id.container, fragmentKeyWords);
+
+//            getCatalogElements(Constants.PERSONS_CATALOG_INDEX);
+
         } else if (id == R.id.users) {
             fragmentTransaction.replace(R.id.container, fragmentUsers);
-        } fragmentTransaction.commit();
+        }
+        fragmentTransaction.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    private void getCatalogElements(int catalogIndex) {
+        switch (catalogIndex) {
+            case Constants.PERSONS_CATALOG_INDEX:
+                presenter.adminGetListOfCatalogElements(Constants.PERSONS_CATALOG_INDEX);
+                break;
+            case Constants.SITES_CATALOG_INDEX:
+                presenter.adminGetListOfCatalogElements(Constants.SITES_CATALOG_INDEX);
+                break;
+        }
+    }
+
     public void onClickPerson(View view) {
         showPopupMenuPersons(view);
     }
+
     private void showPopupMenuPersons(View v) {
         PopupMenu popupMenu = new PopupMenu(this, v);
         popupMenu.inflate(R.menu.popupmenu_persons);

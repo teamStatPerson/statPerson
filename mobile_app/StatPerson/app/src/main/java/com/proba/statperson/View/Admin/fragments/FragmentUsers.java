@@ -1,4 +1,4 @@
-package com.proba.statperson.View.Admin.fragments;
+package com.proba.statperson.view.admin.fragments;
 
 import android.app.Fragment;
 import android.net.Uri;

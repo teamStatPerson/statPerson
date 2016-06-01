@@ -1,4 +1,4 @@
-package com.proba.statperson.View;
+package com.proba.statperson.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,9 @@ import android.view.View;
 import android.widget.RadioGroup;
 
 import com.proba.statperson.R;
-import com.proba.statperson.View.Admin.AdminActivity;
-import com.proba.statperson.View.User.UserActivity;
+import com.proba.statperson.view.admin.AdminActivity;
+import com.proba.statperson.view.user.UserActivity;
+
 
 /**
  * Created by vadik on 28.05.2016.

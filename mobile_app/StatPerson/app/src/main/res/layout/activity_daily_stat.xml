@@ -1,30 +1,26 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".view.admin.fragments.FragmentDailyStat">
-
-    <TextView
-        android:id="@+id/textViewSiteName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="@string/site_name"
-        android:textColor="#03A9F4"
-        android:textSize="30sp"/>
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.proba.statperson.view.user.DailyStatActivity">
 
     <TextView
         android:id="@+id/textViewDailyStat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewSiteName"
         android:padding="16dp"
         android:text="@string/daily_stat"
         android:textColor="#03A9F4"
         android:textSize="20sp"/>
 
     <LinearLayout
-        android:id="@+id/linearLayoutPeriod"
+        android:id="@+id/linearLayoutSite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewDailyStat"
@@ -32,44 +28,77 @@
         android:paddingLeft="16dp">
 
         <TextView
+            android:id="@+id/textViewSite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSite"
+            android:text="@string/sites"
+            android:textColor="#03A9F4"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/textViewSiteName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickSite"
+            android:text="@string/fragment_sites"
+            android:textColor="#03A9F4"
+            android:textSize="30sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPeriodFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutSite"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp">
+
+    <TextView
             android:id="@+id/textViewPeriodFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/period_from"
             android:textColor="#03A9F4"
-            android:textSize="20sp"/>
-
-        <EditText
-            android:id="@+id/editTextDateFrom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="date"/>
+            android:textSize="20sp"
+            android:onClick="onClickDateFrom"/>
 
         <TextView
+            android:id="@+id/textViewDateFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPeriodTill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutPeriodFrom"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp">
+
+    <TextView
             android:id="@+id/textViewPeriodTill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/period_till"
+            android:onClick="onClickDateTill"
             android:textColor="#03A9F4"
             android:textSize="20sp"/>
 
-        <EditText
-            android:id="@+id/editTextDateTill"
+        <TextView
+            android:id="@+id/textViewDateTill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="date"/>
-
+            android:ems="10"/>
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/linearLayoutPerson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayoutPeriod"
+        android:layout_below="@+id/linearLayoutPeriodTill"
         android:orientation="horizontal"
         android:paddingLeft="16dp">
 
@@ -77,6 +106,7 @@
             android:id="@+id/textViewPerson"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickPerson"
             android:text="@string/person"
             android:textColor="#03A9F4"
             android:textSize="20sp"/>
@@ -85,7 +115,8 @@
             android:id="@+id/textViewPersonName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/putin"
+            android:onClick="onClickPerson"
+            android:text="@string/fragment_persons"
             android:textColor="#03A9F4"
             android:textSize="30sp"/>
 
@@ -286,7 +317,6 @@
                     android:typeface="serif">
                 </TextView>
             </TableRow>
-
         </TableLayout>
     </ScrollView>
 </RelativeLayout>

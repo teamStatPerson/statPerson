@@ -1,86 +1,42 @@
-package com.proba.statperson.View.User;
+package com.proba.statperson.view.user;
 
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.proba.statperson.R;
-import com.proba.statperson.View.User.fragments.FragmentDailyStat;
-import com.proba.statperson.View.User.fragments.FragmentDate;
-import com.proba.statperson.View.User.fragments.FragmentKeyWords;
-import com.proba.statperson.View.User.fragments.FragmentPersons;
-import com.proba.statperson.View.User.fragments.FragmentSites;
-import com.proba.statperson.View.User.fragments.FragmentStatus;
-import com.proba.statperson.View.User.fragments.FragmentTotalStat;
-import com.proba.statperson.View.User.fragments.FragmentUsers;
 
-public class UserActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class UserActivity extends AppCompatActivity  {
 
-    FragmentPersons fragmentPersons;
-    FragmentSites fragmentSites;
-    FragmentStatus fragmentStatus;
-    FragmentTotalStat fragmentTotalStat;
-    FragmentDailyStat fragmentDailyStat;
-    FragmentDate fragmentDate;
-    FragmentKeyWords fragmentKeyWords;
-    FragmentUsers fragmentUsers;
+    private FloatingActionButton fab;
+    TextView textViewPersonName;
+    TextView textViewSiteName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
+        setContentView(R.layout.activity_user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
+        textViewSiteName = (TextView) findViewById(R.id.textViewSiteName);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(UserActivity.this, DailyStatActivity.class);
+                startActivity(intent);
             }
         });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        fragmentPersons = new FragmentPersons();
-        fragmentSites = new FragmentSites();
-        fragmentStatus = new FragmentStatus();
-        fragmentTotalStat = new FragmentTotalStat();
-        fragmentDailyStat = new FragmentDailyStat();
-        fragmentDate = new FragmentDate();
-        fragmentKeyWords = new FragmentKeyWords();
-        fragmentUsers = new FragmentUsers();
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @Override
@@ -101,47 +57,19 @@ public class UserActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-
-        if (id == R.id.status) {
-            fragmentTransaction.replace(R.id.container, fragmentStatus);
-        } else if (id == R.id.sites) {
-            fragmentTransaction.replace(R.id.container, fragmentSites);
-        } else if (id == R.id.persons) {
-            fragmentTransaction.replace(R.id.container, fragmentPersons);
-        } else if (id == R.id.total_stat) {
-            fragmentTransaction.replace(R.id.container, fragmentTotalStat);
-        } else if (id == R.id.daily_stat) {
-            fragmentTransaction.replace(R.id.container, fragmentDailyStat);
-        } else if (id == R.id.date) {
-            fragmentTransaction.replace(R.id.container, fragmentDate);
-        } else if (id == R.id.key_words) {
-            fragmentTransaction.replace(R.id.container, fragmentKeyWords);
-        } else if (id == R.id.users) {
-            fragmentTransaction.replace(R.id.container, fragmentUsers);
-        } fragmentTransaction.commit();
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+    public void showSiteName(String data) {
+        textViewSiteName.setText(data);
     }
 
-    public void onClickPerson(View view) {
-        showPopupMenuPersons(view);
+    public void onClickSite(View view) {
+        showPopupMenuSites(view);
     }
-    private void showPopupMenuPersons(View v) {
+    private void showPopupMenuSites(View v) {
         PopupMenu popupMenu = new PopupMenu(this, v);
-        popupMenu.inflate(R.menu.popupmenu_persons);
+        popupMenu.inflate(R.menu.popupmenu_sites);
 
         popupMenu
                 .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -151,20 +79,14 @@ public class UserActivity extends AppCompatActivity
 
                         switch (item.getItemId()) {
 
-                            case R.id.putin:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали Путин",
-                                        Toast.LENGTH_SHORT).show();
+                            case R.id.lenta:
+                                showSiteName(" " + getString(R.string.site_lenta));
                                 return true;
-                            case R.id.medvedev:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали Медведев",
-                                        Toast.LENGTH_SHORT).show();
+                            case R.id.test:
+                                showSiteName(" " + getString(R.string.site_test));
                                 return true;
-                            case R.id.navalny:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали Навальный",
-                                        Toast.LENGTH_SHORT).show();
+                            case R.id.sample:
+                                showSiteName(" " + getString(R.string.site_sample));
                                 return true;
                             default:
                                 return false;
@@ -176,8 +98,8 @@ public class UserActivity extends AppCompatActivity
 
             @Override
             public void onDismiss(PopupMenu menu) {
-                Toast.makeText(getApplicationContext(), "onDismiss",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "onDismiss",
+//                        Toast.LENGTH_SHORT).show();
             }
         });
         popupMenu.show();
