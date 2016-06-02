@@ -32,5 +32,7 @@
     <string name="user_role">Войти как пользователь</string>
 
     <string name="from_less_till">Дата с должна быть меньше по</string>
+    <string name="from_less_today">Дата с должна быть меньше сегодня</string>
+    <string name="till_less_today">Дата по должна быть меньше сегодня</string>
 
 </resources>
