@@ -81,9 +81,6 @@ public class FragmentPersons extends ListFragment {
         // Inflate the layout for this fragment
 //        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
 //                android.R.layout.simple_list_item_1, persons);
-
-//        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-//                android.R.layout.simple_list_item_1);
 //        setListAdapter(adapter);
 
         view = inflater.inflate(R.layout.fragment_persons, null);
