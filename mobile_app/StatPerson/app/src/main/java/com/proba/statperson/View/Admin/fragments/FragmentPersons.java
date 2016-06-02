@@ -10,8 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ProgressBar;
 
 import com.proba.statperson.R;
+import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.interfaces.IView;
+import com.proba.statperson.presenter.CatalogElement.CatalogElement;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,13 +36,15 @@ public class FragmentPersons extends ListFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private View view;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    final String[] persons = new String[]{"Путин", "Медведев", "Навальный"};
+//    final String[] persons = new String[]{"Путин", "Медведев", "Навальный"};
 
     public FragmentPersons() {
         // Required empty public constructor
@@ -70,10 +81,29 @@ public class FragmentPersons extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+//        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
+//                android.R.layout.simple_list_item_1, persons);
+
+//        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
+//                android.R.layout.simple_list_item_1);
+//        setListAdapter(adapter);
+
+        view = inflater.inflate(R.layout.fragment_persons, null);
+        return view;
+    }
+
+    @Subscribe
+    public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
+        removeProgressBar();
+
         ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, persons);
+                android.R.layout.simple_list_item_1, catalogElements.message);
         setListAdapter(adapter);
-        return inflater.inflate(R.layout.fragment_persons, null);
+    }
+
+    private void removeProgressBar() {
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -94,6 +124,19 @@ public class FragmentPersons extends ListFragment {
         }
     }
 */
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();

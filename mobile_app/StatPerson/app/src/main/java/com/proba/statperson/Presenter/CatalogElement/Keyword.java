@@ -5,4 +5,9 @@ package com.proba.statperson.presenter.CatalogElement;
  */
 public class Keyword extends CatalogElement {
     Person person;
+
+    public Keyword(String name) {
+        super(name);
+    }
 }
+
