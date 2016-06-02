@@ -1,9 +1,12 @@
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import java.io.IOException;
+
+import java.util.List;
 
 /**
- * Created by alexey_n on 24.05.2016.
+ * Created by alexey_n on 02.06.2016.
  */
 public class Downloader {
     private final static int TIMEOUT = 3000;
