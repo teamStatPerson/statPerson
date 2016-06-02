@@ -9,8 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ProgressBar;
 
 import com.proba.statperson.R;
+import com.proba.statperson.events.NewCatalogElementsListEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,9 +35,9 @@ public class FragmentSites extends ListFragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private View view;
 
-    final String[] sites = new String[]{"lenta.ru", "test.ru", "primer.ru"};
+    private OnFragmentInteractionListener mListener;
 
     public FragmentSites() {
         // Required empty public constructor
@@ -68,10 +73,27 @@ public class FragmentSites extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+//        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
+//                android.R.layout.simple_list_item_1, sites);
+//        setListAdapter(adapter);
+
+        view = inflater.inflate(R.layout.fragment_sites, null);
+        return view;
+    }
+
+    @Subscribe
+    public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
+        removeProgressBar();
+
         ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, sites);
+                android.R.layout.simple_list_item_1, catalogElements.message);
         setListAdapter(adapter);
-        return inflater.inflate(R.layout.fragment_sites, null);
+    }
+
+    private void removeProgressBar() {
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -80,18 +102,31 @@ public class FragmentSites extends ListFragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+
+    /*
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            if (context instanceof OnFragmentInteractionListener) {
+                mListener = (OnFragmentInteractionListener) context;
+            } else {
+                throw new RuntimeException(context.toString()
+                        + " must implement OnFragmentInteractionListener");
+            }
         }
+    */
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
-*/
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();
