@@ -130,7 +130,7 @@ public class AdminActivity extends AppCompatActivity
         } else if (id == R.id.sites) {
             fragmentTransaction.replace(R.id.container, fragmentSites);
 
-//            getCatalogElements(Constants.SITES_CATALOG_INDEX);
+            getCatalogElements(Constants.SITES_CATALOG_INDEX);
 
         } else if (id == R.id.persons) {
             fragmentTransaction.replace(R.id.container, fragmentPersons);
