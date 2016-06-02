@@ -1,64 +1,74 @@
-/**
- * Created by Андрей on 25.05.2016.
- */
-import java.io.*;
+import org.jsoup.nodes.Document;
+
+import java.nio.channels.Pipe;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ParsingRobots {
-    private String URLSiteMap;
-    private String fileName;
-    private Boolean isSiteMapFound;
+/**
+ * Created by Андрей on 01.06.2016.
+ */
+    public class ParsingRobots {
+    private String urlSite;
+    private String urlSiteMap;
+    private Boolean isRobotsFileFound;
+    private Boolean isURLsiteMapFound;
 
-    public ParsingRobots(String _fileName) {
-        URLSiteMap = "";
-        fileName = _fileName;
-        isSiteMapFound = false;
-        foundURLSiteMap();
+    public ParsingRobots(String urlSite) {
+        this.urlSite = urlSite;
+        this.isRobotsFileFound = false;
+        this.isURLsiteMapFound = false;
+        this.urlSiteMap = "";
     }
 
-    public String getURLSiteMap() {
-        return null;
+    public String getUrlSiteMap() {
+        return urlSiteMap;
     }
 
-    private void foundURLSiteMap() {
-        String line = "";
-        try {
-            BufferedReader reader = new BufferedReader(
-                    new FileReader(fileName));
+    public Boolean getRobotsFileFound() {
+        return isRobotsFileFound;
+    }
 
-            while ((line = reader.readLine()) != null) {
-                if (isFoundSiteMap(line) == true) {
-                    URLSiteMap = line.substring(8, line.length());
-                    isSiteMapFound = true;
-                    break;
-                };
+    public Boolean getURLsiteMapFound() {
+        return isURLsiteMapFound;
+    }
+
+    public void foundURLSiteMap() {
+        System.out.println("urlsite " + urlSite);
+        DownloaderXML downloaderXML = new DownloaderXML(urlSite + "/robots.txt");
+        Document doc = downloaderXML.getDoc();
+
+        if (doc != null) {
+
+            String pageHTML = doc.text();
+            int sitemap = pageHTML.indexOf("Sitemap:");
+            int xml = pageHTML.indexOf("xml");
+            String urlSiteMapTemp = "";
+            if (((xml != -1)) & (sitemap != -1)) {
+                urlSiteMapTemp = pageHTML.substring(pageHTML.indexOf("Sitemap") + 9, pageHTML.indexOf("xml") + 3);
             }
-        }
+            isURLsiteMapFound = urlSiteMapTemp.matches("^http(.*).[xml.gz]$"); // проверка является ли ссылка сайтом
+            if (isURLsiteMapFound) {
+                urlSiteMap = urlSiteMapTemp;
+                System.out.println("Файл Sitemap найден " + urlSiteMap);
+            } else System.out.println("Файл Sitemap не найден");
 
-        catch (FileNotFoundException ex) {
+        } else {
+            isRobotsFileFound = false;
             System.out.println("Файл robots.txt не найден");
         }
 
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+
+       /* Pattern p = Pattern.compile("Sitemap:(.*).[xml]", Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(pageHTML);
+        String res = "";
+        System.out.println("START");
+            if (m.find()) {
+                System.out.println("m.start() = " + m.start());
+                System.out.println("m.end() = " + m.end());
+                System.out.print(pageHTML.substring(m.start(), m.end()) + "*");
+            }*/
 
     }
-
-    public void  printURLSiteMap(){
-        if (isSiteMapFound == true) {
-            System.out.println("URLSiteMap " + URLSiteMap);
-        } else System.out.println("Файл Sitemap не найден");
-    }
-
-    public static boolean isFoundSiteMap(String testString){
-        Pattern p = Pattern.compile("^Sitemap:.*$");
-        Matcher m = p.matcher(testString);
-        return m.matches();
-    }
-
-
 
 
 }

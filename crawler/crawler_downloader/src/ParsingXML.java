@@ -11,26 +11,25 @@ public class ParsingXML {
 
   private String urlXML;
   private List<String> listUrl;
-  private List<String> listUrlXMLgz; //файлы архивов gz, например https://lenta.ru/news/sitemap3.xml.gz
+  private List<String> listUrlXMLgz; //файлы архивов gz, например https://lenta.ru/news/sitemap3.xml.g
+  private String siteName;
+    public ParsingXML(String siteName, String urlXML) {
+        this.urlXML = urlXML;
+        this.listUrl = new ArrayList<String>();
+        this.listUrlXMLgz = new ArrayList<String>();
+        this.siteName = siteName;
+        doParseXML();
+    }
 
-  public ParsingXML(String _urlXML) {
-      urlXML = _urlXML;
-      doParseXML();
-
-  }
-
-  public List<String> doParseXML() {
-        listUrl = new ArrayList<String>();
-        listUrlXMLgz = new ArrayList<String>();
-        parseXML(urlXML + "/sitemap.xml");
+  public void doParseXML() {
+        //parseXML(urlXML + "/sitemap.xml");
+      parseXML(urlXML);
         if (!(listUrlXMLgz.isEmpty())) {
             parseXMLgz(listUrlXMLgz);
         }
-
         if (listUrl.isEmpty()&(listUrlXMLgz.isEmpty())){ // если sitemap пустой, то возвращаем главную страницу
-            listUrl.add(urlXML);
+            listUrl.add(siteName);
         }
-      return listUrl;
     }
 
     private void parseXMLgz(List<String> listUrlXMLgz) {
@@ -46,7 +45,7 @@ public class ParsingXML {
         }
     }
 
-    public void parseXML(String urlXML) {
+    private void parseXML(String urlXML) {
         DownloaderXML downloaderXML = new DownloaderXML(urlXML);
         Document doc = downloaderXML.getDoc();
         if (doc != null) {
