@@ -8,6 +8,7 @@
     <string name="total_stat">Общая статистика</string>
     <string name="daily_stat">Ежедневная статистика</string>
     <string name="daily">Дата</string>
+    <string name="date">Дата</string>
     <string name="total">Всего за период:</string>
     <string name="persons">Личности</string>
     <string name="person">Личность: </string>

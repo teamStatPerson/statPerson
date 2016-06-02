@@ -3,6 +3,7 @@ package com.proba.statperson.view.user;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,11 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.proba.statperson.R;
+import com.proba.statperson.events.SetDateEvent;
+import com.proba.statperson.interfaces.DailyStatDate;
+import com.proba.statperson.view.user.fragments.DailyStatListFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class DailyStatActivity extends AppCompatActivity {
+public class DailyStatActivity extends AppCompatActivity implements DailyStatDate {
 
     public String from_date;
     public String to_date;
@@ -52,6 +58,16 @@ public class DailyStatActivity extends AppCompatActivity {
         calendarFrom = calendarToday;
         calendarTill = calendarToday;
         today_date = day + "." + month + "." + year;
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        DailyStatListFragment dailyStatListFragment = (DailyStatListFragment) fragmentManager
+                .findFragmentById(R.id.dailyStatListFragment);
+
+        if (dailyStatListFragment != null && dailyStatListFragment.isInLayout()) {
+            dailyStatListFragment.getStartDate(from_date);
+//            dailyStatListFragment.getEndDate(to_date);
+        }
+
     }
 
     @Override
@@ -214,6 +230,7 @@ public class DailyStatActivity extends AppCompatActivity {
                     smonth = "0" + smonth;
                 }
                 from_date = " " + sday + "." + smonth + "." + year;
+                EventBus.getDefault().post(new SetDateEvent(from_date));
                 textViewDateFrom.setText(from_date);
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.from_less_today), Toast.LENGTH_LONG).show();
@@ -254,4 +271,30 @@ public class DailyStatActivity extends AppCompatActivity {
             }
         }
     };
+/*
+    @Override
+    public void dailyStatDate (String date){
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(key_from_date, from_date);
+        fragment.setArguments(bundle);
+
+
+
+
+    }
+*/
+    @Override
+    public void onDateSelected(String date) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        DailyStatListFragment dailyStatListFragment = (DailyStatListFragment) fragmentManager
+                .findFragmentById(R.id.dailyStatListFragment);
+
+        if (dailyStatListFragment != null && dailyStatListFragment.isInLayout()) {
+            dailyStatListFragment.getStartDate(from_date);
+//            dailyStatListFragment.getEndDate(to_date);
+        }
+
+
+    }
 }

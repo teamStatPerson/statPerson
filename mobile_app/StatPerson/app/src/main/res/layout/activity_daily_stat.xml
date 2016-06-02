@@ -158,7 +158,7 @@
     </TableLayout>
 
     <fragment
-        android:id="@+id/DailyStatListFragment"
+        android:id="@+id/dailyStatListFragment"
         android:name="com.proba.statperson.view.user.fragments.DailyStatListFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
