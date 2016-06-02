@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class ManageEmployee {
+	/*
    private static SessionFactory factory; 
    public static void main(String[] args) {
       try{
@@ -20,26 +21,26 @@ public class ManageEmployee {
       }
       ManageEmployee ME = new ManageEmployee();
 
-      /* Add few employee records in database */
+      / Add few employee records in database /
       Integer empID1 = ME.addEmployee("Zara", "Ali", 1000);
       Integer empID2 = ME.addEmployee("Daisy", "Das", 5000);
       Integer empID3 = ME.addEmployee("John", "Paul", 10000);
 
-      /* List down all the employees */
+      / List down all the employees /
       ME.listEmployees();
 
-      /* Update employee's records */
+      / Update employee's records /
       ME.updateEmployee(empID1, 5000);
 
-      /* Delete an employee from the database */
+      / Delete an employee from the database /
       ME.deleteEmployee(empID2);
 
-      /* List down new list of the employees */
+      / List down new list of the employees /
       ME.listEmployees();
    }
    
   
-   /* Method to CREATE an employee in the database */
+   /* Method to CREATE an employee in the database /
    public Integer addEmployee(String fname, String lname, int salary){
       Session session = factory.openSession();
       Transaction tx = null;
@@ -58,7 +59,7 @@ public class ManageEmployee {
       return employeeID;
    }
    
-   /* Method to  READ all the employees */
+   /* Method to  READ all the employees /
    public void listEmployees( ){
       Session session = factory.openSession();
       Transaction tx = null;
@@ -81,7 +82,7 @@ public class ManageEmployee {
       }
    }
    
-   /* Method to UPDATE salary for an employee */
+   /* Method to UPDATE salary for an employee /
    public void updateEmployee(Integer EmployeeID, int salary ){
       Session session = factory.openSession();
       Transaction tx = null;
@@ -100,7 +101,7 @@ public class ManageEmployee {
       }
    }
    
-   /* Method to DELETE an employee from the records */
+   /* Method to DELETE an employee from the records /
    public void deleteEmployee(Integer EmployeeID){
       Session session = factory.openSession();
       Transaction tx = null;
@@ -117,4 +118,5 @@ public class ManageEmployee {
          session.close(); 
       }
    }
+   */
 }

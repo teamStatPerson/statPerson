@@ -15,28 +15,9 @@ import exceptions.AdministratorManyAccounts;
 import exceptions.AdministratorNotExist;
 import exceptions.NotCorrectInputData;
 
-public class AdministratorAPI {
-	/*
-	 * public static Administrator getAdministrator(Integer idAdministrator)
-	 * throws AdministratorNotExist, AdministratorManyAccounts,
-	 * NotCorrectInputData { if (idAdministrator == null) { // throw new
-	 * NotCorrectInputData(); return null; } Session session =
-	 * Factory.getFactory().openSession(); Transaction tx = null; Administrator
-	 * administrator = null; try { tx = session.beginTransaction();
-	 * 
-	 * Criteria criteria = session.createCriteria(Administrator.class);
-	 * criteria.add(Restrictions.eq("id", (int) idAdministrator));
-	 * 
-	 * List<Administrator> administrators = (List<Administrator>)
-	 * criteria.list(); if (administrators.size() == 0) { throw new
-	 * AdministratorNotExist(); } else if (administrators.size() > 1) { throw
-	 * new AdministratorManyAccounts(); } administrator = administrators.get(0);
-	 * 
-	 * tx.commit(); } catch (HibernateException e) { if (tx != null)
-	 * tx.rollback(); e.printStackTrace(); } finally { session.close(); } return
-	 * administrator; }
-	 */
-	public static Administrator getAdministrator(String email, String password)
+public class AdministratorAPI_Dao {
+	
+	public Administrator getAdministrator(String email, String password)
 			throws AdministratorNotExist, AdministratorManyAccounts, NotCorrectInputData {
 		if (email == null || password == null) {
 			throw new NotCorrectInputData();
@@ -70,7 +51,7 @@ public class AdministratorAPI {
 		return administrator;
 	};
 
-	public static Administrator addPrimaryAdministrator(String email, String password)
+	public Administrator addPrimaryAdministrator(String email, String password)
 			throws AdministratorManyAccounts, NotCorrectInputData {
 		if (email == null || password == null) {
 			throw new NotCorrectInputData();
@@ -86,7 +67,7 @@ public class AdministratorAPI {
 			criteria.add(Restrictions.eq("email", email));
 			criteria.add(Restrictions.eq("password", password));
 
-			List administrators = criteria.list();
+			List<Administrator> administrators = (List<Administrator>) criteria.list();
 			if (administrators.size() == 0) {
 				administrator = new Administrator(email, password, Utils.getCurrentTime(), false);
 				session.save(administrator);
@@ -109,7 +90,7 @@ public class AdministratorAPI {
 		return null;
 	}
 
-	public static void removeAdministrator(String email, String password) throws NotCorrectInputData {
+	public void removeAdministrator(String email, String password) throws NotCorrectInputData {
 		if (isExistAdministrator(email, password)) {
 			Session session = Factory.getFactory().openSession();
 			Transaction tx = null;
@@ -122,7 +103,7 @@ public class AdministratorAPI {
 
 				List<Administrator> administrators = (List<Administrator>) criteria.list();
 				for (int i = 0; i < administrators.size(); i++) {
-					session.delete(administrators.get(i)); 
+					session.delete(administrators.get(i));
 				}
 
 				tx.commit();
@@ -136,7 +117,7 @@ public class AdministratorAPI {
 		}
 	}
 
-	public static boolean isExistAdministrator(String email, String password) throws NotCorrectInputData {
+	private static boolean isExistAdministrator(String email, String password) throws NotCorrectInputData {
 		if (email == null || password == null) {
 			throw new NotCorrectInputData();
 		}
@@ -150,7 +131,7 @@ public class AdministratorAPI {
 			criteria.add(Restrictions.eq("email", email));
 			criteria.add(Restrictions.eq("password", password));
 
-			List administrators = criteria.list();
+			List<Administrator> administrators = (List<Administrator>) criteria.list();
 			if (administrators.size() > 0) {
 				isExist = true;
 			}
