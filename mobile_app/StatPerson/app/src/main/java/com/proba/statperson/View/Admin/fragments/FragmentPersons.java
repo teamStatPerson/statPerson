@@ -44,8 +44,6 @@ public class FragmentPersons extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
-//    final String[] persons = new String[]{"Путин", "Медведев", "Навальный"};
-
     public FragmentPersons() {
         // Required empty public constructor
     }
