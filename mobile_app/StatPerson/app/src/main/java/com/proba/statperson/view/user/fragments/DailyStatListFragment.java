@@ -10,16 +10,29 @@ import com.proba.statperson.util.DailyStatHashMap;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Konstantin on 02.06.2016.
  */
 public class DailyStatListFragment extends ListFragment {
 
-    public String startDate = "21.05.2016";
-    public String endDate;
+    public Calendar initialDate;
+    public Date startDate;
+    public Date endDate;
+    public Date oneDay;
+    public String dateFrom;
+    public String dateTill;
 
+    public DailyStatListFragment() {
 
+    }
+
+    public Calendar InitialDate(Calendar initialDate) {
+        this.initialDate = initialDate;
+        initialDate = Calendar.getInstance();
+        return initialDate;
+    }
     public String fromDate() {
         final Calendar c = Calendar.getInstance();
         String year = c.get(Calendar.YEAR) + "";
@@ -52,13 +65,13 @@ public class DailyStatListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        startDate = fromDate();
-        endDate   = tillDate();
+        dateFrom = fromDate();
+        dateTill = tillDate();
 
         ArrayList<DailyStatHashMap> list = new ArrayList<DailyStatHashMap>();
 
-        list.add(new DailyStatHashMap(startDate, "11"));
-        list.add(new DailyStatHashMap (endDate, "22"));
+        list.add(new DailyStatHashMap (dateFrom, "11"));
+        list.add(new DailyStatHashMap (dateTill, "22"));
 
         ListAdapter adapter = new SimpleAdapter(getActivity(), list, R.layout.daily_stat_list_item,
                 new String[]{DailyStatHashMap.DAILYDATE, DailyStatHashMap.QUANTITY}, new int[]{

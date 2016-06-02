@@ -92,7 +92,9 @@
             android:id="@+id/textViewDateTill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:ems="10"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -123,12 +125,44 @@
 
     </LinearLayout>
 
+    <TableLayout
+        android:id="@+id/tableDailyStat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutPerson"
+        android:shrinkColumns="*"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:id="@+id/tableRowHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:text="@string/date"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="serif">
+            </TextView>
+
+            <TextView
+                android:id="@+id/textViewQuantity"
+                android:text="@string/quantity"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="serif">
+            </TextView>
+        </TableRow>
+    </TableLayout>
+
     <fragment
         android:id="@+id/DailyStatListFragment"
-        android:layout_below="@+id/linearLayoutPerson"
         android:name="com.proba.statperson.view.user.fragments.DailyStatListFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tableDailyStat"
         tools:layout="@android:layout/list_content">
     </fragment>
 

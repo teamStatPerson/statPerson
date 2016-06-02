@@ -31,4 +31,6 @@
     <string name="admin_role">Войти как администратор</string>
     <string name="user_role">Войти как пользователь</string>
 
+    <string name="from_less_till">Дата с должна быть меньше по</string>
+
 </resources>

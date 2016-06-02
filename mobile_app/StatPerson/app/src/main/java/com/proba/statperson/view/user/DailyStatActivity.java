@@ -9,19 +9,23 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-
-import com.proba.statperson.R;
+import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class DailyStatActivity extends AppCompatActivity {
 
+    public String from_date;
+    public String to_date;
     TextView textViewPersonName;
     TextView textViewSiteName;
     TextView textViewDateFrom;
     TextView textViewDateTill;
     int DIALOG_DATE_FROM = 1;
     int DIALOG_DATE_TILL = 2;
+    GregorianCalendar calendarFrom;
+    GregorianCalendar calendarTill;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +91,7 @@ public class DailyStatActivity extends AppCompatActivity {
     public void onClickSite(View view) {
         showPopupMenuSites(view);
     }
+
     private void showPopupMenuSites(View v) {
         PopupMenu popupMenu = new PopupMenu(this, v);
         popupMenu.inflate(R.menu.popupmenu_sites);
@@ -131,32 +136,35 @@ public class DailyStatActivity extends AppCompatActivity {
     int month = c.get(Calendar.MONTH);
     int day = c.get(Calendar.DAY_OF_MONTH);
 
-    public void onClickDateFrom (View view) {
+    public void onClickDateFrom(View view) {
         showDialog(DIALOG_DATE_FROM);
     }
 
-    public void onClickDateTill (View view) {
+    public void onClickDateTill(View view) {
         showDialog(DIALOG_DATE_TILL);
     }
 
-    protected Dialog onCreateDialog (int id) {
+    protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_DATE_FROM) {
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, callBackFrom, year, month, day);
             return datePickerDialog;
-        }else if (id == DIALOG_DATE_TILL) {
+        } else if (id == DIALOG_DATE_TILL) {
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, callBackTill, year, month, day);
             return datePickerDialog;
         }
         return super.onCreateDialog(id);
     }
+
     DatePickerDialog.OnDateSetListener callBackFrom = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             year = year;
             month = monthOfYear + 1;
             day = dayOfMonth;
+            calendarFrom = new GregorianCalendar(year, month, day);
             textViewDateFrom.setTextSize(20);
-            textViewDateFrom.setText(day + "/" + month + "/" + year);
+            from_date = day + "." + month + "." + year;
+            textViewDateFrom.setText(from_date);
         }
     };
 
@@ -166,8 +174,14 @@ public class DailyStatActivity extends AppCompatActivity {
             year = year;
             month = monthOfYear + 1;
             day = dayOfMonth;
-            textViewDateTill.setTextSize(20);
-            textViewDateTill.setText(day + "/" + month + "/" + year);
+            calendarTill = new GregorianCalendar(year, month, day);
+            if (calendarTill.after(calendarFrom)) {
+                textViewDateTill.setTextSize(20);
+                to_date = day + "." + month + "." + year;
+                textViewDateTill.setText(to_date);
+            } else {
+                Toast.makeText(getApplicationContext(), getString(R.string.from_less_till), Toast.LENGTH_LONG).show();
+            }
         }
     };
 }
