@@ -7,7 +7,8 @@ import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 
 import com.proba.statperson.R;
-import com.proba.statperson.events.SetDateEvent;
+import com.proba.statperson.events.SetDateFromEvent;
+import com.proba.statperson.events.SetDateTillEvent;
 import com.proba.statperson.interfaces.DailyStatDate;
 import com.proba.statperson.util.DailyStatHashMap;
 
@@ -30,6 +31,8 @@ public class DailyStatListFragment extends ListFragment {
     public String dateFrom;
     public String dateTill;
     private DailyStatDate mCallback;
+
+    ArrayList<DailyStatHashMap> dailyStatList;
 
     public DailyStatListFragment() {
 
@@ -74,24 +77,13 @@ public class DailyStatListFragment extends ListFragment {
         return dateFrom;
     }
 
-    /*
-        public void getEndDate (String endDate) {
-            dateTill = endDate;
-            return dateTill;
-        }
-    */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        dateTill = tillDate();
+        dailyStatList = new ArrayList<DailyStatHashMap>();
 
-        ArrayList<DailyStatHashMap> list = new ArrayList<DailyStatHashMap>();
-
-        list.add(new DailyStatHashMap(dateFrom, "11"));
-        list.add(new DailyStatHashMap(dateTill, "222"));
-
-        ListAdapter adapter = new SimpleAdapter(getActivity(), list, R.layout.daily_stat_list_item,
+        ListAdapter adapter = new SimpleAdapter(getActivity(), dailyStatList, R.layout.daily_stat_list_item,
                 new String[]{DailyStatHashMap.DAILYDATE, DailyStatHashMap.QUANTITY}, new int[]{
                 R.id.tvDate, R.id.tvQty});
         setListAdapter(adapter);
@@ -123,14 +115,32 @@ public class DailyStatListFragment extends ListFragment {
     }
 
     @Subscribe
-    public void onSetDateEvent(SetDateEvent event) {
+    public void onSetDateFromEvent(SetDateFromEvent event) {
+
         dateFrom = event.date;
 
-        ArrayList<DailyStatHashMap> list = new ArrayList<DailyStatHashMap>();
+        dailyStatList.add(new DailyStatHashMap(dateFrom, "11")); // добавляем начальную дату на первую строку
 
-        list.add(new DailyStatHashMap(dateFrom, "11"));
+        ListAdapter adapter = new SimpleAdapter(getActivity(), dailyStatList, R.layout.daily_stat_list_item,
+                new String[]{DailyStatHashMap.DAILYDATE, DailyStatHashMap.QUANTITY}, new int[]{
+                R.id.tvDate, R.id.tvQty});
+        setListAdapter(adapter);
+    }
 
-        ListAdapter adapter = new SimpleAdapter(getActivity(), list, R.layout.daily_stat_list_item,
+    @Subscribe
+    public void onSetDateTillEvent(SetDateTillEvent event) {
+
+        dateTill = event.date;
+
+        // добавляем fake даты на промежуточные строки
+        String[] fake_date = getResources().getStringArray(R.array.fake_date_array);
+        int i;
+        for (i = 0; i < fake_date.length; i++) {
+            dailyStatList.add(new DailyStatHashMap(fake_date[i], " " + i));
+        }
+        dailyStatList.add(new DailyStatHashMap(dateTill, "22")); // добавляем конечную дату на последнюю строку
+
+        ListAdapter adapter = new SimpleAdapter(getActivity(), dailyStatList, R.layout.daily_stat_list_item,
                 new String[]{DailyStatHashMap.DAILYDATE, DailyStatHashMap.QUANTITY}, new int[]{
                 R.id.tvDate, R.id.tvQty});
         setListAdapter(adapter);
