@@ -10,10 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.proba.statperson.R;
 
-public class UserActivity extends AppCompatActivity  {
+public class UserActivity extends AppCompatActivity {
 
     private FloatingActionButton fab;
     TextView textViewPersonName;
@@ -33,28 +34,27 @@ public class UserActivity extends AppCompatActivity  {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserActivity.this, DailyStatActivity.class);
-                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "FAB", Toast.LENGTH_SHORT).show();
+
+//                Intent intent = new Intent(UserActivity.this, DailyStatActivity.class);
+//                startActivity(intent);
             }
         });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.user_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_daily_stat) {
+            Intent intent = new Intent(UserActivity.this, DailyStatActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -67,6 +67,7 @@ public class UserActivity extends AppCompatActivity  {
     public void onClickSite(View view) {
         showPopupMenuSites(view);
     }
+
     private void showPopupMenuSites(View v) {
         PopupMenu popupMenu = new PopupMenu(this, v);
         popupMenu.inflate(R.menu.popupmenu_sites);
@@ -98,8 +99,6 @@ public class UserActivity extends AppCompatActivity  {
 
             @Override
             public void onDismiss(PopupMenu menu) {
-//                Toast.makeText(getApplicationContext(), "onDismiss",
-//                        Toast.LENGTH_SHORT).show();
             }
         });
         popupMenu.show();
