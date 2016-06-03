@@ -85,6 +85,7 @@ public class FragmentSites extends ListFragment {
     @Subscribe
     public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
         removeProgressBar();
+        // TODO: 03.06.2016 handle exceptions
 
         ListAdapter adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, catalogElements.message);

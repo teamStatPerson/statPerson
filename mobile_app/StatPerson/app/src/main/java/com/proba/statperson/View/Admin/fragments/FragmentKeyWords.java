@@ -5,10 +5,12 @@ import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.proba.statperson.R;
 
@@ -25,6 +27,8 @@ public class FragmentKeyWords extends ListFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private View view;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -72,10 +76,82 @@ public class FragmentKeyWords extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, keyWordsPutin);
-        setListAdapter(adapter);
-        return inflater.inflate(R.layout.fragment_key_words, null);
+
+//        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
+//                android.R.layout.simple_list_item_1, keyWordsPutin);
+//        setListAdapter(adapter);
+
+        view = inflater.inflate(R.layout.fragment_key_words, null);
+
+        view.findViewById(R.id.textViewPerson).setVisibility(View.INVISIBLE);
+        view.findViewById(R.id.textViewPersonName).setVisibility(View.INVISIBLE);
+
+        setOnClickListenerOnPersonsPopup(view);
+
+        return view;
+    }
+
+    private void setOnClickListenerOnPersonsPopup(View view) {
+        TextView tvChoosePerson = (TextView) view.findViewById(R.id.textViewPerson);
+        TextView tvChoosePerson2 = (TextView) view.findViewById(R.id.textViewPersonName);
+
+        tvChoosePerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenuPersons(v);
+            }
+        });
+
+        tvChoosePerson2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenuPersons(v);
+            }
+        });
+    }
+
+    private void showPopupMenuPersons(View v) {
+        PopupMenu popupMenu = new PopupMenu(getActivity(), v);
+        popupMenu.inflate(R.menu.popupmenu_persons);
+
+        popupMenu
+                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        switch (item.getItemId()) {
+
+                            case R.id.putin:
+                                Toast.makeText(getActivity(),
+                                        "Вы выбрали Путин",
+                                        Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.medvedev:
+                                Toast.makeText(getActivity(),
+                                        "Вы выбрали Медведев",
+                                        Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.navalny:
+                                Toast.makeText(getActivity(),
+                                        "Вы выбрали Навальный",
+                                        Toast.LENGTH_SHORT).show();
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+
+            @Override
+            public void onDismiss(PopupMenu menu) {
+                Toast.makeText(getActivity(), "onDismiss",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+        popupMenu.show();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -84,18 +160,19 @@ public class FragmentKeyWords extends ListFragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+
+    /*
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            if (context instanceof OnFragmentInteractionListener) {
+                mListener = (OnFragmentInteractionListener) context;
+            } else {
+                throw new RuntimeException(context.toString()
+                        + " must implement OnFragmentInteractionListener");
+            }
         }
-    }
-*/
+    */
     @Override
     public void onDetach() {
         super.onDetach();
@@ -107,7 +184,7 @@ public class FragmentKeyWords extends ListFragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
