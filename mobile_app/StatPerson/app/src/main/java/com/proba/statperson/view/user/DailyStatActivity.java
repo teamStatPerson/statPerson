@@ -3,25 +3,44 @@ package com.proba.statperson.view.user;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.proba.statperson.Constants;
 import com.proba.statperson.R;
+import com.proba.statperson.events.SetDateFromEvent;
+import com.proba.statperson.events.SetDateTillEvent;
+import com.proba.statperson.interfaces.DailyStatDate;
+import com.proba.statperson.view.user.fragments.DailyStatListFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
-public class DailyStatActivity extends AppCompatActivity {
+public class DailyStatActivity extends AppCompatActivity implements DailyStatDate {
 
+    public String from_date;
+    public String to_date;
+    public String today_date;
     TextView textViewPersonName;
     TextView textViewSiteName;
     TextView textViewDateFrom;
     TextView textViewDateTill;
     int DIALOG_DATE_FROM = 1;
     int DIALOG_DATE_TILL = 2;
+    Calendar calendarFrom;
+    Calendar calendarTill;
+    Calendar calendarToday;
+    private int year;
+    private int month;
+    private int day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +51,25 @@ public class DailyStatActivity extends AppCompatActivity {
         textViewSiteName = (TextView) findViewById(R.id.textViewSiteName);
         textViewDateFrom = (TextView) findViewById(R.id.textViewDateFrom);
         textViewDateTill = (TextView) findViewById(R.id.textViewDateTill);
+
+        // определяем текущую дату
+        calendarToday = Calendar.getInstance();
+        year = calendarToday.get(Calendar.YEAR);
+        month = calendarToday.get(Calendar.MONTH);
+        day = calendarToday.get(Calendar.DAY_OF_MONTH);
+        calendarFrom = calendarToday;
+        calendarTill = calendarToday;
+        today_date = day + "." + month + "." + year;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     public void onClickPerson(View view) {
@@ -69,8 +107,6 @@ public class DailyStatActivity extends AppCompatActivity {
 
             @Override
             public void onDismiss(PopupMenu menu) {
-//                Toast.makeText(getApplicationContext(), "onDismiss",
-//                        Toast.LENGTH_SHORT).show();
             }
         });
         popupMenu.show();
@@ -87,6 +123,7 @@ public class DailyStatActivity extends AppCompatActivity {
     public void onClickSite(View view) {
         showPopupMenuSites(view);
     }
+
     private void showPopupMenuSites(View v) {
         PopupMenu popupMenu = new PopupMenu(this, v);
         popupMenu.inflate(R.menu.popupmenu_sites);
@@ -118,45 +155,52 @@ public class DailyStatActivity extends AppCompatActivity {
 
             @Override
             public void onDismiss(PopupMenu menu) {
-//                Toast.makeText(getApplicationContext(), "onDismiss",
-//                        Toast.LENGTH_SHORT).show();
             }
         });
         popupMenu.show();
     }
 
-    // определяем текущую дату
-    final Calendar c = Calendar.getInstance();
-    int year = c.get(Calendar.YEAR);
-    int month = c.get(Calendar.MONTH);
-    int day = c.get(Calendar.DAY_OF_MONTH);
-
-    public void onClickDateFrom (View view) {
+    public void onClickDateFrom(View view) {
         showDialog(DIALOG_DATE_FROM);
     }
 
-    public void onClickDateTill (View view) {
+    public void onClickDateTill(View view) {
         showDialog(DIALOG_DATE_TILL);
     }
 
-    protected Dialog onCreateDialog (int id) {
+    protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_DATE_FROM) {
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, callBackFrom, year, month, day);
             return datePickerDialog;
-        }else if (id == DIALOG_DATE_TILL) {
+        } else if (id == DIALOG_DATE_TILL) {
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, callBackTill, year, month, day);
             return datePickerDialog;
         }
         return super.onCreateDialog(id);
     }
+
     DatePickerDialog.OnDateSetListener callBackFrom = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             year = year;
-            month = monthOfYear + 1;
+            month = monthOfYear;
             day = dayOfMonth;
-            textViewDateFrom.setTextSize(20);
-            textViewDateFrom.setText(day + "/" + month + "/" + year);
+            calendarFrom = new GregorianCalendar(year, month, day);
+            if (calendarFrom.before(Constants.INITDATE)) {
+                Toast.makeText(getApplicationContext(), getString(R.string.from_less_initdate), Toast.LENGTH_LONG).show();
+            } else {
+                if (calendarFrom.before(calendarToday)) {
+                    textViewDateFrom.setTextSize(20);
+                    String sday = DateFormater.DayFormater(day);
+                    String smonth = DateFormater.DayFormater(month);
+                    from_date = " " + sday + "." + smonth + "." + year;
+                    EventBus.getDefault().post(new SetDateFromEvent(from_date));
+                    textViewDateFrom.setText(from_date);
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.from_less_today), Toast.LENGTH_LONG).show();
+                    calendarFrom = calendarToday;
+                }
+            }
         }
     };
 
@@ -164,10 +208,36 @@ public class DailyStatActivity extends AppCompatActivity {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             year = year;
-            month = monthOfYear + 1;
+            month = monthOfYear;
             day = dayOfMonth;
-            textViewDateTill.setTextSize(20);
-            textViewDateTill.setText(day + "/" + month + "/" + year);
+            calendarTill = new GregorianCalendar(year, month, day);
+            if (calendarTill.before(calendarToday)) {
+                if (calendarTill.after(calendarFrom)) {
+                    textViewDateTill.setTextSize(20);
+                    String sday = DateFormater.DayFormater(day);
+                    String smonth = DateFormater.DayFormater(month);
+                    to_date = " " + sday + "." + smonth + "." + year;
+                    EventBus.getDefault().post(new SetDateTillEvent(to_date));
+                    textViewDateTill.setText(to_date);
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.from_less_till), Toast.LENGTH_LONG).show();
+                    calendarTill = calendarFrom;
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), getString(R.string.till_less_today), Toast.LENGTH_LONG).show();
+                calendarTill = calendarToday;
+            }
         }
     };
+
+    @Override
+    public void onDateSelected(String date) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        DailyStatListFragment dailyStatListFragment = (DailyStatListFragment) fragmentManager
+                .findFragmentById(R.id.dailyStatListFragment);
+
+        if (dailyStatListFragment != null && dailyStatListFragment.isInLayout()) {
+            dailyStatListFragment.getStartDate(from_date);
+        }
+    }
 }
