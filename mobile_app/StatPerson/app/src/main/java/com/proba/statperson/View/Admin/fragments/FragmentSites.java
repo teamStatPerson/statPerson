@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class FragmentSites extends ListFragment {
     private View view;
 
     private OnFragmentInteractionListener mListener;
+    private FloatingActionButton fabAdd;
 
     public FragmentSites() {
         // Required empty public constructor
@@ -74,10 +76,19 @@ public class FragmentSites extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+/*        fabAdd = (FloatingActionButton) view.findViewById(R.id.fab_add);
+
+ //       fabAdd.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "FloatingActionButtonclick in FindFragment", Toast.LENGTH_LONG).show();
+            }
+        });
+*/
+
 //        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
 //                android.R.layout.simple_list_item_1, sites);
 //        setListAdapter(adapter);
-
+//        initFab();
         view = inflater.inflate(R.layout.fragment_sites, null);
         return view;
     }
@@ -102,6 +113,20 @@ public class FragmentSites extends ListFragment {
             mListener.onFragmentInteraction(uri);
         }
     }
+/*
+    private void initFab() {
+        fab = ((FabProvider) getActivity()).getFloatingActionButton();
+            fab.show();
+    }
+*/
+/*    private void setOnClickListenerFab() {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                }
+            });
+    }
+*/
 
     /*
         @Override
@@ -132,7 +157,11 @@ public class FragmentSites extends ListFragment {
         super.onDetach();
         mListener = null;
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+//        setOnClickListenerFab();
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

@@ -1,6 +1,7 @@
 package com.proba.statperson.view.admin;
 
 import android.app.FragmentTransaction;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -14,12 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.proba.statperson.presenter.PresenterImpl;
-import com.proba.statperson.R;
 import com.proba.statperson.Constants;
+import com.proba.statperson.R;
+import com.proba.statperson.interfaces.FabProvider;
 import com.proba.statperson.interfaces.IPresenter;
+import com.proba.statperson.presenter.PresenterImpl;
 import com.proba.statperson.view.admin.fragments.FragmentDailyStat;
 import com.proba.statperson.view.admin.fragments.FragmentDate;
 import com.proba.statperson.view.admin.fragments.FragmentKeyWords;
@@ -30,7 +33,7 @@ import com.proba.statperson.view.admin.fragments.FragmentTotalStat;
 import com.proba.statperson.view.admin.fragments.FragmentUsers;
 
 public class AdminActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, FabProvider {
 
     private IPresenter presenter;
 
@@ -42,6 +45,8 @@ public class AdminActivity extends AppCompatActivity
     FragmentDate fragmentDate;
     FragmentKeyWords fragmentKeyWords;
     FragmentUsers fragmentUsers;
+    private FloatingActionButton fab;
+    private FloatingActionButton fabAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,10 @@ public class AdminActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fabAdd = (FloatingActionButton) findViewById(R.id.fab_add);
+        fab.hide();
+        fabAdd.show();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +91,34 @@ public class AdminActivity extends AppCompatActivity
         fragmentDate = new FragmentDate();
         fragmentKeyWords = new FragmentKeyWords();
         fragmentUsers = new FragmentUsers();
+    }
+
+
+    @Override
+    public FloatingActionButton getFloatingActionButton() {
+        return fab;
+    }
+
+
+
+    private void initViews() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        TextView toolbarTitle = null;
+        for (int i = 0; i < toolbar.getChildCount(); ++i) {
+            View child = toolbar.getChildAt(i);
+
+            // assuming that the title is the first instance of TextView
+            // you can also check if the title string matches
+            if (child instanceof TextView) {
+                toolbarTitle = (TextView) child;
+                toolbarTitle.setTypeface(Typeface.createFromAsset(
+                        getAssets(), "fonts/plain.ttf"));
+                break;
+            }
+        }
+//        Navigator.initToolbar(toolbar);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
     }
 
     @Override
