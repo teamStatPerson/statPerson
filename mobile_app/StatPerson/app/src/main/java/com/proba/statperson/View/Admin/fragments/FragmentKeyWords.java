@@ -15,8 +15,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.events.PersonKeywordsListEvent;
+import com.proba.statperson.presenter.CatalogElement.CatalogElement;
+import com.proba.statperson.presenter.CatalogElement.Person;
+import com.proba.statperson.view.admin.AdminActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -113,9 +118,23 @@ public class FragmentKeyWords extends ListFragment {
 //        setListAdapter(adapter);
     }
 
+    @Subscribe
+    public void displayPersonsKeywords(PersonKeywordsListEvent catalogElements) {
+        removeProgressBar();
+
+        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_list_item_1, catalogElements.message);
+        setListAdapter(adapter);
+    }
+
     private void removeProgressBar() {
         ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
+    }
+
+    private void setProgressBar() {
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     private void setOnClickListenerOnPersonsPopup(View view) {
@@ -137,37 +156,24 @@ public class FragmentKeyWords extends ListFragment {
         });
     }
 
-    private void showPopupMenuPersons(View v) {
+    public void showPopupMenuPersons(View v) {
         PopupMenu popupMenu = populatePopupMenu(new PopupMenu(getActivity(), v));
 
-//        popupMenu
-//                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem item) {
-//
-//                        switch (item.getItemId()) {
-//
-//                            case R.id.putin:
-//                                Toast.makeText(getActivity(),
-//                                        "Вы выбрали Путин",
-//                                        Toast.LENGTH_SHORT).show();
-//                                return true;
-//                            case R.id.medvedev:
-//                                Toast.makeText(getActivity(),
-//                                        "Вы выбрали Медведев",
-//                                        Toast.LENGTH_SHORT).show();
-//                                return true;
-//                            case R.id.navalny:
-//                                Toast.makeText(getActivity(),
-//                                        "Вы выбрали Навальный",
-//                                        Toast.LENGTH_SHORT).show();
-//                                return true;
-//                            default:
-//                                return false;
-//                        }
-//                    }
-//                });
+        popupMenu
+                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        setProgressBar();
+//                        Person person = new Person(item.getTitle().toString());
+//                        Toast.makeText(getActivity(), person.getName(), Toast.LENGTH_SHORT).show();
+
+                        ((AdminActivity) getActivity()).
+                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, item.getTitle().toString());
+
+                        return false;
+                    }
+                });
 
         popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
 

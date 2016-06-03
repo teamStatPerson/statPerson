@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.proba.statperson.presenter.CatalogElement.CatalogElement;
+import com.proba.statperson.presenter.CatalogElement.Person;
 import com.proba.statperson.presenter.PresenterImpl;
 import com.proba.statperson.R;
 import com.proba.statperson.Constants;
@@ -130,12 +132,12 @@ public class AdminActivity extends AppCompatActivity
         } else if (id == R.id.sites) {
             fragmentTransaction.replace(R.id.container, fragmentSites);
 
-            getCatalogElements(Constants.SITES_CATALOG_INDEX);
+            getCatalogElements(Constants.SITES_CATALOG_INDEX, null);
 
         } else if (id == R.id.persons) {
             fragmentTransaction.replace(R.id.container, fragmentPersons);
 
-            getCatalogElements(Constants.PERSONS_CATALOG_INDEX);
+            getCatalogElements(Constants.PERSONS_CATALOG_INDEX, null);
 
         } else if (id == R.id.total_stat) {
             fragmentTransaction.replace(R.id.container, fragmentTotalStat);
@@ -146,7 +148,7 @@ public class AdminActivity extends AppCompatActivity
         } else if (id == R.id.key_words) {
             fragmentTransaction.replace(R.id.container, fragmentKeyWords);
 
-            getCatalogElements(Constants.PERSONS_CATALOG_INDEX);
+            getCatalogElements(Constants.PERSONS_CATALOG_INDEX, null);
 
         } else if (id == R.id.users) {
             fragmentTransaction.replace(R.id.container, fragmentUsers);
@@ -158,13 +160,17 @@ public class AdminActivity extends AppCompatActivity
         return true;
     }
 
-    private void getCatalogElements(int catalogIndex) {
+    public void getCatalogElements(int catalogIndex, String param) {
         switch (catalogIndex) {
             case Constants.PERSONS_CATALOG_INDEX:
-                presenter.adminGetListOfCatalogElements(Constants.PERSONS_CATALOG_INDEX);
+                presenter.adminGetListOfCatalogElements(Constants.PERSONS_CATALOG_INDEX, null);
                 break;
             case Constants.SITES_CATALOG_INDEX:
-                presenter.adminGetListOfCatalogElements(Constants.SITES_CATALOG_INDEX);
+                presenter.adminGetListOfCatalogElements(Constants.SITES_CATALOG_INDEX, null);
+                break;
+            case Constants.KEYWORDS_CATALOG_INDEX:
+                presenter.adminGetListOfCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, param);
+                Toast.makeText(this, param, Toast.LENGTH_SHORT).show();
                 break;
         }
     }
