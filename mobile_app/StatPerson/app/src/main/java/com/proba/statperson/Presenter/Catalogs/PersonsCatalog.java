@@ -25,7 +25,7 @@ public class PersonsCatalog implements ICatalog {
     ArrayList<CatalogElement> persons;
 
     @Override
-    public void adminGetListOfCatalogElements() {
+    public void adminGetListOfCatalogElements(String param) {
         PersonsListTask personsListTask = new PersonsListTask();
         personsListTask.execute();
     }
@@ -40,7 +40,7 @@ public class PersonsCatalog implements ICatalog {
         @Override
         protected ArrayList<CatalogElement> doInBackground(Void... params) {
 //            Administrator administrator = new Administrator();
-//            persons = AdministratorAPI.getPersons(administrator);
+//            keywords = AdministratorAPI.getPersons(administrator);
 
             persons = new ArrayList<>();
 
@@ -51,7 +51,7 @@ public class PersonsCatalog implements ICatalog {
             }
 
             try {
-                TimeUnit.SECONDS.sleep(3);
+                TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

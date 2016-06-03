@@ -22,7 +22,7 @@ public class SitesCatalog implements ICatalog {
     ArrayList<CatalogElement> sites;
 
     @Override
-    public void adminGetListOfCatalogElements() {
+    public void adminGetListOfCatalogElements(String param) {
         SitesListTask sitesListTask = new SitesListTask();
         sitesListTask.execute();
     }
@@ -37,7 +37,7 @@ public class SitesCatalog implements ICatalog {
         @Override
         protected ArrayList<CatalogElement> doInBackground(Void... params) {
 //            Administrator administrator = new Administrator();
-//            persons = AdministratorAPI.getPersons(administrator);
+//            keywords = AdministratorAPI.getPersons(administrator);
 
             sites = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class SitesCatalog implements ICatalog {
             }
 
             try {
-                TimeUnit.SECONDS.sleep(3);
+                TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
