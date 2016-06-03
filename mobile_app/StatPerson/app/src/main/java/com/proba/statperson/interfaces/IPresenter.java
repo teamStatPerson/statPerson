@@ -1,8 +1,12 @@
 package com.proba.statperson.interfaces;
 
+import com.proba.statperson.presenter.CatalogElement.CatalogElement;
+import com.proba.statperson.presenter.CatalogElement.Person;
+
 /**
  * Created by vadik on 30.05.2016.
  */
 public interface IPresenter {
-    void adminGetListOfCatalogElements(int catalogIndex);
+    // TODO: 03.06.2016 refactor: do without Person arg (?)
+    void adminGetListOfCatalogElements(int catalogIndex, String param);
 }

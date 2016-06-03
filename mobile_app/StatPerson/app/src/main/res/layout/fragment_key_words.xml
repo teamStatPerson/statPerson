@@ -28,7 +28,6 @@
             android:id="@+id/textViewPerson"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickPerson"
             android:text="@string/person"
             android:textColor="#03A9F4"
             android:textSize="20sp"/>
@@ -37,12 +36,17 @@
             android:id="@+id/textViewPersonName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onClickPerson"
             android:text="@string/fragment_persons"
             android:textColor="#03A9F4"
             android:textSize="20sp"/>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center" />
 
     <ListView
         android:id="@id/android:list"
@@ -50,11 +54,12 @@
         android:layout_height="match_parent">
     </ListView>
 
-    <TextView
-        android:id="@id/android:empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/fragment_key_words"
-        android:textSize="20sp">
-    </TextView>
+    <!--<TextView-->
+        <!--android:id="@id/android:empty"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="@string/fragment_key_words"-->
+        <!--android:textSize="20sp">-->
+    <!--</TextView>-->
+
 </LinearLayout>

@@ -7,4 +7,10 @@ public class Person extends CatalogElement {
     public Person(String name) {
         super(name);
     }
+
+
+//    @Override
+//    public String getName() {
+//        return super.getName();
+//    }
 }
