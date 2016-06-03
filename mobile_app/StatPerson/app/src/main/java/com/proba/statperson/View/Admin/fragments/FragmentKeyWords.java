@@ -138,13 +138,7 @@ public class FragmentKeyWords extends ListFragment {
     }
 
     private void showPopupMenuPersons(View v) {
-        PopupMenu popupMenu = new PopupMenu(getActivity(), v);
-        popupMenu.inflate(R.menu.popupmenu_persons);
-        popupMenu.getMenu().clear();
-
-        for (int i = 0; i < persons.length; i++) {
-            popupMenu.getMenu().add(persons[i]);
-        }
+        PopupMenu popupMenu = populatePopupMenu(new PopupMenu(getActivity(), v));
 
 //        popupMenu
 //                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -184,6 +178,17 @@ public class FragmentKeyWords extends ListFragment {
             }
         });
         popupMenu.show();
+    }
+
+    private PopupMenu populatePopupMenu(PopupMenu popupMenu) {
+        popupMenu.inflate(R.menu.popupmenu_persons);
+        popupMenu.getMenu().clear();
+
+        for (int i = 0; i < persons.length; i++) {
+            popupMenu.getMenu().add(persons[i]);
+        }
+
+        return popupMenu;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
