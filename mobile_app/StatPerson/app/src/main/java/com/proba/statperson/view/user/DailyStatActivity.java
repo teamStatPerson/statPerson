@@ -12,6 +12,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.SetDateFromEvent;
 import com.proba.statperson.events.SetDateTillEvent;
@@ -59,42 +60,16 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         calendarFrom = calendarToday;
         calendarTill = calendarToday;
         today_date = day + "." + month + "." + year;
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        DailyStatListFragment dailyStatListFragment = (DailyStatListFragment) fragmentManager
-                .findFragmentById(R.id.dailyStatListFragment);
-
-        if (dailyStatListFragment != null && dailyStatListFragment.isInLayout()) {
-            dailyStatListFragment.getStartDate(from_date);
-//            dailyStatListFragment.getEndDate(to_date);
-        }
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // определяем текущую дату
-        calendarToday = Calendar.getInstance();
-        year = calendarToday.get(Calendar.YEAR);
-        month = calendarToday.get(Calendar.MONTH);
-        day = calendarToday.get(Calendar.DAY_OF_MONTH);
-        calendarFrom = calendarToday;
-        calendarTill = calendarToday;
-        today_date = day + "." + month + "." + year;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // определяем текущую дату
-        calendarToday = Calendar.getInstance();
-        year = calendarToday.get(Calendar.YEAR);
-        month = calendarToday.get(Calendar.MONTH);
-        day = calendarToday.get(Calendar.DAY_OF_MONTH);
-        calendarFrom = calendarToday;
-        calendarTill = calendarToday;
-        today_date = day + "." + month + "." + year;
     }
 
     public void onClickPerson(View view) {
@@ -132,8 +107,6 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
 
             @Override
             public void onDismiss(PopupMenu menu) {
-//                Toast.makeText(getApplicationContext(), "onDismiss",
-//                        Toast.LENGTH_SHORT).show();
             }
         });
         popupMenu.show();
@@ -182,22 +155,16 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
 
             @Override
             public void onDismiss(PopupMenu menu) {
-//                Toast.makeText(getApplicationContext(), "onDismiss",
-//                        Toast.LENGTH_SHORT).show();
             }
         });
         popupMenu.show();
     }
 
     public void onClickDateFrom(View view) {
-//+        calendarToday = Calendar.getInstance();
-//+        calendarFrom = calendarToday;
         showDialog(DIALOG_DATE_FROM);
     }
 
     public void onClickDateTill(View view) {
-//+        calendarToday = Calendar.getInstance();
-//+        calendarTill = calendarToday;
         showDialog(DIALOG_DATE_TILL);
     }
 
@@ -219,23 +186,20 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
             month = monthOfYear;
             day = dayOfMonth;
             calendarFrom = new GregorianCalendar(year, month, day);
-            if (calendarFrom.before(calendarToday)) {
-                textViewDateFrom.setTextSize(20);
-                String sday = day + "";
-                if (sday.length() < 2) {
-                    sday = "0" + sday;
-                }
-                month = month + 1;
-                String smonth = month + "";
-                if (smonth.length() < 2) {
-                    smonth = "0" + smonth;
-                }
-                from_date = " " + sday + "." + smonth + "." + year;
-                EventBus.getDefault().post(new SetDateFromEvent(from_date));
-                textViewDateFrom.setText(from_date);
+            if (calendarFrom.before(Constants.INITDATE)) {
+                Toast.makeText(getApplicationContext(), getString(R.string.from_less_initdate), Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(getApplicationContext(), getString(R.string.from_less_today), Toast.LENGTH_LONG).show();
-                calendarFrom = calendarToday;
+                if (calendarFrom.before(calendarToday)) {
+                    textViewDateFrom.setTextSize(20);
+                    String sday = DateFormater.DayFormater(day);
+                    String smonth = DateFormater.DayFormater(month);
+                    from_date = " " + sday + "." + smonth + "." + year;
+                    EventBus.getDefault().post(new SetDateFromEvent(from_date));
+                    textViewDateFrom.setText(from_date);
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.from_less_today), Toast.LENGTH_LONG).show();
+                    calendarFrom = calendarToday;
+                }
             }
         }
     };
@@ -247,19 +211,11 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
             month = monthOfYear;
             day = dayOfMonth;
             calendarTill = new GregorianCalendar(year, month, day);
-//            calendarTill = calendarToday;
             if (calendarTill.before(calendarToday)) {
                 if (calendarTill.after(calendarFrom)) {
                     textViewDateTill.setTextSize(20);
-                    String sday = day + "";
-                    if (sday.length() < 2) {
-                        sday = "0" + sday;
-                    }
-                    month = month + 1;
-                    String smonth = month + "";
-                    if (smonth.length() < 2) {
-                        smonth = "0" + smonth;
-                    }
+                    String sday = DateFormater.DayFormater(day);
+                    String smonth = DateFormater.DayFormater(month);
                     to_date = " " + sday + "." + smonth + "." + year;
                     EventBus.getDefault().post(new SetDateTillEvent(to_date));
                     textViewDateTill.setText(to_date);

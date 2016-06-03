@@ -16,18 +16,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Konstantin on 02.06.2016.
  */
 public class DailyStatListFragment extends ListFragment {
 
-    public Calendar initialDate;
-    //    public Date startDate;
-//    public Date endDate;
-    public Date oneDay;
     public String dateFrom;
     public String dateTill;
     private DailyStatDate mCallback;
@@ -36,40 +30,6 @@ public class DailyStatListFragment extends ListFragment {
 
     public DailyStatListFragment() {
 
-    }
-
-    public Calendar InitialDate(Calendar initialDate) {
-        this.initialDate = initialDate;
-        initialDate = Calendar.getInstance();
-        return initialDate;
-    }
-
-    public String fromDate() {
-        final Calendar c = Calendar.getInstance();
-        String year = c.get(Calendar.YEAR) + "";
-        String month = c.get(Calendar.MONTH) + "";
-        if (month.length() < 2) {
-            month = "0" + month;
-        }
-        String day = c.get(Calendar.DAY_OF_MONTH) + 20 + "";
-        if (day.length() < 2) {
-            day = "0" + day;
-        }
-        return (day + "." + month + "." + year);
-    }
-
-    public String tillDate() {
-        final Calendar c = Calendar.getInstance();
-        String year = c.get(Calendar.YEAR) + "";
-        String month = c.get(Calendar.MONTH) + 1 + "";
-        if (month.length() < 2) {
-            month = "0" + month;
-        }
-        String day = c.get(Calendar.DAY_OF_MONTH) + "";
-        if (day.length() < 2) {
-            day = "0" + day;
-        }
-        return (day + "." + month + "." + year);
     }
 
     public String getStartDate(String startDate) {

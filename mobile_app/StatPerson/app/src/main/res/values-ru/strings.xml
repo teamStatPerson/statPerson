@@ -35,5 +35,6 @@
     <string name="from_less_till">Дата с должна быть меньше по</string>
     <string name="from_less_today">Дата с должна быть меньше сегодня</string>
     <string name="till_less_today">Дата по должна быть меньше сегодня</string>
+    <string name="from_less_initdate">Дата с должна быть больше 01 мая 2016</string>
 
 </resources>
