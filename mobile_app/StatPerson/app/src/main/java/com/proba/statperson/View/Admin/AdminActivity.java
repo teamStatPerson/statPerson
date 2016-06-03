@@ -146,7 +146,7 @@ public class AdminActivity extends AppCompatActivity
         } else if (id == R.id.key_words) {
             fragmentTransaction.replace(R.id.container, fragmentKeyWords);
 
-//            getCatalogElements(Constants.PERSONS_CATALOG_INDEX);
+            getCatalogElements(Constants.PERSONS_CATALOG_INDEX);
 
         } else if (id == R.id.users) {
             fragmentTransaction.replace(R.id.container, fragmentUsers);

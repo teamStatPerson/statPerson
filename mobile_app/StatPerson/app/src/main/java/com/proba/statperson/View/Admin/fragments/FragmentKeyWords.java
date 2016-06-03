@@ -8,11 +8,18 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.proba.statperson.R;
+import com.proba.statperson.events.NewCatalogElementsListEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +47,7 @@ public class FragmentKeyWords extends ListFragment {
     final String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
     final String[] keyWordsNavalny = new String[]{"Навальным", "Навальному", "Навального", "Навальном"};
 
+    private String[] persons;
 
     public FragmentKeyWords() {
         // Required empty public constructor
@@ -86,9 +94,28 @@ public class FragmentKeyWords extends ListFragment {
         view.findViewById(R.id.textViewPerson).setVisibility(View.INVISIBLE);
         view.findViewById(R.id.textViewPersonName).setVisibility(View.INVISIBLE);
 
+        return view;
+    }
+
+    @Subscribe
+    public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
+        removeProgressBar();
+
+        persons = catalogElements.message;
+
+        view.findViewById(R.id.textViewPerson).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.textViewPersonName).setVisibility(View.VISIBLE);
+
         setOnClickListenerOnPersonsPopup(view);
 
-        return view;
+//        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
+//                android.R.layout.simple_list_item_1, catalogElements.message);
+//        setListAdapter(adapter);
+    }
+
+    private void removeProgressBar() {
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
     }
 
     private void setOnClickListenerOnPersonsPopup(View view) {
@@ -113,35 +140,40 @@ public class FragmentKeyWords extends ListFragment {
     private void showPopupMenuPersons(View v) {
         PopupMenu popupMenu = new PopupMenu(getActivity(), v);
         popupMenu.inflate(R.menu.popupmenu_persons);
+        popupMenu.getMenu().clear();
 
-        popupMenu
-                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+        for (int i = 0; i < persons.length; i++) {
+            popupMenu.getMenu().add(persons[i]);
+        }
 
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-
-                        switch (item.getItemId()) {
-
-                            case R.id.putin:
-                                Toast.makeText(getActivity(),
-                                        "Вы выбрали Путин",
-                                        Toast.LENGTH_SHORT).show();
-                                return true;
-                            case R.id.medvedev:
-                                Toast.makeText(getActivity(),
-                                        "Вы выбрали Медведев",
-                                        Toast.LENGTH_SHORT).show();
-                                return true;
-                            case R.id.navalny:
-                                Toast.makeText(getActivity(),
-                                        "Вы выбрали Навальный",
-                                        Toast.LENGTH_SHORT).show();
-                                return true;
-                            default:
-                                return false;
-                        }
-                    }
-                });
+//        popupMenu
+//                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//
+//                        switch (item.getItemId()) {
+//
+//                            case R.id.putin:
+//                                Toast.makeText(getActivity(),
+//                                        "Вы выбрали Путин",
+//                                        Toast.LENGTH_SHORT).show();
+//                                return true;
+//                            case R.id.medvedev:
+//                                Toast.makeText(getActivity(),
+//                                        "Вы выбрали Медведев",
+//                                        Toast.LENGTH_SHORT).show();
+//                                return true;
+//                            case R.id.navalny:
+//                                Toast.makeText(getActivity(),
+//                                        "Вы выбрали Навальный",
+//                                        Toast.LENGTH_SHORT).show();
+//                                return true;
+//                            default:
+//                                return false;
+//                        }
+//                    }
+//                });
 
         popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
 
@@ -159,6 +191,18 @@ public class FragmentKeyWords extends ListFragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     /*
