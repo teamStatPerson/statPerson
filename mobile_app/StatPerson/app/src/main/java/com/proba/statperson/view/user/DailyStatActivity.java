@@ -14,12 +14,14 @@ import android.widget.Toast;
 
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
+import com.proba.statperson.events.NewCatalogElementsListEvent;
 import com.proba.statperson.events.SetDateFromEvent;
 import com.proba.statperson.events.SetDateTillEvent;
 import com.proba.statperson.interfaces.DailyStatDate;
 import com.proba.statperson.view.user.fragments.DailyStatListFragment;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -77,16 +79,28 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         today_date = day + "." + month + "." + year;
     }
 
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
+    @Subscribe
+    public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
+//        removeProgressBar();
+//
+//        sites = catalogElements.message;
+//
+//        findViewById(R.id.textViewSite).setVisibility(View.VISIBLE);
+//        findViewById(R.id.textViewSiteName).setVisibility(View.VISIBLE);
+//
+//        setOnClickListenerOnPersonsPopup();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     public void onClickPerson(View view) {
