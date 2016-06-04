@@ -1,4 +1,4 @@
-package statPerson.rest_demo;
+package statPerson.rest.demo;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

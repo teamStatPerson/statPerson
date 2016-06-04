@@ -1,4 +1,4 @@
-package statPerson.rest_demo;
+package statPerson.rest.demo;
 
 import static org.junit.Assert.*;
 
