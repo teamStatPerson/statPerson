@@ -5,12 +5,16 @@ import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
@@ -38,6 +42,9 @@ public class FragmentSites extends ListFragment {
 
     private View view;
 
+    public static final int IDM_A = 101;
+    public static final int IDM_B = 102;
+
     private OnFragmentInteractionListener mListener;
     private FloatingActionButton fabAdd;
 
@@ -64,6 +71,21 @@ public class FragmentSites extends ListFragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedState) {
+        super.onActivityCreated(savedState);
+
+        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int arg2, long arg3) {
+                Toast.makeText(getActivity(), "On long click listener", Toast.LENGTH_LONG).show();
+                return true;
+            }
+        });
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -75,22 +97,26 @@ public class FragmentSites extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-/*        fabAdd = (FloatingActionButton) view.findViewById(R.id.fab_add);
-
- //       fabAdd.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "FloatingActionButtonclick in FindFragment", Toast.LENGTH_LONG).show();
-            }
-        });
-*/
-
-//        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-//                android.R.layout.simple_list_item_1, sites);
-//        setListAdapter(adapter);
-//        initFab();
-        view = inflater.inflate(R.layout.fragment_sites, null);
+        view = inflater.inflate(R.layout.fragment_sites, container, false);
         return view;
+    }
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        String prompt = "Вы выбрали: "
+                + getListView().getItemAtPosition(position).toString() + "\n";
+
+        prompt += "Выбранные элементы: \n";
+        int count = getListView().getCount();
+        SparseBooleanArray sparseBooleanArray = getListView()
+                .getCheckedItemPositions();
+        for (int i = 0; i < count; i++) {
+            if (sparseBooleanArray.get(i)) {
+                prompt += getListView().getItemAtPosition(i).toString() + "\n";
+            }
+        }
+        Toast.makeText(getActivity(), prompt, Toast.LENGTH_LONG).show();
     }
 
     @Subscribe
@@ -98,13 +124,14 @@ public class FragmentSites extends ListFragment {
         removeProgressBar();
 
         ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, catalogElements.message);
+//                android.R.layout.simple_list_item_1, catalogElements.message);
+                android.R.layout.simple_list_item_multiple_choice, catalogElements.message);
         setListAdapter(adapter);
     }
 
     private void removeProgressBar() {
         ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(view.GONE);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -113,21 +140,6 @@ public class FragmentSites extends ListFragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-/*
-    private void initFab() {
-        fab = ((FabProvider) getActivity()).getFloatingActionButton();
-            fab.show();
-    }
-*/
-/*    private void setOnClickListenerFab() {
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                }
-            });
-    }
-*/
-
     /*
         @Override
         public void onAttach(Context context) {
@@ -140,6 +152,7 @@ public class FragmentSites extends ListFragment {
             }
         }
     */
+
     @Override
     public void onStart() {
         super.onStart();
@@ -157,11 +170,13 @@ public class FragmentSites extends ListFragment {
         super.onDetach();
         mListener = null;
     }
+
     @Override
     public void onResume() {
         super.onResume();
-//        setOnClickListenerFab();
     }
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

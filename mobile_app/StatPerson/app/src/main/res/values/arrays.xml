@@ -11,4 +11,35 @@
         <item>08.08.2008</item>
         <item>09.09.2009</item>
     </string-array>
+
+    <string-array name="sites_array">
+        <item>lenta.ru</item>
+        <item>fake1.ru</item>
+        <item>fake3.ru</item>
+        <item>fake4.ru</item>
+        <item>fake5.ru</item>
+        <item>fake6.ru</item>
+    </string-array>
+
+    <string-array name="putin_array">
+        <item>Путиным</item>
+        <item>Путину</item>
+        <item>Путина</item>
+        <item>Путине</item>
+    </string-array>
+
+    <string-array name="medvedev_array">
+        <item>Медведевым</item>
+        <item>Медведеву</item>
+        <item>Медведева</item>
+        <item>Медведеве</item>
+    </string-array>
+
+    <string-array name="navalny_array">
+        <item>Навальным</item>
+        <item>Навальному</item>
+        <item>Навального</item>
+        <item>Навальном</item>
+    </string-array>
+
 </resources>

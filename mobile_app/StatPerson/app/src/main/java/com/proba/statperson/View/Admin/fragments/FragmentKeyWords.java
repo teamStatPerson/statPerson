@@ -4,13 +4,20 @@ import android.app.Fragment;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.proba.statperson.R;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,10 +39,17 @@ public class FragmentKeyWords extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
-    final String[] keyWordsPutin = new String[]{"Путиным", "Путину", "Путина", "Путине"};
-    final String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
-    final String[] keyWordsNavalny = new String[]{"Навальным", "Навальному", "Навального", "Навальном"};
+    private ListAdapter keyWordsAdapter;
 
+    final String[] keyWordsPutinArray = new String[]{"Путиным", "Путину", "Путина", "Путине"};
+    private ArrayList<String> keyWordsPutinList = new ArrayList<>(Arrays.asList(keyWordsPutinArray));
+// Fragment FragmentKeyWords{56d4736} not attached to Activity
+// private ArrayList<String> keyWordsPutinList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.putin_array)));
+//    final String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
+//    final String[] keyWordsNavalny = new String[]{"Навальным", "Навальному", "Навального", "Навальном"};
+//    final String[] keyWordsPutin = getResources().getStringArray(R.array.putin_array);
+//    final String[] keyWordsMedvedev = new String[] {getResources().getStringArray(R.array.medvedev_array);
+//    final String[] keyWordsNavalny = getResources().getStringArray(R.array.navalny_array);
 
     public FragmentKeyWords() {
         // Required empty public constructor
@@ -60,6 +74,51 @@ public class FragmentKeyWords extends ListFragment {
     }
 
     @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        String prompt = "Вы выбрали: "
+                + getListView().getItemAtPosition(position).toString() + "\n";
+
+        prompt += "Выбранные элементы: \n";
+        int count = getListView().getCount();
+        SparseBooleanArray sparseBooleanArray = getListView()
+                .getCheckedItemPositions();
+        for (int i = 0; i < count; i++) {
+            if (sparseBooleanArray.get(i)) {
+                prompt += getListView().getItemAtPosition(i).toString() + "\n";
+            }
+        }
+        Toast.makeText(getActivity(), prompt, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedState) {
+        super.onActivityCreated(savedState);
+
+        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int arg2, long arg3) {
+                Toast.makeText(getActivity(), "On long click listener", Toast.LENGTH_LONG).show();
+                return true;
+            }
+        });
+    }
+
+    /*
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            String selectedItem = parent.getItemAtPosition(position).toString();
+
+            Toast.makeText(getActivity(), selectedItem + " выбран.",
+                    Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+    */
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -72,9 +131,10 @@ public class FragmentKeyWords extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, keyWordsPutin);
-        setListAdapter(adapter);
+        keyWordsAdapter = new ArrayAdapter<>(getActivity(),
+//                android.R.layout.simple_list_item_1, keyWordsPutin);
+                android.R.layout.simple_list_item_multiple_choice, keyWordsPutinList);
+        setListAdapter(keyWordsAdapter);
         return inflater.inflate(R.layout.fragment_key_words, null);
     }
 
@@ -84,18 +144,19 @@ public class FragmentKeyWords extends ListFragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+
+    /*
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            if (context instanceof OnFragmentInteractionListener) {
+                mListener = (OnFragmentInteractionListener) context;
+            } else {
+                throw new RuntimeException(context.toString()
+                        + " must implement OnFragmentInteractionListener");
+            }
         }
-    }
-*/
+    */
     @Override
     public void onDetach() {
         super.onDetach();

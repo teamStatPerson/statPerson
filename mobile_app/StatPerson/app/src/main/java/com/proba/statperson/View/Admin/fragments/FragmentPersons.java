@@ -5,22 +5,22 @@ import android.app.Fragment;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
-import com.proba.statperson.interfaces.IView;
-import com.proba.statperson.presenter.CatalogElement.CatalogElement;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,13 +78,41 @@ public class FragmentPersons extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-//        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-//                android.R.layout.simple_list_item_1, persons);
-//        setListAdapter(adapter);
-
-        view = inflater.inflate(R.layout.fragment_persons, null);
+        view = inflater.inflate(R.layout.fragment_persons, container, false);
         return view;
+    }
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        String prompt = "Вы выбрали: "
+                + getListView().getItemAtPosition(position).toString() + "\n";
+
+        prompt += "Выбранные элементы: \n";
+        int count = getListView().getCount();
+        SparseBooleanArray sparseBooleanArray = getListView()
+                .getCheckedItemPositions();
+        for (int i = 0; i < count; i++) {
+            if (sparseBooleanArray.get(i)) {
+                prompt += getListView().getItemAtPosition(i).toString() + "\n";
+            }
+        }
+        Toast.makeText(getActivity(), prompt, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedState) {
+        super.onActivityCreated(savedState);
+
+        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int arg2, long arg3) {
+                Toast.makeText(getActivity(), "On long click listener", Toast.LENGTH_LONG).show();
+                return true;
+            }
+        });
     }
 
     @Subscribe
@@ -92,7 +120,8 @@ public class FragmentPersons extends ListFragment {
         removeProgressBar();
 
         ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, catalogElements.message);
+//                android.R.layout.simple_list_item_1, catalogElements.message);
+                android.R.layout.simple_list_item_multiple_choice, catalogElements.message);
         setListAdapter(adapter);
     }
 

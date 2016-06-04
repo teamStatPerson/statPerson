@@ -22,9 +22,20 @@
         android:layout_gravity="center" />
 
     <ListView
-        android:id="@id/android:list"
+        android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:choiceMode="multipleChoice"
+        android:drawSelectorOnTop="false">
     </ListView>
+
+    <TextView
+        android:id="@id/android:empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/empty" >
+    </TextView>
 
 </LinearLayout>

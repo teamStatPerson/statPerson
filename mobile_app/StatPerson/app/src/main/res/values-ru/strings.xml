@@ -37,4 +37,8 @@
     <string name="till_less_today">Дата по должна быть меньше сегодня</string>
     <string name="from_less_initdate">Дата с должна быть больше 01 мая 2016</string>
 
+    <string name="empty">Список</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+
 </resources>
