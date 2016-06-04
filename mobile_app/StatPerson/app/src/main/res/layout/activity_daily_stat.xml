@@ -171,6 +171,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/progressBar3"
         android:layout_centerInParent="true"
-        android:layout_below="@+id/textViewDailyStat" />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

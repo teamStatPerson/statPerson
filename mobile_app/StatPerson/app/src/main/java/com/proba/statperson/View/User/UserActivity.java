@@ -77,13 +77,7 @@ public class UserActivity extends AppCompatActivity {
     @Subscribe
     public void onReceiveOverallStatistics(OverallStatisticsEvent overallStatistics) {
         removeProgressBar();
-
-//        sites = catalogElements.message;
-
-//        findViewById(R.id.textViewSite).setVisibility(View.VISIBLE);
-//        findViewById(R.id.textViewSiteName).setVisibility(View.VISIBLE);
-
-//        setOnClickListenerOnSitesPopup();
+        // TODO: 05.06.2016 display overall statistics
     }
 
     private void setOnClickListenerOnSitesPopup() {
