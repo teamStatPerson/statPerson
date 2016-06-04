@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,8 @@ import com.proba.statperson.events.NewCatalogElementsListEvent;
 import com.proba.statperson.events.SetDateFromEvent;
 import com.proba.statperson.events.SetDateTillEvent;
 import com.proba.statperson.interfaces.DailyStatDate;
+import com.proba.statperson.interfaces.IPresenter;
+import com.proba.statperson.presenter.PresenterImpl;
 import com.proba.statperson.view.user.fragments.DailyStatListFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,6 +47,12 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
     private int month;
     private int day;
 
+    private IPresenter presenter;
+    private String[] sites;
+    private String[] persons;
+
+    public static boolean isSitesListRetrieved;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +76,10 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         findViewById(R.id.textViewPerson).setVisibility(View.INVISIBLE);
         findViewById(R.id.linearLayoutPeriodFrom).setVisibility(View.INVISIBLE);
         findViewById(R.id.linearLayoutPeriodTill).setVisibility(View.INVISIBLE);
+
+        isSitesListRetrieved = false;
+        presenter = new PresenterImpl();
+        presenter.adminGetListOfCatalogElements(Constants.SITES_CATALOG_INDEX, null);
     }
 
     private void determineCurrentDate() {
@@ -81,56 +94,72 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
 
     @Subscribe
     public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
-//        removeProgressBar();
-//
-//        sites = catalogElements.message;
-//
-//        findViewById(R.id.textViewSite).setVisibility(View.VISIBLE);
-//        findViewById(R.id.textViewSiteName).setVisibility(View.VISIBLE);
-//
-//        setOnClickListenerOnPersonsPopup();
+        if (isSitesListRetrieved) {
+            isSitesListRetrieved = false;
+            removeProgressBar();
+            persons = catalogElements.message;
+            textViewPersonName.setVisibility(View.VISIBLE);
+            textViewDateFrom.setVisibility(View.VISIBLE);
+            textViewDateTill.setVisibility(View.VISIBLE);
+            findViewById(R.id.textViewPerson).setVisibility(View.VISIBLE);
+            findViewById(R.id.linearLayoutPeriodFrom).setVisibility(View.VISIBLE);
+            findViewById(R.id.linearLayoutPeriodTill).setVisibility(View.VISIBLE);
+            setOnClickListenerOnPersonsPopup();
+        } else {
+            isSitesListRetrieved = true;
+            sites = catalogElements.message;
+            textViewSiteName.setVisibility(View.VISIBLE);
+            findViewById(R.id.textViewSite).setVisibility(View.VISIBLE);
+            setOnClickListenerOnSitesPopup();
+
+            if (presenter == null) {
+                presenter = new PresenterImpl();
+            }
+            presenter.adminGetListOfCatalogElements(Constants.PERSONS_CATALOG_INDEX, null);
+        }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
+    private void removeProgressBar() {
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar3);
+        progressBar.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
+    private void setOnClickListenerOnPersonsPopup() {
+        TextView tvChoosePerson = (TextView) findViewById(R.id.textViewPersonName);
+        TextView tvChoosePerson2 = (TextView) findViewById(R.id.textViewPerson);
+
+        tvChoosePerson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenuPersons(v);
+            }
+        });
+
+        tvChoosePerson2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenuPersons(v);
+            }
+        });
     }
 
-    public void onClickPerson(View view) {
-        showPopupMenuPersons(view);
-    }
-
-    private void showPopupMenuPersons(View v) {
-        PopupMenu popupMenu = new PopupMenu(this, v);
-        popupMenu.inflate(R.menu.popupmenu_persons);
+    public void showPopupMenuPersons(View v) {
+        PopupMenu popupMenu = populatePersonsPopupMenu(new PopupMenu(this, v));
 
         popupMenu
                 .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        showPersonName(item.getTitle().toString());
+//                        setProgressBar();
+//                        Person person = new Person(item.getTitle().toString());
+//                        Toast.makeText(getActivity(), person.getName(), Toast.LENGTH_SHORT).show();
 
-                        switch (item.getItemId()) {
+//                        ((AdminActivity) getActivity()).
+//                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, item.getTitle().toString());
 
-                            case R.id.putin:
-                                showPersonName(" " + getString(R.string.putin));
-                                return true;
-                            case R.id.medvedev:
-                                showPersonName(" " + getString(R.string.medvedev));
-                                return true;
-                            case R.id.navalny:
-                                showPersonName(" " + getString(R.string.navalny));
-                                return true;
-                            default:
-                                return false;
-                        }
+                        return false;
                     }
                 });
 
@@ -138,10 +167,42 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
 
             @Override
             public void onDismiss(PopupMenu menu) {
+
             }
         });
         popupMenu.show();
     }
+
+    private PopupMenu populatePersonsPopupMenu(PopupMenu popupMenu) {
+        popupMenu.inflate(R.menu.popupmenu_persons);
+        popupMenu.getMenu().clear();
+
+        for (String person : persons) {
+            popupMenu.getMenu().add(person);
+        }
+
+        return popupMenu;
+    }
+
+    private void setOnClickListenerOnSitesPopup() {
+        TextView tvChooseSite = (TextView) findViewById(R.id.textViewSite);
+        TextView tvChooseSite2 = (TextView) findViewById(R.id.textViewSiteName);
+
+        tvChooseSite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenuSites(v);
+            }
+        });
+
+        tvChooseSite2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenuSites(v);
+            }
+        });
+    }
+
 
     public void showPersonName(String data) {
         textViewPersonName.setText(data);
@@ -151,34 +212,24 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         textViewSiteName.setText(data);
     }
 
-    public void onClickSite(View view) {
-        showPopupMenuSites(view);
-    }
 
-    private void showPopupMenuSites(View v) {
-        PopupMenu popupMenu = new PopupMenu(this, v);
-        popupMenu.inflate(R.menu.popupmenu_sites);
+    public void showPopupMenuSites(View v) {
+        PopupMenu popupMenu = populateSitesPopupMenu(new PopupMenu(this, v));
 
         popupMenu
                 .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        showSiteName(item.getTitle().toString());
+//                        setProgressBar();
+//                        Person person = new Person(item.getTitle().toString());
+//                        Toast.makeText(getActivity(), person.getName(), Toast.LENGTH_SHORT).show();
 
-                        switch (item.getItemId()) {
+//                        ((AdminActivity) getActivity()).
+//                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, item.getTitle().toString());
 
-                            case R.id.lenta:
-                                showSiteName(" " + getString(R.string.site_lenta));
-                                return true;
-                            case R.id.test:
-                                showSiteName(" " + getString(R.string.site_test));
-                                return true;
-                            case R.id.sample:
-                                showSiteName(" " + getString(R.string.site_sample));
-                                return true;
-                            default:
-                                return false;
-                        }
+                        return false;
                     }
                 });
 
@@ -186,9 +237,21 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
 
             @Override
             public void onDismiss(PopupMenu menu) {
+
             }
         });
         popupMenu.show();
+    }
+
+    private PopupMenu populateSitesPopupMenu(PopupMenu popupMenu) {
+        popupMenu.inflate(R.menu.popupmenu_sites);
+        popupMenu.getMenu().clear();
+
+        for (String site : sites) {
+            popupMenu.getMenu().add(site);
+        }
+
+        return popupMenu;
     }
 
     public void onClickDateFrom(View view) {
@@ -270,5 +333,17 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         if (dailyStatListFragment != null && dailyStatListFragment.isInLayout()) {
             dailyStatListFragment.getStartDate(from_date);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 }
