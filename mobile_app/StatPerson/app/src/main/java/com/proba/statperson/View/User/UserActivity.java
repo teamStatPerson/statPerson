@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.events.OverallStatisticsEvent;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.presenter.CatalogElement.Site;
 import com.proba.statperson.presenter.PresenterImpl;
@@ -62,7 +63,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
+    public void onReceiveCatalogElements(NewCatalogElementsListEvent catalogElements) {
         removeProgressBar();
 
         sites = catalogElements.message;
@@ -71,6 +72,18 @@ public class UserActivity extends AppCompatActivity {
         findViewById(R.id.textViewSiteName).setVisibility(View.VISIBLE);
 
         setOnClickListenerOnSitesPopup();
+    }
+
+    @Subscribe
+    public void onReceiveOverallStatistics(OverallStatisticsEvent overallStatistics) {
+        removeProgressBar();
+
+//        sites = catalogElements.message;
+
+//        findViewById(R.id.textViewSite).setVisibility(View.VISIBLE);
+//        findViewById(R.id.textViewSiteName).setVisibility(View.VISIBLE);
+
+//        setOnClickListenerOnSitesPopup();
     }
 
     private void setOnClickListenerOnSitesPopup() {
@@ -129,6 +142,7 @@ public class UserActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setProgressBar();
                 presenter.userGetOverallStatistics(new Site(siteName));
             }
         });
@@ -143,6 +157,11 @@ public class UserActivity extends AppCompatActivity {
         }
 
         return popupMenu;
+    }
+
+    private void setProgressBar() {
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar2);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     private void removeProgressBar() {

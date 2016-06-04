@@ -2,6 +2,7 @@ package com.proba.statperson.presenter.Statistics;
 
 import android.os.AsyncTask;
 
+import com.proba.statperson.events.OverallStatisticsEvent;
 import com.proba.statperson.presenter.CatalogElement.Site;
 
 import org.greenrobot.eventbus.EventBus;
@@ -52,7 +53,7 @@ public class OverallStatistics {
         protected void onPostExecute(HashMap<String, Integer> result) {
             super.onPostExecute(result);
 
-//            EventBus.getDefault().post(new NewCatalogElementsListEvent(getSitesNamesFromArray(result)));
+            EventBus.getDefault().post(new OverallStatisticsEvent(result));
         }
 
     }
