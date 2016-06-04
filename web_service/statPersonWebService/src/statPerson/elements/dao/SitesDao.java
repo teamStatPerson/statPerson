@@ -9,7 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import statPerson.Factory;
-import statPerson.administrator.Administrator;
+import statPerson.element.administrator.Administrator;
 import statPerson.elements.Sites;
 
 public class SitesDao {

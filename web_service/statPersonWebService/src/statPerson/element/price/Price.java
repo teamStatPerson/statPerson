@@ -1,4 +1,4 @@
-package elements;
+package statPerson.element.price;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -12,18 +12,28 @@ public class Price implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int id;
+	private String name;
 	private int maxAmountUsers;
 	private int maxAmountSites;
-	private Date durationOfPrice;
+	private int durationOfPriceDay;
 	
 	public Price(){}
 
-	public Price(int id, int maxAmountUsers, int maxAmountSites, Date durationOfPrice) {
+	public Price(String name, int maxAmountUsers, int maxAmountSites, int durationOfPriceDay) {
 		super();
-		this.id = id;
+		this.name = name;
 		this.maxAmountUsers = maxAmountUsers;
 		this.maxAmountSites = maxAmountSites;
-		this.durationOfPrice = durationOfPrice;
+		this.durationOfPriceDay = durationOfPriceDay;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	@XmlElement
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getId() {
@@ -53,13 +63,24 @@ public class Price implements Serializable {
 		this.maxAmountSites = maxAmountSites;
 	}
 
-	public Date getDurationOfPrice() {
-		return durationOfPrice;
+	public int getDurationOfPriceDay() {
+		return durationOfPriceDay;
 	}
 
 	@XmlElement
-	public void setDurationOfPrice(Date durationOfPrice) {
-		this.durationOfPrice = durationOfPrice;
+	public void setDurationOfPriceDay(int durationOfPriceDay) {
+		this.durationOfPriceDay = durationOfPriceDay;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + durationOfPriceDay;
+		result = prime * result + maxAmountSites;
+		result = prime * result + maxAmountUsers;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
 	}
 
 	@Override
@@ -71,18 +92,17 @@ public class Price implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Price other = (Price) obj;
-		if (durationOfPrice == null) {
-			if (other.durationOfPrice != null)
-				return false;
-		} else if (!durationOfPrice.equals(other.durationOfPrice))
-			return false;
-		if (id != other.id)
+		if (durationOfPriceDay != other.durationOfPriceDay)
 			return false;
 		if (maxAmountSites != other.maxAmountSites)
 			return false;
 		if (maxAmountUsers != other.maxAmountUsers)
 			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
 		return true;
 	}
-	
 }

@@ -1,6 +1,6 @@
 package statPerson.api;
 
-import statPerson.administrator.Administrator;
+import statPerson.element.administrator.Administrator;
 import statPerson.elements.Keywords;
 import statPerson.elements.Pages;
 import statPerson.elements.Persons;

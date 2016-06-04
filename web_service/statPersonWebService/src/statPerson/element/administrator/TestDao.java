@@ -1,4 +1,4 @@
-package statPerson.administrator;
+package statPerson.element.administrator;
 
 import org.junit.After;
 import org.junit.Assert;

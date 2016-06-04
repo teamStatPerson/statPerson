@@ -1,4 +1,4 @@
-package statPerson.administrator;
+package statPerson.element.administrator;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -77,6 +77,17 @@ public class Administrator implements Serializable {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dateRegistration == null) ? 0 : dateRegistration.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + (secondaryAdministrator ? 1231 : 1237);
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -95,8 +106,6 @@ public class Administrator implements Serializable {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (id != other.id)
-			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
@@ -107,12 +116,5 @@ public class Administrator implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Administrator [id=" + id + ", email=" + email + ", password=" + password + ", dateRegistration="
-				+ dateRegistration + ", secondaryAdministrator=" + secondaryAdministrator + "]";
-	}
-	
-	
-	
+
 }
