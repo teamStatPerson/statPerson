@@ -1,8 +1,6 @@
 package com.proba.statperson.presenter;
 
 import com.proba.statperson.Constants;
-import com.proba.statperson.presenter.CatalogElement.CatalogElement;
-import com.proba.statperson.presenter.CatalogElement.Person;
 import com.proba.statperson.presenter.CatalogElement.Site;
 import com.proba.statperson.presenter.Catalogs.KeywordsCatalog;
 import com.proba.statperson.presenter.Catalogs.PersonsCatalog;
@@ -10,6 +8,7 @@ import com.proba.statperson.presenter.Catalogs.SitesCatalog;
 import com.proba.statperson.interfaces.ICatalog;
 import com.proba.statperson.interfaces.IModel;
 import com.proba.statperson.interfaces.IPresenter;
+import com.proba.statperson.presenter.Statistics.OverallStatistics;
 
 /**
  * Created by vadik on 30.05.2016.
@@ -39,7 +38,8 @@ public class PresenterImpl implements IPresenter {
 
     @Override
     public void userGetOverallStatistics(Site site) {
-
+        OverallStatistics overallStatistics = new OverallStatistics();
+        overallStatistics.userGetOverallStatistics(site);
     }
 
 }

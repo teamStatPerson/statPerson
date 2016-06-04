@@ -17,6 +17,7 @@ import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
 import com.proba.statperson.interfaces.IPresenter;
+import com.proba.statperson.presenter.CatalogElement.Site;
 import com.proba.statperson.presenter.PresenterImpl;
 
 import org.greenrobot.eventbus.EventBus;
@@ -107,7 +108,7 @@ public class UserActivity extends AppCompatActivity {
 //                        ((AdminActivity) getActivity()).
 //                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, item.getTitle().toString());
 
-                        initFAB();
+                        initFAB(item.getTitle().toString());
                         return false;
                     }
                 });
@@ -122,13 +123,13 @@ public class UserActivity extends AppCompatActivity {
         popupMenu.show();
     }
 
-    private void initFAB() {
+    private void initFAB(final String siteName) {
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setVisibility(View.VISIBLE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                presenter.userGetOverallStatistics(new Site(siteName));
             }
         });
     }
