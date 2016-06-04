@@ -1,4 +1,4 @@
-package statPerson;
+package statPerson.api;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
@@ -14,13 +14,13 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import elements.Administrator;
 import exceptions.AdministratorNotExist;
 import exceptions.NotCorrectInputData;
 
 @Path("/administratorAPI")
-public class AdministratorAPI_Service {
+public class AdministratorRest {
 
+/*
     @GET
     @Produces(MediaType.TEXT_HTML)
     public String sayHtmlHello(){
@@ -39,7 +39,6 @@ public class AdministratorAPI_Service {
 			.build();
 	}
 	
-/*
 	AdministratorAPI_Dao administratorDAO = new AdministratorAPI_Dao();
 	@GET
 	//@Path("/administrators")

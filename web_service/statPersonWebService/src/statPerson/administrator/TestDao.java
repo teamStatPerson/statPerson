@@ -1,25 +1,23 @@
-package test;
+package statPerson.administrator;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import elements.Administrator;
 import exceptions.AdministratorNotExist;
 import exceptions.NotCorrectInputData;
-import statPerson.AdministratorAPI_Dao;
 import statPerson.Utils;
 
-public class AdministratorAPI_DAO_Test {
+public class TestDao {
 
 	private Administrator administratorInput;
 	private Administrator administratorOutput;
-	AdministratorAPI_Dao administratorDAO;
+	AdministratorDao administratorDAO;
 
 	@Before
 	public void createTestAdministator() {
-		administratorDAO = new AdministratorAPI_Dao();
+		administratorDAO = new AdministratorDao();
 		administratorInput = new Administrator("test@test.ru", "test_password", Utils.getCurrentTime(), false);
 	}
 

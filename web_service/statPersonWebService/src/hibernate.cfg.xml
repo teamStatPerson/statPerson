@@ -17,9 +17,8 @@
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">12345</property>
 
-
 		 <property name="javax.persistence.validation.mode">none</property> 
-			<mapping resource="/elements/Administrator.hbm.xml" /> 
+			<mapping resource="/statPerson/administrator/Administrator.hbm.xml" /> 
 <!-- 
 		<property name="connection.pool_size">1</property>
 		<property name="current_session_context_class">thread</property>

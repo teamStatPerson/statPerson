@@ -1,4 +1,4 @@
-package statPerson;
+package statPerson.administrator;
 
 import java.util.List;
 
@@ -10,11 +10,12 @@ import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import elements.Administrator;
 import exceptions.AdministratorNotExist;
 import exceptions.NotCorrectInputData;
+import statPerson.Factory;
+import statPerson.Utils;
 
-public class AdministratorAPI_Dao {
+public class AdministratorDao {
 	
 	public Administrator getAdministrator(String email, String password)
 			throws AdministratorNotExist, NotCorrectInputData {

@@ -8,8 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import elements.Administrator;
 import statPerson.Factory;
+import statPerson.administrator.Administrator;
 import statPerson.elements.Sites;
 
 public class SitesDao {

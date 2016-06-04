@@ -3,7 +3,7 @@
 
 
 <hibernate-mapping>
-	<class name="elements.Administrator" table="ADMINISTRATOR">
+	<class name="statPerson.administrator.Administrator" table="ADMINISTRATOR">
 		<id name="id" type="int" column="ID">
 			<generator class="native" />
 		</id>
