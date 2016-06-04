@@ -1,6 +1,9 @@
-package entity;
+package statPerson.elements;
 
 import javax.persistence.*;
+
+import FromCrauler.PersonPageRanks;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,68 +12,75 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "persons")
-public class Persons {
-    private int id;
-    private String name;
-    private Set<Keywords> keywords = new HashSet<Keywords>();
-    private Set<Personpagerank> personpagerank = new HashSet<Personpagerank>();
+public class Persons implements PersonsRest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", nullable = false)
-    public int getId() {
-        return id;
-    }
+	private static final long serialVersionUID = 1L;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	private int id;
+	private String name;
+	private Set<Keywords> keywords = new HashSet<Keywords>();
+	private Set<PersonPageRanks> personpagerank = new HashSet<PersonPageRanks>();
 
-    @Basic
-    @Column(name = "Name", nullable = false, length = 2048)
-    public String getName() {
-        return name;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID", nullable = false)
+	public int getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    @OneToMany(targetEntity = Keywords.class, mappedBy = "person")
-    public Set<Keywords> getKeywords() {
-        return keywords;
-    }
+	@Basic
+	@Column(name = "Name", nullable = false, length = 2048)
+	public String getName() {
+		return name;
+	}
 
-    public void setKeywords(Set<Keywords> keywords) {
-        this.keywords = keywords;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @OneToMany(targetEntity = Personpagerank.class, mappedBy = "person")
-    public Set<Personpagerank> getPersonpagerank() {
-        return personpagerank;
-    }
+	@OneToMany(targetEntity = Keywords.class, mappedBy = "person")
+	public Set<Keywords> getKeywords() {
+		return keywords;
+	}
 
-    public void setPersonpagerank(Set<Personpagerank> personpagerank) {
-        this.personpagerank = personpagerank;
-    }
+	public void setKeywords(Set<Keywords> keywords) {
+		this.keywords = keywords;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	@OneToMany(targetEntity = PersonPageRanks.class, mappedBy = "person")
+	public Set<PersonPageRanks> getPersonpagerank() {
+		return personpagerank;
+	}
 
-        Persons persons = (Persons) o;
+	public void setPersonpagerank(Set<PersonPageRanks> personpagerank) {
+		this.personpagerank = personpagerank;
+	}
 
-        if (id != persons.id) return false;
-        if (name != null ? !name.equals(persons.name) : persons.name != null) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 
-        return true;
-    }
+		Persons persons = (Persons) o;
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
-    }
+		if (id != persons.id)
+			return false;
+		if (name != null ? !name.equals(persons.name) : persons.name != null)
+			return false;
+
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = id;
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		return result;
+	}
 }

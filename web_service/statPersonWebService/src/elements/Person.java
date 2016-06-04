@@ -24,18 +24,14 @@ public class Person implements Serializable {
 	public int getId() {
 		return id;
 	}
-
-	@XmlElement
-	public void setId(int id) {
+ {
 		this.id = id;
 	}
 
 	public String getName() {
 		return name;
 	}
-
-	@XmlElement
-	public void setName(String name) {
+ {
 		this.name = name;
 	}
 

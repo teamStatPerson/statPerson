@@ -1,14 +1,14 @@
-package entity;
+package FromCrauler;
 
 import javax.persistence.*;
 
-/**
- * Created by alexey_n on 01.06.2016.
- */
+import statPerson.elements.Pages;
+import statPerson.elements.Persons;
+
 @Entity
 @Table(name = "personpagerank")
 @IdClass(PersonpagerankPK.class)
-public class Personpagerank {
+public class PersonPageRanks {
     private int personId;
     private int pageId;
     private int rank;
@@ -71,7 +71,7 @@ public class Personpagerank {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Personpagerank that = (Personpagerank) o;
+        PersonPageRanks that = (PersonPageRanks) o;
 
         if (personId != that.personId) return false;
         if (pageId != that.pageId) return false;

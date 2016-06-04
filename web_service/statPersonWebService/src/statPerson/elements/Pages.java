@@ -1,6 +1,9 @@
-package entity;
+package statPerson.elements;
 
 import javax.persistence.*;
+
+import FromCrauler.PersonPageRanks;
+
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +13,10 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "pages")
-public class Pages {
+public class Pages implements PagesRest{
+
+	private static final long serialVersionUID = 1L;
+
     private int id;
     private String url;
     private int siteId;
@@ -18,7 +24,7 @@ public class Pages {
     private Calendar lastScanDate;
     private String html;
     private Sites site;
-    private Set<Personpagerank> personpagerank = new HashSet<Personpagerank>();
+    private Set<PersonPageRanks> personpagerank = new HashSet<PersonPageRanks>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -93,12 +99,12 @@ public class Pages {
         this.site = site;
     }
 
-    @OneToMany(targetEntity = Personpagerank.class, mappedBy = "page")
-    public Set<Personpagerank> getPersonpagerank() {
+    @OneToMany(targetEntity = PersonPageRanks.class, mappedBy = "page")
+    public Set<PersonPageRanks> getPersonpagerank() {
         return personpagerank;
     }
 
-    public void setPersonpagerank(Set<Personpagerank> personpagerank) {
+    public void setPersonpagerank(Set<PersonPageRanks> personpagerank) {
         this.personpagerank = personpagerank;
     }
 

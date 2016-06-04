@@ -1,16 +1,16 @@
-package entity;
+package statPerson.elements;
 
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by alexey_n on 01.06.2016.
- */
 @Entity
 @Table(name = "sites")
 public class Sites {
+
+	private static final long serialVersionUID = 1L;
+	
     private int id;
     private String name;
     private Calendar StartDateStatistics;
