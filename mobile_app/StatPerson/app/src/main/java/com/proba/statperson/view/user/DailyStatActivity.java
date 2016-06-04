@@ -47,12 +47,27 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_stat);
 
+        init();
+        determineCurrentDate();
+    }
+
+    private void init() {
         textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
         textViewSiteName = (TextView) findViewById(R.id.textViewSiteName);
         textViewDateFrom = (TextView) findViewById(R.id.textViewDateFrom);
         textViewDateTill = (TextView) findViewById(R.id.textViewDateTill);
 
-        // определяем текущую дату
+        textViewPersonName.setVisibility(View.INVISIBLE);
+        textViewSiteName.setVisibility(View.INVISIBLE);
+        textViewDateFrom.setVisibility(View.INVISIBLE);
+        textViewDateTill.setVisibility(View.INVISIBLE);
+        findViewById(R.id.textViewSite).setVisibility(View.INVISIBLE);
+        findViewById(R.id.textViewPerson).setVisibility(View.INVISIBLE);
+        findViewById(R.id.linearLayoutPeriodFrom).setVisibility(View.INVISIBLE);
+        findViewById(R.id.linearLayoutPeriodTill).setVisibility(View.INVISIBLE);
+    }
+
+    private void determineCurrentDate() {
         calendarToday = Calendar.getInstance();
         year = calendarToday.get(Calendar.YEAR);
         month = calendarToday.get(Calendar.MONTH);
@@ -61,6 +76,8 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         calendarTill = calendarToday;
         today_date = day + "." + month + "." + year;
     }
+
+
 
     @Override
     protected void onPause() {

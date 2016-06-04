@@ -26,7 +26,7 @@
     <string name="users">Users</string>
     <string name="button_apply">Apply</string>
     <string name="period_from">Period from: </string>
-    <string name="period_till">till: </string>
+    <string name="period_till">Period till: </string>
 
     <string name="fragment_persons">Choice person</string>
     <string name="fragment_sites">Choice site</string>
