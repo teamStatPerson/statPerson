@@ -10,7 +10,6 @@ import org.hibernate.criterion.Restrictions;
 
 import statPerson.Factory;
 import statPerson.Utils;
-import statPerson.element.administrator.Administrator;
 
 public class AdministratorPriceDao {
 

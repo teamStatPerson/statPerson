@@ -1,6 +1,7 @@
-package statPerson;
+package statPerson.demo;
 
 import exceptions.NotCorrectInputData;
+import statPerson.Utils;
 import statPerson.element.administrator.Administrator;
 import statPerson.element.administrator.AdministratorDao;
 import statPerson.element.administrator_price.AdministratorPriceDao;
