@@ -2,6 +2,8 @@ package statPerson.elements;
 
 import javax.persistence.*;
 
+import statPerson.elements.xml.KeywordsRest;
+
 @Entity
 @Table(name = "keywords")
 public class Keywords implements KeywordsRest {

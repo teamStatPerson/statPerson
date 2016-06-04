@@ -1,4 +1,4 @@
-package ru.geekbrains.userapi.resources;
+package statPerson.elements.rest_resource;
 
 import java.util.List;
 
@@ -11,36 +11,23 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import ru.geekbrains.userapi.model.Site;
-import ru.geekbrains.userapi.service.SiteService;
+import statPerson.elements.Sites;
+
 
 @Path("/sites")
-public class SiteResource {
-	SiteService siteService = new SiteService();
+public interface SiteResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public List<Site> getSites() {
-		return siteService.getAllSites();
-	}
+	public List<Sites> getSites();
 
 	@GET
 	@Path("/{siteId}")
 	@Produces(MediaType.APPLICATION_XML)
-	public Site getSite(@PathParam("siteId") int siteId) {
-		return siteService.getSite(siteId);
-	}
+	public Sites getSite(@PathParam("siteId") int siteId);
 	
 	@PUT
 	@Produces(MediaType.APPLICATION_XML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Site addSite(@FormParam("name") String name) {
-		Site site = new Site();
-		site.setName(name);
-		site.setId(siteService.getAllSites().size() + 1);
-
-		siteService.addSite(site);
-		
-		return site;
-	}
+	public Sites addSite(@FormParam("name") String name);
 }

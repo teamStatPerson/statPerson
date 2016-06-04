@@ -1,13 +1,10 @@
-package FromCrauler;
+package statPerson.elements;
 
 import javax.persistence.*;
 
-import statPerson.elements.Pages;
-import statPerson.elements.Persons;
-
 @Entity
 @Table(name = "personpagerank")
-@IdClass(PersonpagerankPK.class)
+@IdClass(PersonpagerankElement.class)
 public class PersonPageRanks {
     private int personId;
     private int pageId;

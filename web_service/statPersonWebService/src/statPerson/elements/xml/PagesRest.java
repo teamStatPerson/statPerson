@@ -1,4 +1,4 @@
-package statPerson.elements;
+package statPerson.elements.xml;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -6,7 +6,8 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import FromCrauler.PersonPageRanks;
+import statPerson.elements.PersonPageRanks;
+import statPerson.elements.Sites;
 
 public interface PagesRest extends Serializable {
 

@@ -1,4 +1,4 @@
-package ru.geekbrains.userapi.resources;
+package statPerson.elements.rest_resource;
 
 import java.util.List;
 
@@ -9,25 +9,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import ru.geekbrains.userapi.model.User;
-import ru.geekbrains.userapi.service.UserService;
-
 @Path("/users")
-public class UserResource {
-	
-	UserService userService = new UserService();
-	
+public interface UserResource {
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public List<User> getUsers() {
-		return userService.getAllUsers();
-	}
+	public List<Users> getUsers();
 
 	@GET
 	@Path("/{userId}")
 	@Produces(MediaType.APPLICATION_XML)
-	public User getUser(@PathParam("userId") int userId) {
-		return userService.getUser(userId);
-	}
+	public Users getUser(@PathParam("userId") int userId);
 	
 }

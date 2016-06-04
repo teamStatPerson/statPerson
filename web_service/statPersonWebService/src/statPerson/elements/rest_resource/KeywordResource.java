@@ -1,4 +1,4 @@
-package ru.geekbrains.userapi.resources;
+package statPerson.elements.rest_resource;
 
 import java.util.List;
 
@@ -8,21 +8,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import ru.geekbrains.userapi.model.Keyword;
-import ru.geekbrains.userapi.service.KeywordService;
-import ru.geekbrains.userapi.service.PersonService;
+import statPerson.elements.Keywords;
+
 
 @Path("/keywords")
-public class KeywordResource {
-	KeywordService keywordService = new KeywordService();
-	PersonService personService = new PersonService();
+public interface KeywordResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public List<Keyword> getPersonKeywords(@PathParam("PersonId") int personId) {
-		personService = PersonService.getInstance();
-
-		return keywordService.getPersonKeywors(personService.getPerson(personId));
-	}
+	public List<Keywords> getPersonKeywords(@PathParam("PersonId") int personId);
 
 }

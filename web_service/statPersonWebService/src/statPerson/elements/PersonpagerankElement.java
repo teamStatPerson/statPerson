@@ -1,15 +1,15 @@
-package entity;
+package statPerson.elements;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Id;
-import java.io.Serializable;
+import statPerson.elements.xml.PersonpagerankElementRest;
 
 /**
  * Created by alexey_n on 01.06.2016.
  */
 
-public class PersonpagerankPK implements Serializable {
+public class PersonpagerankElement implements PersonpagerankElementRest {
+
+	private static final long serialVersionUID = 1L;
+
     private int personId;
     private int pageId;
 
@@ -34,7 +34,7 @@ public class PersonpagerankPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PersonpagerankPK that = (PersonpagerankPK) o;
+        PersonpagerankElement that = (PersonpagerankElement) o;
 
         if (personId != that.personId) return false;
         if (pageId != that.pageId) return false;

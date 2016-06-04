@@ -2,7 +2,7 @@ package statPerson.elements;
 
 import javax.persistence.*;
 
-import FromCrauler.PersonPageRanks;
+import statPerson.elements.xml.PersonsRest;
 
 import java.util.HashSet;
 import java.util.Set;
