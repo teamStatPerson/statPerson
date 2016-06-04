@@ -16,10 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
+import com.proba.statperson.events.SetMedvedevEvent;
+import com.proba.statperson.events.SetNavalnyEvent;
+import com.proba.statperson.events.SetPutinEvent;
 import com.proba.statperson.interfaces.FabProvider;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.presenter.PresenterImpl;
@@ -31,6 +33,8 @@ import com.proba.statperson.view.admin.fragments.FragmentSites;
 import com.proba.statperson.view.admin.fragments.FragmentStatus;
 import com.proba.statperson.view.admin.fragments.FragmentTotalStat;
 import com.proba.statperson.view.admin.fragments.FragmentUsers;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class AdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FabProvider {
@@ -98,7 +102,6 @@ public class AdminActivity extends AppCompatActivity
     public FloatingActionButton getFloatingActionButton() {
         return fab;
     }
-
 
 
     private void initViews() {
@@ -222,19 +225,13 @@ public class AdminActivity extends AppCompatActivity
                         switch (item.getItemId()) {
 
                             case R.id.putin:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали Путин",
-                                        Toast.LENGTH_SHORT).show();
+                                EventBus.getDefault().post(new SetPutinEvent(getResources().getString(R.string.putin)));
                                 return true;
                             case R.id.medvedev:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали Медведев",
-                                        Toast.LENGTH_SHORT).show();
+                                EventBus.getDefault().post(new SetMedvedevEvent(getResources().getString(R.string.medvedev)));
                                 return true;
                             case R.id.navalny:
-                                Toast.makeText(getApplicationContext(),
-                                        "Вы выбрали Навальный",
-                                        Toast.LENGTH_SHORT).show();
+                                EventBus.getDefault().post(new SetNavalnyEvent(getResources().getString(R.string.navalny)));
                                 return true;
                             default:
                                 return false;
@@ -246,8 +243,6 @@ public class AdminActivity extends AppCompatActivity
 
             @Override
             public void onDismiss(PopupMenu menu) {
-                Toast.makeText(getApplicationContext(), "onDismiss",
-                        Toast.LENGTH_SHORT).show();
             }
         });
         popupMenu.show();

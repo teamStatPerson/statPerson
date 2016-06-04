@@ -51,14 +51,14 @@ public class FragmentKeyWords extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private ListAdapter keyWordsAdapter;
-
     final String[] keyWordsPutinArray = new String[]{"Путиным", "Путину", "Путина", "Путине"};
     private ArrayList<String> keyWordsPutinList = new ArrayList<>(Arrays.asList(keyWordsPutinArray));
+    final String[] keyWordsMedvedevArray = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
+    private ArrayList<String> keyWordsMedvedevList = new ArrayList<>(Arrays.asList(keyWordsMedvedevArray));
+    final String[] keyWordsNavalnyArray = new String[]{"Навальным", "Навальному", "Навального", "Навальном"};
+    private ArrayList<String> keyWordsNavalnyList = new ArrayList<>(Arrays.asList(keyWordsNavalnyArray));
 // Fragment FragmentKeyWords{56d4736} not attached to Activity
 // private ArrayList<String> keyWordsPutinList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.putin_array)));
-//    final String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
-//    final String[] keyWordsNavalny = new String[]{"Навальным", "Навальному", "Навального", "Навальном"};
 //    final String[] keyWordsPutin = getResources().getStringArray(R.array.putin_array);
 //    final String[] keyWordsMedvedev = new String[] {getResources().getStringArray(R.array.medvedev_array);
 //    final String[] keyWordsNavalny = getResources().getStringArray(R.array.navalny_array);
@@ -177,11 +177,12 @@ public class FragmentKeyWords extends ListFragment {
 
         View rootView = inflater.inflate(R.layout.fragment_key_words, null);
         textViewPersonName = (TextView) rootView.findViewById(R.id.textViewPersonName);
-        keyWordsAdapter = new ArrayAdapter<>(getActivity(),
+/*        keyWordsAdapter = new ArrayAdapter<>(getActivity(),
 //                android.R.layout.simple_list_item_1, keyWordsPutin);
-                android.R.layout.simple_list_item_multiple_choice, keyWordsPutinList);
+
+            android.R.layout.simple_list_item_multiple_choice, keyWordsPutinList);
         setListAdapter(keyWordsAdapter);
-        return rootView;
+  */      return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -221,18 +222,25 @@ public class FragmentKeyWords extends ListFragment {
     @Subscribe
     public void onSetPutinEvent(SetPutinEvent event) {
         textViewPersonName.setText(getString(R.string.putin));
+        ListAdapter keyWordsAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_list_item_multiple_choice, keyWordsPutinList);
+        setListAdapter(keyWordsAdapter);
     }
-
 
     @Subscribe
     public void onSetMedvedevEvent(SetMedvedevEvent event) {
         textViewPersonName.setText(getString(R.string.medvedev));
+        ListAdapter keyWordsAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_list_item_multiple_choice, keyWordsMedvedevList);
+        setListAdapter(keyWordsAdapter);
     }
-
 
     @Subscribe
     public void onSetNavalnyEvent(SetNavalnyEvent event) {
         textViewPersonName.setText(getString(R.string.navalny));
+        ListAdapter keyWordsAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_list_item_multiple_choice, keyWordsNavalnyList);
+        setListAdapter(keyWordsAdapter);
     }
 
     @Override
