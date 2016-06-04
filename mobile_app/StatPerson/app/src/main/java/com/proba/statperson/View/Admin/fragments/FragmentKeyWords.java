@@ -106,21 +106,10 @@ public class FragmentKeyWords extends ListFragment {
 
     @Override
     public void onActivityCreated(Bundle savedState) {
-        registerForContextMenu(getListView());
         super.onActivityCreated(savedState);
-        setHasOptionsMenu(true);
-
         setListAdapter(getListAdapter());
-        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-                                           int arg2, long arg3) {
-
-                Toast.makeText(getActivity(), "On long click listener", Toast.LENGTH_LONG).show();
-                return true;
-            }
-        });
+        registerForContextMenu(getListView());
+        setHasOptionsMenu(true);
     }
 
     @Override

@@ -75,21 +75,10 @@ public class FragmentSites extends ListFragment {
 
     @Override
     public void onActivityCreated(Bundle savedState) {
-        registerForContextMenu(getListView());
         super.onActivityCreated(savedState);
-        setHasOptionsMenu(true);
-
         setListAdapter(getListAdapter());
-        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-                                           int arg2, long arg3) {
-
-                Toast.makeText(getActivity(), "On long click listener", Toast.LENGTH_LONG).show();
-                return true;
-            }
-        });
+        registerForContextMenu(getListView());
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -105,8 +94,7 @@ public class FragmentSites extends ListFragment {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.edit:
                 Toast.makeText(getActivity(), "Edit clicked", Toast.LENGTH_LONG).show();
                 break;
@@ -135,6 +123,7 @@ public class FragmentSites extends ListFragment {
         view = inflater.inflate(R.layout.fragment_sites, container, false);
         return view;
     }
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
