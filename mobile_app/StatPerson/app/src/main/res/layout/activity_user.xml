@@ -59,6 +59,13 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar2"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/textViewTotalStat" />
+
     <TableLayout
         android:id="@+id/tableTotalStat"
         android:layout_width="match_parent"
@@ -159,4 +166,5 @@
         </TableRow>
 
     </TableLayout>
+
 </RelativeLayout>

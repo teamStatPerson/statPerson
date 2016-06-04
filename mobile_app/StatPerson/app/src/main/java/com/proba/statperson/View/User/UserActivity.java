@@ -27,8 +27,13 @@ public class UserActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
+//        textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
         textViewSiteName = (TextView) findViewById(R.id.textViewSiteName);
+
+        findViewById(R.id.tableTotalStat).setVisibility(View.GONE);
+
+        findViewById(R.id.textViewSite).setVisibility(View.INVISIBLE);
+        findViewById(R.id.textViewSiteName).setVisibility(View.INVISIBLE);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
