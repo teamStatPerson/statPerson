@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import elements.Administrator;
-import exceptions.AdministratorManyAccounts;
 import exceptions.AdministratorNotExist;
 import exceptions.NotCorrectInputData;
 import statPerson.AdministratorAPI_Dao;
@@ -33,16 +32,12 @@ public class AdministratorAPI_DAO_Test {
 			try {
 				administratorOutput = administratorDAO.addPrimaryAdministrator(administratorInput.getEmail(),
 						administratorInput.getPassword());
-			} catch (AdministratorManyAccounts e) {
-				e.printStackTrace();
 			} catch (NotCorrectInputData e) {
 				e.printStackTrace();
 			}
 
 			Assert.assertTrue(administratorInput.getEmail().equals(administratorOutput.getEmail()));
 			Assert.assertTrue(administratorInput.getPassword().equals(administratorOutput.getPassword()));
-		} catch (AdministratorManyAccounts e1) {
-			e1.printStackTrace();
 		} catch (NotCorrectInputData e1) {
 			e1.printStackTrace();
 		}

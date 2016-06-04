@@ -11,14 +11,13 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import elements.Administrator;
-import exceptions.AdministratorManyAccounts;
 import exceptions.AdministratorNotExist;
 import exceptions.NotCorrectInputData;
 
 public class AdministratorAPI_Dao {
 	
 	public Administrator getAdministrator(String email, String password)
-			throws AdministratorNotExist, AdministratorManyAccounts, NotCorrectInputData {
+			throws AdministratorNotExist, NotCorrectInputData {
 		if (email == null || password == null) {
 			throw new NotCorrectInputData();
 		}
@@ -35,8 +34,6 @@ public class AdministratorAPI_Dao {
 			List<Administrator> administrators = (List<Administrator>) criteria.list();
 			if (administrators.size() == 0) {
 				throw new AdministratorNotExist();
-			} else if (administrators.size() > 1) {
-				throw new AdministratorManyAccounts();
 			}
 			administrator = administrators.get(0);
 
@@ -52,7 +49,7 @@ public class AdministratorAPI_Dao {
 	};
 
 	public Administrator addPrimaryAdministrator(String email, String password)
-			throws AdministratorManyAccounts, NotCorrectInputData {
+			throws  NotCorrectInputData {
 		if (email == null || password == null) {
 			throw new NotCorrectInputData();
 		}
