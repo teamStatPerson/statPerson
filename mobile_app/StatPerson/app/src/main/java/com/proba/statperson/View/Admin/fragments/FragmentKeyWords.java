@@ -90,10 +90,6 @@ public class FragmentKeyWords extends ListFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-//        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-//                android.R.layout.simple_list_item_1, keyWordsPutin);
-//        setListAdapter(adapter);
-
         view = inflater.inflate(R.layout.fragment_key_words, null);
 
         view.findViewById(R.id.textViewPerson).setVisibility(View.INVISIBLE);
@@ -112,10 +108,6 @@ public class FragmentKeyWords extends ListFragment {
         view.findViewById(R.id.textViewPersonName).setVisibility(View.VISIBLE);
 
         setOnClickListenerOnPersonsPopup(view);
-
-//        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-//                android.R.layout.simple_list_item_1, catalogElements.message);
-//        setListAdapter(adapter);
     }
 
     @Subscribe
