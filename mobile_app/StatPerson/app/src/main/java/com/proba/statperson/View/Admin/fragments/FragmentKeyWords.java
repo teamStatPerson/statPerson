@@ -182,8 +182,8 @@ public class FragmentKeyWords extends ListFragment {
         popupMenu.inflate(R.menu.popupmenu_persons);
         popupMenu.getMenu().clear();
 
-        for (int i = 0; i < persons.length; i++) {
-            popupMenu.getMenu().add(persons[i]);
+        for (String person : persons) {
+            popupMenu.getMenu().add(person);
         }
 
         return popupMenu;

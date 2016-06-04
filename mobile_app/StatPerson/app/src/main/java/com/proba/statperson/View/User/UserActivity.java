@@ -76,29 +76,29 @@ public class UserActivity extends AppCompatActivity {
         findViewById(R.id.textViewSite).setVisibility(View.VISIBLE);
         findViewById(R.id.textViewSiteName).setVisibility(View.VISIBLE);
 
-        setOnClickListenerOnPersonsPopup();
+        setOnClickListenerOnSitesPopup();
     }
 
-    private void setOnClickListenerOnPersonsPopup() {
-        TextView tvChoosePerson = (TextView) findViewById(R.id.textViewSite);
-        TextView tvChoosePerson2 = (TextView) findViewById(R.id.textViewSiteName);
+    private void setOnClickListenerOnSitesPopup() {
+        TextView tvChooseSite = (TextView) findViewById(R.id.textViewSite);
+        TextView tvChooseSite2 = (TextView) findViewById(R.id.textViewSiteName);
 
-        tvChoosePerson.setOnClickListener(new View.OnClickListener() {
+        tvChooseSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupMenuPersons(v);
+                showPopupMenuSites(v);
             }
         });
 
-        tvChoosePerson2.setOnClickListener(new View.OnClickListener() {
+        tvChooseSite2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopupMenuPersons(v);
+                showPopupMenuSites(v);
             }
         });
     }
 
-    public void showPopupMenuPersons(View v) {
+    public void showPopupMenuSites(View v) {
         PopupMenu popupMenu = populatePopupMenu(new PopupMenu(this, v));
 
         popupMenu
@@ -132,8 +132,8 @@ public class UserActivity extends AppCompatActivity {
         popupMenu.inflate(R.menu.popupmenu_sites);
         popupMenu.getMenu().clear();
 
-        for (int i = 0; i < sites.length; i++) {
-            popupMenu.getMenu().add(sites[i]);
+        for (String site : sites) {
+            popupMenu.getMenu().add(site);
         }
 
         return popupMenu;
