@@ -128,10 +128,7 @@ public class UserActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "FAB", Toast.LENGTH_SHORT).show();
 
-//                Intent intent = new Intent(UserActivity.this, DailyStatActivity.class);
-//                startActivity(intent);
             }
         });
     }
