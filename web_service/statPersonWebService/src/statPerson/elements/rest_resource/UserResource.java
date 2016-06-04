@@ -9,6 +9,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import statPerson.elements.Users;
+
 @Path("/users")
 public interface UserResource {
 	@GET
