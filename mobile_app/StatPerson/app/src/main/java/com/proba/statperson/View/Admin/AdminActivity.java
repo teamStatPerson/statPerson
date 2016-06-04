@@ -170,7 +170,6 @@ public class AdminActivity extends AppCompatActivity
                 break;
             case Constants.KEYWORDS_CATALOG_INDEX:
                 presenter.adminGetListOfCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, param);
-                Toast.makeText(this, param, Toast.LENGTH_SHORT).show();
                 break;
         }
     }

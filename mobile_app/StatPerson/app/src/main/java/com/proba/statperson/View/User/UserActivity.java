@@ -12,11 +12,18 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.proba.statperson.Constants;
 import com.proba.statperson.R;
+import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.interfaces.IPresenter;
+import com.proba.statperson.presenter.PresenterImpl;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class UserActivity extends AppCompatActivity {
+
+    private IPresenter presenter;
 
     private FloatingActionButton fab;
     TextView textViewPersonName;
@@ -26,8 +33,16 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
+        init();
+    }
+
+    private void init() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        presenter = new PresenterImpl();
+        presenter.adminGetListOfCatalogElements(Constants.SITES_CATALOG_INDEX, null);
 
 //        textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
         textViewSiteName = (TextView) findViewById(R.id.textViewSiteName);
@@ -47,6 +62,22 @@ public class UserActivity extends AppCompatActivity {
 //                startActivity(intent);
             }
         });
+    }
+
+    @Subscribe
+    public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
+//        removeProgressBar();
+//
+//        persons = catalogElements.message;
+//
+//        view.findViewById(R.id.textViewPerson).setVisibility(View.VISIBLE);
+//        view.findViewById(R.id.textViewPersonName).setVisibility(View.VISIBLE);
+//
+//        setOnClickListenerOnPersonsPopup(view);
+
+//        ListAdapter adapter = new ArrayAdapter<>(getActivity(),
+//                android.R.layout.simple_list_item_1, catalogElements.message);
+//        setListAdapter(adapter);
     }
 
     @Override
