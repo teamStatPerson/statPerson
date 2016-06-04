@@ -1,19 +1,13 @@
 package statPerson.element.price;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 
-import exceptions.AdministratorNotExist;
-import exceptions.NotCorrectInputData;
 import statPerson.Factory;
-import statPerson.Utils;
-import statPerson.element.administrator.Administrator;
 
 public class PriceDao {
 
@@ -59,6 +53,7 @@ public class PriceDao {
 		return price;
 	};
 
+	@SuppressWarnings("unchecked")
 	public static List<Price> getPrices() {
 		Session session = Factory.getFactory().openSession();
 		Transaction tx = null;

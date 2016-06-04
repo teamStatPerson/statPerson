@@ -18,6 +18,7 @@
 
 		<mapping resource="/statPerson/element/administrator/Administrator.hbm.xml" />
 		<mapping resource="/statPerson/element/price/Price.hbm.xml" />
+		<mapping resource="/statPerson/element/administrator_price/AdministratorPrice.hbm.xml" />
 
 
 	</session-factory>

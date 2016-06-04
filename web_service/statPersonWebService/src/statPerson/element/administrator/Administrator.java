@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "administrator")
 public class Administrator implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private int id;
@@ -17,22 +17,27 @@ public class Administrator implements Serializable {
 	private Date dateRegistration;
 	private boolean secondaryAdministrator;
 
-	public Administrator(){}
+	public Administrator() {
+	}
 
-	public Administrator(
-			String email, 
-			String password, 
-			Date dateRegistration, 
-			boolean secondaryAdministrator) {
+	public Administrator(String email, String password, Date dateRegistration, boolean secondaryAdministrator) {
 		this.email = email;
 		this.password = password;
 		this.dateRegistration = dateRegistration;
 		this.secondaryAdministrator = secondaryAdministrator;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 	@XmlElement
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getPassword() {
+		return password;
 	}
 
 	@XmlElement
@@ -45,31 +50,22 @@ public class Administrator implements Serializable {
 		this.dateRegistration = dateRegistration;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
 	@XmlElement
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	@XmlElement
-	public void setSecondaryAdministrator(boolean secondaryAdministrator) {
-		this.secondaryAdministrator = secondaryAdministrator;
-	}
-
-	
-	public int getId() {
-		return id;
-	}
-
-	public String getPassword() {
-		return password;
 	}
 
 	public Date getDateRegistration() {
 		return dateRegistration;
 	}
 
-	public String getEmail() {
-		return email;
+	@XmlElement
+	public void setSecondaryAdministrator(boolean secondaryAdministrator) {
+		this.secondaryAdministrator = secondaryAdministrator;
 	}
 
 	public boolean getSecondaryAdministrator() {
@@ -115,6 +111,5 @@ public class Administrator implements Serializable {
 			return false;
 		return true;
 	}
-
 
 }

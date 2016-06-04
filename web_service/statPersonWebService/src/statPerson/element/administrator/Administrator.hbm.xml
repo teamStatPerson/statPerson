@@ -3,7 +3,8 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jun 4, 2016 5:42:15 PM by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-	<class name="statPerson.element.administrator.Administrator" table="ADMINISTRATOR">
+	<class name="statPerson.element.administrator.Administrator"
+		table="ADMINISTRATOR">
 		<id name="id" type="int" column="ID">
 			<generator class="native" />
 		</id>

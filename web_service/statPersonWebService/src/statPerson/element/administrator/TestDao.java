@@ -13,11 +13,9 @@ public class TestDao {
 
 	private Administrator administratorInput;
 	private Administrator administratorOutput;
-	AdministratorDao administratorDAO;
 
 	@Before
-	public void createTestAdministator() {
-		administratorDAO = new AdministratorDao();
+	public void before() {
 		administratorInput = new Administrator("test@test.ru", "test_password", Utils.getCurrentTime(), false);
 	}
 
@@ -25,10 +23,10 @@ public class TestDao {
 	public void testDAO() {
 		try {
 			Assert.assertNull(
-					administratorDAO.getAdministrator(administratorInput.getEmail(), administratorInput.getPassword()));
+					AdministratorDao.getAdministrator(administratorInput.getEmail(), administratorInput.getPassword()));
 		} catch (AdministratorNotExist e1) {
 			try {
-				administratorOutput = administratorDAO.addPrimaryAdministrator(administratorInput.getEmail(),
+				administratorOutput = AdministratorDao.addPrimaryAdministrator(administratorInput.getEmail(),
 						administratorInput.getPassword());
 			} catch (NotCorrectInputData e) {
 				e.printStackTrace();
@@ -42,9 +40,9 @@ public class TestDao {
 	}
 
 	@After
-	public void removeTestAdministrator() {
+	public void after() {
 		try {
-			administratorDAO.removeAdministrator(administratorOutput.getEmail(), administratorOutput.getPassword());
+			AdministratorDao.removeAdministrator(administratorOutput.getEmail(), administratorOutput.getPassword());
 		} catch (NotCorrectInputData e) {
 			e.printStackTrace();
 		}

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 4, 2016 7:15:34 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="statPerson.element.administrator_price.AdministratorPrice"
+		table="ADMINISTRATORPRICE">
+		<id name="id" type="int">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+		<property name="idPrice" type="int">
+			<column name="IDPRICE" />
+		</property>
+		<property name="idAdministrator" type="int">
+			<column name="IDADMINISTRATOR" />
+		</property>
+		<property name="dateOfPay" type="java.sql.Date">
+			<column name="DATEOFPAY" />
+		</property>
+	</class>
+</hibernate-mapping>

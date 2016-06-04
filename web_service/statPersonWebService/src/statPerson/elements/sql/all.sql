@@ -44,7 +44,6 @@ ALTER TABLE `PersonPageRank` ADD CONSTRAINT `PersonPageRank_fk0` FOREIGN KEY (`P
 ALTER TABLE `PersonPageRank` ADD CONSTRAINT `PersonPageRank_fk1` FOREIGN KEY (`PageID`) REFERENCES `Pages`(`ID`);
 
 ALTER TABLE `Pages` ADD CONSTRAINT `Pages_fk0` FOREIGN KEY (`SiteID`) REFERENCES `Sites`(`ID`);
-
 CREATE TABLE `Keywords` (
 	`ID` int NOT NULL,
 	`Name` varchar(2048) NOT NULL,
@@ -101,6 +100,13 @@ CREATE TABLE `Administrators` (
 	PRIMARY KEY (`AdministratorID`)
 );
 
+CREATE TABLE `Prices` (
+	`PriceID` int NOT NULL,
+	`MaximalAmountUsers` int NOT NULL,
+	`MaximalAmountSites` int NOT NULL,
+	`DurationOfPrice` DATETIME NOT NULL,
+	PRIMARY KEY (`PriceID`)
+);
 
 CREATE TABLE `AdministratorsPersons` (
 	`AdministratorID` int NOT NULL,

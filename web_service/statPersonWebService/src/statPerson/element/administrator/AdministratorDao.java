@@ -6,8 +6,6 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import exceptions.AdministratorNotExist;
@@ -17,7 +15,7 @@ import statPerson.Utils;
 
 public class AdministratorDao {
 	
-	public Administrator getAdministrator(String email, String password)
+	public static Administrator getAdministrator(String email, String password)
 			throws AdministratorNotExist, NotCorrectInputData {
 		if (email == null || password == null) {
 			throw new NotCorrectInputData();
@@ -32,6 +30,7 @@ public class AdministratorDao {
 			criteria.add(Restrictions.eq("email", email));
 			criteria.add(Restrictions.eq("password", password));
 
+			@SuppressWarnings("unchecked")
 			List<Administrator> administrators = (List<Administrator>) criteria.list();
 			if (administrators.size() == 0) {
 				throw new AdministratorNotExist();
@@ -49,7 +48,7 @@ public class AdministratorDao {
 		return administrator;
 	};
 
-	public Administrator addPrimaryAdministrator(String email, String password)
+	public static Administrator addPrimaryAdministrator(String email, String password)
 			throws  NotCorrectInputData {
 		if (email == null || password == null) {
 			throw new NotCorrectInputData();
@@ -65,6 +64,7 @@ public class AdministratorDao {
 			criteria.add(Restrictions.eq("email", email));
 			criteria.add(Restrictions.eq("password", password));
 
+			@SuppressWarnings("unchecked")
 			List<Administrator> administrators = (List<Administrator>) criteria.list();
 			if (administrators.size() == 0) {
 				administrator = new Administrator(email, password, Utils.getCurrentTime(), false);
@@ -88,7 +88,7 @@ public class AdministratorDao {
 		return null;
 	}
 
-	public void removeAdministrator(String email, String password) throws NotCorrectInputData {
+	public static void removeAdministrator(String email, String password) throws NotCorrectInputData {
 		if (isExistAdministrator(email, password)) {
 			Session session = Factory.getFactory().openSession();
 			Transaction tx = null;
@@ -99,6 +99,7 @@ public class AdministratorDao {
 				criteria.add(Restrictions.eq("email", email));
 				criteria.add(Restrictions.eq("password", password));
 
+				@SuppressWarnings("unchecked")
 				List<Administrator> administrators = (List<Administrator>) criteria.list();
 				for (int i = 0; i < administrators.size(); i++) {
 					session.delete(administrators.get(i));
@@ -129,6 +130,7 @@ public class AdministratorDao {
 			criteria.add(Restrictions.eq("email", email));
 			criteria.add(Restrictions.eq("password", password));
 
+			@SuppressWarnings("unchecked")
 			List<Administrator> administrators = (List<Administrator>) criteria.list();
 			if (administrators.size() > 0) {
 				isExist = true;

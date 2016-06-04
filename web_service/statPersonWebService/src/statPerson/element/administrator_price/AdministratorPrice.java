@@ -1,4 +1,4 @@
-package elements;
+package statPerson.element.administrator_price;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -10,18 +10,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class AdministratorPrice implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	private int id;
 	private int idAdministrator;
 	private int idPrice;
 	private Date dateOfPay;
-	
-	public AdministratorPrice(){}
+
+	public AdministratorPrice() {
+	}
 
 	public AdministratorPrice(int idAdministrator, int idPrice, Date dateOfPay) {
 		super();
 		this.idAdministrator = idAdministrator;
 		this.idPrice = idPrice;
 		this.dateOfPay = dateOfPay;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	@XmlElement
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getIdAdministrator() {
@@ -71,6 +82,4 @@ public class AdministratorPrice implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
 }
