@@ -166,4 +166,11 @@
         tools:layout="@android:layout/list_content">
     </fragment>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar3"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/textViewDailyStat" />
+
 </RelativeLayout>
