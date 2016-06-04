@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.proba.statperson.R;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class UserActivity extends AppCompatActivity {
 
     private FloatingActionButton fab;
@@ -107,5 +109,17 @@ public class UserActivity extends AppCompatActivity {
             }
         });
         popupMenu.show();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 }
