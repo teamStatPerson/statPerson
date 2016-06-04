@@ -17,9 +17,17 @@ public class Sites implements SitesRest {
     private int id;
     private String name;
     private Calendar StartDateStatistics;
-    private Set<Pages> sites = new HashSet<Pages>();
+//    private Set<Pages> sites = new HashSet<Pages>();
 
-    @Id
+    public Sites(){}
+    public Sites(String name, Calendar startDateStatistics) {
+		super();
+		this.name = name;
+		StartDateStatistics = startDateStatistics;
+	}
+
+
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", nullable = false)
     public int getId() {
@@ -50,15 +58,15 @@ public class Sites implements SitesRest {
     public void setStartDateStatistics(Calendar startDateStatistics) {
         StartDateStatistics = startDateStatistics;
     }
-
-    @OneToMany(targetEntity = Pages.class, mappedBy = "site")
-    public Set<Pages> getSites() {
-        return sites;
-    }
-
-    public void setSites(Set<Pages> sites) {
-        this.sites = sites;
-    }
+//
+//    @OneToMany(targetEntity = Pages.class, mappedBy = "site")
+//    public Set<Pages> getSites() {
+//        return sites;
+//    }
+//
+//    public void setSites(Set<Pages> sites) {
+//        this.sites = sites;
+//    }
 
     @Override
     public boolean equals(Object o) {
