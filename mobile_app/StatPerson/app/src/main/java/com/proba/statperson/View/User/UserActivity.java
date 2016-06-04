@@ -16,7 +16,9 @@ import android.widget.Toast;
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.events.OverallStatisticsEvent;
 import com.proba.statperson.interfaces.IPresenter;
+import com.proba.statperson.presenter.CatalogElement.Site;
 import com.proba.statperson.presenter.PresenterImpl;
 
 import org.greenrobot.eventbus.EventBus;
@@ -41,6 +43,9 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void init() {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.INVISIBLE);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -55,20 +60,10 @@ public class UserActivity extends AppCompatActivity {
         findViewById(R.id.textViewSite).setVisibility(View.INVISIBLE);
         findViewById(R.id.textViewSiteName).setVisibility(View.INVISIBLE);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "FAB", Toast.LENGTH_SHORT).show();
-
-//                Intent intent = new Intent(UserActivity.this, DailyStatActivity.class);
-//                startActivity(intent);
-            }
-        });
     }
 
     @Subscribe
-    public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
+    public void onReceiveCatalogElements(NewCatalogElementsListEvent catalogElements) {
         removeProgressBar();
 
         sites = catalogElements.message;
@@ -77,6 +72,12 @@ public class UserActivity extends AppCompatActivity {
         findViewById(R.id.textViewSiteName).setVisibility(View.VISIBLE);
 
         setOnClickListenerOnSitesPopup();
+    }
+
+    @Subscribe
+    public void onReceiveOverallStatistics(OverallStatisticsEvent overallStatistics) {
+        removeProgressBar();
+        // TODO: 05.06.2016 display overall statistics
     }
 
     private void setOnClickListenerOnSitesPopup() {
@@ -114,6 +115,7 @@ public class UserActivity extends AppCompatActivity {
 //                        ((AdminActivity) getActivity()).
 //                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, item.getTitle().toString());
 
+                        initFAB(item.getTitle().toString());
                         return false;
                     }
                 });
@@ -128,6 +130,18 @@ public class UserActivity extends AppCompatActivity {
         popupMenu.show();
     }
 
+    private void initFAB(final String siteName) {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.VISIBLE);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setProgressBar();
+                presenter.userGetOverallStatistics(new Site(siteName));
+            }
+        });
+    }
+
     private PopupMenu populatePopupMenu(PopupMenu popupMenu) {
         popupMenu.inflate(R.menu.popupmenu_sites);
         popupMenu.getMenu().clear();
@@ -137,6 +151,11 @@ public class UserActivity extends AppCompatActivity {
         }
 
         return popupMenu;
+    }
+
+    private void setProgressBar() {
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar2);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     private void removeProgressBar() {
@@ -165,46 +184,6 @@ public class UserActivity extends AppCompatActivity {
     public void showSiteName(String data) {
         textViewSiteName.setText(data);
     }
-
-//    public void onClickSite(View view) {
-//        showPopupMenuSites(view);
-//    }
-
-//    private void showPopupMenuSites(View v) {
-//        PopupMenu popupMenu = new PopupMenu(this, v);
-//        popupMenu.inflate(R.menu.popupmenu_sites);
-//
-//        popupMenu
-//                .setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem item) {
-//
-//                        switch (item.getItemId()) {
-//
-//                            case R.id.lenta:
-//                                showSiteName(" " + getString(R.string.site_lenta));
-//                                return true;
-//                            case R.id.test:
-//                                showSiteName(" " + getString(R.string.site_test));
-//                                return true;
-//                            case R.id.sample:
-//                                showSiteName(" " + getString(R.string.site_sample));
-//                                return true;
-//                            default:
-//                                return false;
-//                        }
-//                    }
-//                });
-//
-//        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
-//
-//            @Override
-//            public void onDismiss(PopupMenu menu) {
-//            }
-//        });
-//        popupMenu.show();
-//    }
 
     @Override
     public void onStart() {

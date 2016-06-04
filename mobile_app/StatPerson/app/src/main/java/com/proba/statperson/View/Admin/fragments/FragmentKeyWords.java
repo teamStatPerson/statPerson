@@ -48,9 +48,9 @@ public class FragmentKeyWords extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
 
-    final String[] keyWordsPutin = new String[]{"Путиным", "Путину", "Путина", "Путине"};
-    final String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
-    final String[] keyWordsNavalny = new String[]{"Навальным", "Навальному", "Навального", "Навальном"};
+//    final String[] keyWordsPutin = new String[]{"Путиным", "Путину", "Путина", "Путине"};
+//    final String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
+//    final String[] keyWordsNavalny = new String[]{"Навальным", "Навальному", "Навального", "Навальном"};
 
     private String[] persons;
 
