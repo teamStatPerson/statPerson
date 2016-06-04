@@ -5,16 +5,26 @@ import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.proba.statperson.R;
+import com.proba.statperson.events.SetMedvedevEvent;
+import com.proba.statperson.events.SetNavalnyEvent;
+import com.proba.statperson.events.SetPutinEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +46,8 @@ public class FragmentKeyWords extends ListFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public TextView textViewPersonName;
 
     private OnFragmentInteractionListener mListener;
 
@@ -94,17 +106,49 @@ public class FragmentKeyWords extends ListFragment {
 
     @Override
     public void onActivityCreated(Bundle savedState) {
+        registerForContextMenu(getListView());
         super.onActivityCreated(savedState);
+        setHasOptionsMenu(true);
 
+        setListAdapter(getListAdapter());
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            int arg2, long arg3) {
+
                 Toast.makeText(getActivity(), "On long click listener", Toast.LENGTH_LONG).show();
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId())
+        {
+            case R.id.edit:
+                Toast.makeText(getActivity(), "Edit clicked", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.delete:
+                Toast.makeText(getActivity(), "Delete clicked", Toast.LENGTH_LONG).show();
+                break;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+        return true;
     }
 
     /*
@@ -130,12 +174,14 @@ public class FragmentKeyWords extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+        View rootView = inflater.inflate(R.layout.fragment_key_words, null);
+        textViewPersonName = (TextView) rootView.findViewById(R.id.textViewPersonName);
         keyWordsAdapter = new ArrayAdapter<>(getActivity(),
 //                android.R.layout.simple_list_item_1, keyWordsPutin);
                 android.R.layout.simple_list_item_multiple_choice, keyWordsPutinList);
         setListAdapter(keyWordsAdapter);
-        return inflater.inflate(R.layout.fragment_key_words, null);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -157,6 +203,38 @@ public class FragmentKeyWords extends ListFragment {
             }
         }
     */
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // регистрация приемника при старте фрагмента
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        // отписываемся от регистрации при закрытии фрагмента
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe
+    public void onSetPutinEvent(SetPutinEvent event) {
+        textViewPersonName.setText(getString(R.string.putin));
+    }
+
+
+    @Subscribe
+    public void onSetMedvedevEvent(SetMedvedevEvent event) {
+        textViewPersonName.setText(getString(R.string.medvedev));
+    }
+
+
+    @Subscribe
+    public void onSetNavalnyEvent(SetNavalnyEvent event) {
+        textViewPersonName.setText(getString(R.string.navalny));
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();

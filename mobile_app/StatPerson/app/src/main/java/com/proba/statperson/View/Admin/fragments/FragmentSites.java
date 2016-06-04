@@ -6,7 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.SparseBooleanArray;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -72,17 +75,49 @@ public class FragmentSites extends ListFragment {
 
     @Override
     public void onActivityCreated(Bundle savedState) {
+        registerForContextMenu(getListView());
         super.onActivityCreated(savedState);
+        setHasOptionsMenu(true);
 
+        setListAdapter(getListAdapter());
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            int arg2, long arg3) {
+
                 Toast.makeText(getActivity(), "On long click listener", Toast.LENGTH_LONG).show();
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId())
+        {
+            case R.id.edit:
+                Toast.makeText(getActivity(), "Edit clicked", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.delete:
+                Toast.makeText(getActivity(), "Delete clicked", Toast.LENGTH_LONG).show();
+                break;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+        return true;
     }
 
     @Override
