@@ -4,7 +4,7 @@ import statPerson.element.account.Account;
 import statPerson.element.keyword.Keyword;
 import statPerson.element.page.Page;
 import statPerson.element.person.Person;
-import statPerson.elements.Sites;
+import statPerson.element.site.Site;
 
 // interface for administrator - Version 1.0
 
@@ -20,13 +20,13 @@ interface AdministratorAPI{
 	
 	// Sites
 	// return null, if haven`t sites
-	Sites[] getSites(Account administrator);
-	void addSite(Account administrator, Sites site);
-	void removeSite(Account administrator, Sites site);
+	Site[] getSites(Account administrator);
+	void addSite(Account administrator, Site site);
+	void removeSite(Account administrator, Site site);
 	
 	//Pages for krauler statistic
 	// return null, if haven`t pages
-	Page[] getPages(Sites site);
+	Page[] getPages(Site site);
 	
 	// Keywords
 	// return null, if haven`t keywords

@@ -1,0 +1,6 @@
+
+CREATE TABLE `SITE` (
+	`ID` int auto_increment PRIMARY KEY NOT NULL,
+	`NAME` varchar(256) NOT NULL,
+    `STARTDATESTATISTICS` DATETIME
+);

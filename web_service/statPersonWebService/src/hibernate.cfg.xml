@@ -22,6 +22,7 @@
 		<mapping resource="/statPerson/element/keyword/Keyword.hbm.xml" />
 		<mapping resource="/statPerson/element/person/Person.hbm.xml" />
 		<mapping resource="/statPerson/element/page/Page.hbm.xml" />
+		<mapping resource="/statPerson/element/site/Site.hbm.xml" />
 
 
 	</session-factory>
