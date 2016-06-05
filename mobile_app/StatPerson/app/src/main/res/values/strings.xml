@@ -53,5 +53,6 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="sure">Delete? Are you sure?</string>
+    <string name="type">Type</string>
 
 </resources>

@@ -91,12 +91,14 @@ public class FragmentSites extends ListFragment {
 
         switch (item.getItemId()) {
             case R.id.edit:
-                Toast.makeText(getActivity(), "Edit clicked", Toast.LENGTH_LONG).show();
+                FragmentManager editManager = getFragmentManager();
+                EditorDialogFragment editorDialogFragment = new EditorDialogFragment();
+                editorDialogFragment.show(editManager, "dialog_editor");
                 break;
             case R.id.delete:
                 DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance();
-                FragmentManager manager = getFragmentManager();
-                deleteConfirmDialogFragment.show(manager, "dialog");
+                FragmentManager deleteManager = getFragmentManager();
+                deleteConfirmDialogFragment.show(deleteManager, "dialog_delete");
                 break;
 
             default:

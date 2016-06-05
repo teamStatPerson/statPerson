@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.proba.statperson.interfaces.DeleteConfirmListener;
+import com.proba.statperson.interfaces.EditorDialogListener;
 import com.proba.statperson.presenter.PresenterImpl;
 import com.proba.statperson.R;
 import com.proba.statperson.Constants;
@@ -31,7 +32,9 @@ import com.proba.statperson.view.admin.fragments.FragmentTotalStat;
 import com.proba.statperson.view.admin.fragments.FragmentUsers;
 
 public class AdminActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, DeleteConfirmListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        DeleteConfirmListener,
+        EditorDialogListener {
 
     private IPresenter presenter;
 
@@ -175,13 +178,16 @@ public class AdminActivity extends AppCompatActivity
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        Toast.makeText(this, "Вы подтвердили удаление!",
-                Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Вы подтвердили удаление!", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onDialogNegativeClick(DialogFragment dialog) {
-        Toast.makeText(this, "Вы отменили удаление!",
-                Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Вы отменили удаление!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onFinishEditDialog(String inputText) {
+        Toast.makeText(getApplicationContext(), "Вы ввели, " + inputText, Toast.LENGTH_SHORT).show();
     }
 }
