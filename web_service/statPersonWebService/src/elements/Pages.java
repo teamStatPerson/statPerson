@@ -1,4 +1,4 @@
-package statPerson.elements;
+package elements;
 
 import javax.persistence.*;
 

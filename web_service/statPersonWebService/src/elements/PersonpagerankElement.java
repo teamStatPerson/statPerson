@@ -1,4 +1,4 @@
-package statPerson.elements;
+package elements;
 
 import statPerson.elements.xml.PersonpagerankElementRest;
 

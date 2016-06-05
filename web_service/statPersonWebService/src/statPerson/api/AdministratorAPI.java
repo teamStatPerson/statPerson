@@ -1,10 +1,10 @@
 package statPerson.api;
 
+import elements.Keywords;
+import elements.Pages;
+import elements.Persons;
+import elements.Sites;
 import statPerson.element.account.Account;
-import statPerson.elements.Keywords;
-import statPerson.elements.Pages;
-import statPerson.elements.Persons;
-import statPerson.elements.Sites;
 
 // interface for administrator - Version 1.0
 
