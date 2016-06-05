@@ -1,4 +1,4 @@
-package elements;
+package statPerson.element.administrator_site;
 
 import java.io.Serializable;
 
@@ -10,6 +10,7 @@ public class AdministratorSite implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
 
+	private int id;
 	private int idAdministrator;
 	private int idSite;
 	
@@ -19,6 +20,15 @@ public class AdministratorSite implements Serializable  {
 		super();
 		this.idAdministrator = idAdministrator;
 		this.idSite = idSite;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	@XmlElement
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getIdAdministrator() {
@@ -40,6 +50,15 @@ public class AdministratorSite implements Serializable  {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idAdministrator;
+		result = prime * result + idSite;
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -54,5 +73,4 @@ public class AdministratorSite implements Serializable  {
 			return false;
 		return true;
 	}
-	
 }

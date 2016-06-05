@@ -14,8 +14,6 @@
 
 		<property name="javax.persistence.validation.mode">none</property>
 
-
-
 		<mapping resource="/statPerson/element/account/Account.hbm.xml" />
 		<mapping resource="/statPerson/element/price/Price.hbm.xml" />
 		<mapping resource="/statPerson/element/administrator_price/AdministratorPrice.hbm.xml" />
@@ -24,6 +22,7 @@
 		<mapping resource="/statPerson/element/page/Page.hbm.xml" />
 		<mapping resource="/statPerson/element/site/Site.hbm.xml" />
 		<mapping resource="/statPerson/element/person_page_rank/PersonPageRank.hbm.xml" />
+		<mapping resource="/statPerson/element/administrator_site/AdministratorSite.hbm.xml" />
 
 	</session-factory>
 </hibernate-configuration>

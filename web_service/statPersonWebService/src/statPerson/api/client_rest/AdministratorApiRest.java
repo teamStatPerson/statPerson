@@ -18,7 +18,7 @@ import exceptions.AdministratorNotExist;
 import exceptions.NotCorrectInputData;
 
 @Path("/administratorAPI")
-public class AdministratorRest {
+public class AdministratorApiRest {
 sdfsdf
 /*
     @GET
