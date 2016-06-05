@@ -2,8 +2,6 @@ package elements;
 
 import javax.persistence.*;
 
-import statPerson.elements.xml.PagesRest;
-
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,9 +11,8 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "pages")
-public class Pages implements PagesRest{
+public class Pages{
 
-	private static final long serialVersionUID = 1L;
 
     private int id;
     private String url;

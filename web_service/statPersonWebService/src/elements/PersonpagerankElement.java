@@ -1,14 +1,10 @@
 package elements;
 
-import statPerson.elements.xml.PersonpagerankElementRest;
-
 /**
  * Created by alexey_n on 01.06.2016.
  */
 
-public class PersonpagerankElement implements PersonpagerankElementRest {
-
-	private static final long serialVersionUID = 1L;
+public class PersonpagerankElement{
 
     private int personId;
     private int pageId;

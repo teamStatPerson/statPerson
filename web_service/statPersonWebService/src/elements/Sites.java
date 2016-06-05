@@ -2,18 +2,12 @@ package elements;
 
 import javax.persistence.*;
 
-import statPerson.elements.xml.SitesRest;
-
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "sites")
-public class Sites implements SitesRest {
+public class Sites{
 
-	private static final long serialVersionUID = 1L;
-	
     private int id;
     private String name;
     private Calendar StartDateStatistics;

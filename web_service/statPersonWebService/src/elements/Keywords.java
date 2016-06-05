@@ -2,14 +2,10 @@ package elements;
 
 import javax.persistence.*;
 
-import statPerson.elements.xml.KeywordsRest;
-
 @Entity
 @Table(name = "keywords")
-public class Keywords implements KeywordsRest {
-
-	private static final long serialVersionUID = 1L;
-
+public class Keywords{
+	
 	private int id;
 	private String name;
 	private int personId;

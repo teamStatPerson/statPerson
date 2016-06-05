@@ -2,8 +2,6 @@ package elements;
 
 import javax.persistence.*;
 
-import statPerson.elements.xml.PersonsRest;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,9 +10,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "persons")
-public class Persons implements PersonsRest {
-
-	private static final long serialVersionUID = 1L;
+public class Persons {
 
 	private int id;
 	private String name;
