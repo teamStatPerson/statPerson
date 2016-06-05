@@ -11,7 +11,6 @@ import org.hibernate.criterion.Restrictions;
 
 import statPerson.Factory;
 import statPerson.element.account.AccountDao;
-import statPerson.element.price.Price;
 import statPerson.element.site.Site;
 import statPerson.element.site.SiteDao;
 
