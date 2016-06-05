@@ -19,7 +19,7 @@ import exceptions.NotCorrectInputData;
 
 @Path("/administratorAPI")
 public class AdministratorRest {
-
+sdfsdf
 /*
     @GET
     @Produces(MediaType.TEXT_HTML)

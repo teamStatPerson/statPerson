@@ -13,7 +13,7 @@ import statPerson.element.administrator_price.AdministratorPriceDao;
 
 @Path("/administratorPrice")
 public class RestAdministratorPrice {
-
+dfgd
 	@GET
 	@Path("/{idAdministrator}")
 	@Produces(MediaType.APPLICATION_XML)

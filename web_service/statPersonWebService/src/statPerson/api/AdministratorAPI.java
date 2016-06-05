@@ -7,7 +7,7 @@ import statPerson.element.person.Person;
 import statPerson.element.site.Site;
 
 // interface for administrator - Version 1.0
-
+sdfsdfs
 interface AdministratorAPI{
 	// return null, if Administrator is not exist
 	Account getAdministrator(String email, String password);

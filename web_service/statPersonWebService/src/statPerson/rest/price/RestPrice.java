@@ -12,7 +12,7 @@ import statPerson.element.price.PriceDao;
 
 @Path("/price")
 public class RestPrice {
-
+sdfsdf
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public List<Price> getPrices(){
