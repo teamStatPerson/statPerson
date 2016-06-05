@@ -16,5 +16,25 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Desktop/Дистрибутивы/javax.persistence.jar.zip!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="jar://$USER_HOME$/Desktop/Дистрибутивы/javax.persistence.jar.zip!/" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$USER_HOME$/Desktop/Дистрибутивы/apache-maven-3.3.9-bin" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$USER_HOME$/Desktop/Дистрибутивы/apache-maven-3.3.9-bin" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -12,9 +12,9 @@ public class ParsingHTML {
     private int raiting;
     private String html;
 
-    public ParsingHTML(String _html, List<String> _keywords) {
-        keywords = _keywords;
-        html = _html;
+    public ParsingHTML(String html, List<String> keywords) {
+        this.keywords = keywords;
+        this.html = html;
         raiting = 0;
     }
 
