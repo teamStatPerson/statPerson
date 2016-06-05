@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -109,8 +110,7 @@ public class FragmentPersons extends ListFragment {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.edit:
                 Toast.makeText(getActivity(), "Edit clicked", Toast.LENGTH_LONG).show();
                 break;
@@ -124,12 +124,22 @@ public class FragmentPersons extends ListFragment {
         return true;
     }
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        String prompt = "Вы выбрали: "
+                + getListView().getItemAtPosition(position).toString();
+        Toast.makeText(getActivity(), prompt, Toast.LENGTH_LONG).show();
+    }
+
     @Subscribe
     public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
         removeProgressBar();
 
         ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, catalogElements.message);
+//                android.R.layout.simple_list_item_1, catalogElements.message);
+                android.R.layout.simple_list_item_single_choice, catalogElements.message);
         setListAdapter(adapter);
     }
 
