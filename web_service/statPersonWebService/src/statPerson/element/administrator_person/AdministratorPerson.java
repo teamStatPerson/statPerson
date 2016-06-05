@@ -1,4 +1,4 @@
-package elements;
+package statPerson.element.administrator_person;
 
 import java.io.Serializable;
 
@@ -10,26 +10,38 @@ public class AdministratorPerson implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
 
-	private int idAdministrator;
+	private int id;
+	private int idAccount;
 	private int idPerson;
 	
 	public AdministratorPerson(){}
 
-	public AdministratorPerson(int idAdministrator, int idPerson) {
+	public AdministratorPerson(int idAccount, int idPerson) {
 		super();
-		this.idAdministrator = idAdministrator;
+		this.idAccount = idAccount;
 		this.idPerson = idPerson;
 	}
+	
 
-	public int getIdAdministrator() {
-		return idAdministrator;
+	public int getId() {
+		return id;
 	}
 
 	@XmlElement
-	public void setIdAdministrator(int idAdministrator) {
-		this.idAdministrator = idAdministrator;
+	public void setId(int id) {
+		this.id = id;
 	}
+
 	
+	public int getIdAccount() {
+		return idAccount;
+	}
+
+	@XmlElement
+	public void setIdAccount(int idAccount) {
+		this.idAccount = idAccount;
+	}
+
 	public int getIdPerson() {
 		return idPerson;
 	}
@@ -37,6 +49,15 @@ public class AdministratorPerson implements Serializable  {
 	@XmlElement
 	public void setIdPerson(int idPerson) {
 		this.idPerson = idPerson;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idAccount;
+		result = prime * result + idPerson;
+		return result;
 	}
 
 	@Override
@@ -48,11 +69,10 @@ public class AdministratorPerson implements Serializable  {
 		if (getClass() != obj.getClass())
 			return false;
 		AdministratorPerson other = (AdministratorPerson) obj;
-		if (idAdministrator != other.idAdministrator)
+		if (idAccount != other.idAccount)
 			return false;
 		if (idPerson != other.idPerson)
 			return false;
 		return true;
 	}
-	
 }

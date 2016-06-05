@@ -32,7 +32,7 @@ public class TestDao {
 		Integer idPrice = PriceDao.addPrice(price.getName(), price.getMaxAmountUsers(), price.getMaxAmountSites(),
 				price.getDurationOfPriceDay());
 
-		AdministratorPriceDao.addPriceToAdministrator(id, idPrice);
+		AdministratorPriceDao.addPriceToPrimaryAdministrator(id, idPrice);
 
 		List<AdministratorPrice> list = AdministratorPriceDao.getAllPricesAdministrator(id);
 

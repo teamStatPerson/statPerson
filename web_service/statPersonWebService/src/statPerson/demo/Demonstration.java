@@ -19,7 +19,7 @@ public class Demonstration {
 			e.printStackTrace();
 		} finally {
 			Integer idPrice = PriceDao.addPrice("demo", 3, 5, 10);
-			AdministratorPriceDao.addPriceToAdministrator(id, idPrice);
+			AdministratorPriceDao.addPriceToPrimaryAdministrator(id, idPrice);
 		}
 	}
 }

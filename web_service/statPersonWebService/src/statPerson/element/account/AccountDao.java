@@ -30,6 +30,7 @@ public class AccountDao {
 			criteria.add(Restrictions.eq("email", email));
 			criteria.add(Restrictions.eq("password", password));
 
+			@SuppressWarnings("unchecked")
 			List<Account> accounts = (List<Account>) criteria.list();
 			if (accounts.size() == 0) {
 				Account account = new Account(email, password, Utils.getCurrentTime(),type_account,linked_administrator);
@@ -99,4 +100,15 @@ public class AccountDao {
 			session.close();
 		}
 	}
+
+	public static boolean isPrimaryAdministator(Integer idAccount) {
+		Account account = getAccount(idAccount);
+		return account.isPrimaryAdministrator();
+	}
+
+	public static boolean isAdministator(Integer idAccount) {
+		Account account = getAccount(idAccount);
+		return !account.isUser();
+	}
+	
 }

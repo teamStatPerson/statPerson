@@ -10,17 +10,20 @@ import org.hibernate.criterion.Restrictions;
 
 import statPerson.Factory;
 import statPerson.Utils;
+import statPerson.element.account.AccountDao;
 
 public class AdministratorPriceDao {
 
-	public static void addPriceToAdministrator(Integer idAdministrator, Integer idPrice) {
+	public static void addPriceToPrimaryAdministrator(Integer idAccount, Integer idPrice) {
 		Session session = Factory.getFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 
-			AdministratorPrice adPrice = new AdministratorPrice(idAdministrator, idPrice, Utils.getCurrentTime());
-			session.save(adPrice);
+			if (AccountDao.isPrimaryAdministator(idAccount)) {
+				AdministratorPrice adPrice = new AdministratorPrice(idAccount, idPrice, Utils.getCurrentTime());
+				session.save(adPrice);
+			}
 
 			tx.commit();
 		} catch (HibernateException e) {

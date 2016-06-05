@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 5, 2016 2:00:27 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="statPerson.element.administrator_person.AdministratorPerson" table="ADMINISTRATORPERSON">
+        <id name="idPerson" type="int">
+            <column name="IDPERSON" />
+            <generator class="assigned" />
+        </id>
+        <property name="idAdministrator" type="int">
+            <column name="IDADMINISTRATOR" />
+        </property>
+    </class>
+</hibernate-mapping>

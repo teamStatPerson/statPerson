@@ -26,15 +26,6 @@ public class Account implements Serializable {
 
 	public Account() {
 	}
-//	
-//	public Account(String email, String password, Date dateRegistration) {
-//		super();
-//		this.email = email;
-//		this.password = password;
-//		this.dateRegistration = dateRegistration;
-//		this.typeAccount = PRIMARY_ADMINISTRATOR_ACCOUNT;
-//		this.id_linked_adminitsator = DEFAULF_EMPTY_LINKED_ADMINISRATOR;
-//	}
 
 	public Account(String email, String password, Date dateRegistration, int typeAccount, int idLinkedAdministrator) {
 		super();
