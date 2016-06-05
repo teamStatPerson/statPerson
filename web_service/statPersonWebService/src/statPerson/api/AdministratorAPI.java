@@ -2,8 +2,8 @@ package statPerson.api;
 
 import statPerson.element.account.Account;
 import statPerson.element.keyword.Keyword;
+import statPerson.element.page.Page;
 import statPerson.element.person.Person;
-import statPerson.elements.Pages;
 import statPerson.elements.Sites;
 
 // interface for administrator - Version 1.0
@@ -26,7 +26,7 @@ interface AdministratorAPI{
 	
 	//Pages for krauler statistic
 	// return null, if haven`t pages
-	Pages[] getPages(Sites site);
+	Page[] getPages(Sites site);
 	
 	// Keywords
 	// return null, if haven`t keywords

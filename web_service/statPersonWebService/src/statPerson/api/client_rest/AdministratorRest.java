@@ -1,4 +1,4 @@
-package statPerson.api;
+package statPerson.api.client_rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
