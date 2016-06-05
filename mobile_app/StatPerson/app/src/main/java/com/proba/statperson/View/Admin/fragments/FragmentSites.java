@@ -1,6 +1,7 @@
 package com.proba.statperson.view.admin.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
@@ -93,7 +94,9 @@ public class FragmentSites extends ListFragment {
                 Toast.makeText(getActivity(), "Edit clicked", Toast.LENGTH_LONG).show();
                 break;
             case R.id.delete:
-                Toast.makeText(getActivity(), "Delete clicked", Toast.LENGTH_LONG).show();
+                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance();
+                FragmentManager manager = getFragmentManager();
+                deleteConfirmDialogFragment.show(manager, "dialog");
                 break;
 
             default:

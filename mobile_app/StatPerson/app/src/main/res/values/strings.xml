@@ -52,5 +52,6 @@
     <string name="empty">List</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="sure">Delete? Are you sure?</string>
 
 </resources>
