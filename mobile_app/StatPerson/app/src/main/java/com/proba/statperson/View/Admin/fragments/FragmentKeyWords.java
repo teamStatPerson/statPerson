@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -135,6 +137,25 @@ public class FragmentKeyWords extends ListFragment {
         return true;
     }
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        String prompt = "Вы выбрали: "
+                + getListView().getItemAtPosition(position).toString() + "\n";
+
+        prompt += "Выбранные элементы: \n";
+        int count = getListView().getCount();
+        SparseBooleanArray sparseBooleanArray = getListView()
+                .getCheckedItemPositions();
+        for (int i = 0; i < count; i++) {
+            if (sparseBooleanArray.get(i)) {
+                prompt += getListView().getItemAtPosition(i).toString() + "\n";
+            }
+        }
+        Toast.makeText(getActivity(), prompt, Toast.LENGTH_LONG).show();
+    }
+
     @Subscribe
     public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
         removeProgressBar();
@@ -152,7 +173,8 @@ public class FragmentKeyWords extends ListFragment {
         removeProgressBar();
 
         ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, catalogElements.message);
+//                android.R.layout.simple_list_item_1, catalogElements.message);
+                android.R.layout.simple_list_item_multiple_choice, catalogElements.message);
         setListAdapter(adapter);
     }
 
