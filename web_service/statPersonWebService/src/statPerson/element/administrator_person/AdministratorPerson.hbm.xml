@@ -6,7 +6,7 @@
     <class name="statPerson.element.administrator_person.AdministratorPerson" table="ADMINISTRATORPERSON">
         <id name="idPerson" type="int">
             <column name="IDPERSON" />
-            <generator class="assigned" />
+			<generator class="native" />
         </id>
         <property name="idAdministrator" type="int">
             <column name="IDADMINISTRATOR" />

@@ -1,23 +1,12 @@
 package statPerson.elements;
 
-import javax.persistence.*;
-
-import statPerson.elements.xml.SitesRest;
-
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
-@Entity
-@Table(name = "sites")
-public class Sites implements SitesRest {
+public class Sites{
 
-	private static final long serialVersionUID = 1L;
-	
     private int id;
     private String name;
     private Calendar StartDateStatistics;
-//    private Set<Pages> sites = new HashSet<Pages>();
 
     public Sites(){}
     public Sites(String name, Calendar startDateStatistics) {
@@ -26,10 +15,6 @@ public class Sites implements SitesRest {
 		StartDateStatistics = startDateStatistics;
 	}
 
-
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", nullable = false)
     public int getId() {
         return id;
     }
@@ -37,9 +22,7 @@ public class Sites implements SitesRest {
     public void setId(int id) {
         this.id = id;
     }
-
-    @Basic
-    @Column(name = "Name", nullable = false, length = 256)
+    
     public String getName() {
         return name;
     }
@@ -48,9 +31,6 @@ public class Sites implements SitesRest {
         this.name = name;
     }
 
-    @Basic
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "StartDateStatistics", nullable = true)
     public Calendar getStartDateStatistics() {
         return StartDateStatistics;
     }
@@ -58,15 +38,6 @@ public class Sites implements SitesRest {
     public void setStartDateStatistics(Calendar startDateStatistics) {
         StartDateStatistics = startDateStatistics;
     }
-//
-//    @OneToMany(targetEntity = Pages.class, mappedBy = "site")
-//    public Set<Pages> getSites() {
-//        return sites;
-//    }
-//
-//    public void setSites(Set<Pages> sites) {
-//        this.sites = sites;
-//    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,26 +1,20 @@
-package statPerson.elements;
+package statPerson.element.keyword;
 
-import javax.persistence.*;
-
-import statPerson.elements.xml.KeywordsRest;
-
-@Entity
-@Table(name = "keywords")
-public class Keywords implements KeywordsRest {
-
-	private static final long serialVersionUID = 1L;
+public class Keyword{
 
 	private int id;
 	private String name;
 	private int personId;
-	private Persons person;
 
-	Keywords() {
+	Keyword() {
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID", nullable = false)
+	public Keyword(String name, int personId) {
+		super();
+		this.name = name;
+		this.personId = personId;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -29,8 +23,6 @@ public class Keywords implements KeywordsRest {
 		this.id = id;
 	}
 
-	@Basic
-	@Column(name = "Name", nullable = false, length = 2048)
 	public String getName() {
 		return name;
 	}
@@ -39,24 +31,12 @@ public class Keywords implements KeywordsRest {
 		this.name = name;
 	}
 
-	@Basic
-	@Column(name = "PersonID", nullable = false)
 	public int getPersonId() {
 		return personId;
 	}
 
 	public void setPersonId(int personId) {
 		this.personId = personId;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "personId")
-	public Persons getPerson() {
-		return person;
-	}
-
-	public void setPerson(Persons person) {
-		this.person = person;
 	}
 
 	@Override
@@ -66,7 +46,7 @@ public class Keywords implements KeywordsRest {
 		if (o == null || getClass() != o.getClass())
 			return false;
 
-		Keywords keywords = (Keywords) o;
+		Keyword keywords = (Keyword) o;
 
 		if (id != keywords.id)
 			return false;

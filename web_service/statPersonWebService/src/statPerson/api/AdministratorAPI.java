@@ -1,7 +1,7 @@
 package statPerson.api;
 
 import statPerson.element.account.Account;
-import statPerson.elements.Keywords;
+import statPerson.element.keyword.Keyword;
 import statPerson.elements.Pages;
 import statPerson.elements.Persons;
 import statPerson.elements.Sites;
@@ -30,7 +30,7 @@ interface AdministratorAPI{
 	
 	// Keywords
 	// return null, if haven`t keywords
-	Keywords[] getKeywords(Account administrator, Persons person);
-	void addKeyword(Account administrator, Keywords keyword);
-	void removeKeyword(Account administrator, Keywords keyword);
+	Keyword[] getKeywords(Account administrator, Persons person);
+	void addKeyword(Account administrator, Keyword keyword);
+	void removeKeyword(Account administrator, Keyword keyword);
 }

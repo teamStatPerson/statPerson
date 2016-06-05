@@ -1,21 +1,9 @@
 package statPerson.elements;
 
-import javax.persistence.*;
-
-import statPerson.elements.xml.PagesRest;
 
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
-/**
- * Created by alexey_n on 01.06.2016.
- */
-@Entity
-@Table(name = "pages")
-public class Pages implements PagesRest{
-
-	private static final long serialVersionUID = 1L;
+public class Pages{
 
     private int id;
     private String url;
@@ -24,11 +12,7 @@ public class Pages implements PagesRest{
     private Calendar lastScanDate;
     private String html;
     private Sites site;
-    private Set<PersonPageRanks> personpagerank = new HashSet<PersonPageRanks>();
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", nullable = false)
     public int getId() {
         return id;
     }
@@ -37,8 +21,6 @@ public class Pages implements PagesRest{
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "Url", nullable = false, length = 2048)
     public String getUrl() {
         return url;
     }
@@ -47,8 +29,6 @@ public class Pages implements PagesRest{
         this.url = url;
     }
 
-    @Basic
-    @Column(name = "SiteID", nullable = false)
     public int getSiteId() {
         return siteId;
     }
@@ -57,9 +37,6 @@ public class Pages implements PagesRest{
         this.siteId = siteId;
     }
 
-    @Basic
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "FoundDateTime", nullable = false)
     public Calendar getFoundDateTime() {
         return foundDateTime;
     }
@@ -68,9 +45,6 @@ public class Pages implements PagesRest{
         this.foundDateTime = foundDateTime;
     }
 
-    @Basic
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "LastScanDate", nullable = true)
     public Calendar getLastScanDate() {
         return lastScanDate;
     }
@@ -79,8 +53,6 @@ public class Pages implements PagesRest{
         this.lastScanDate = lastScanDate;
     }
 
-    @Basic
-    @Column(name = "HTML", nullable = true, length = 16777215)
     public String getHtml() {
         return html;
     }
@@ -89,8 +61,6 @@ public class Pages implements PagesRest{
         this.html = html;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "ID", insertable = false, updatable = false)
     public Sites getSite() {
         return site;
     }
@@ -98,16 +68,6 @@ public class Pages implements PagesRest{
     public void setSite(Sites site) {
         this.site = site;
     }
-
-    @OneToMany(targetEntity = PersonPageRanks.class, mappedBy = "page")
-    public Set<PersonPageRanks> getPersonpagerank() {
-        return personpagerank;
-    }
-
-    public void setPersonpagerank(Set<PersonPageRanks> personpagerank) {
-        this.personpagerank = personpagerank;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,4 +1,4 @@
-package statPerson.elements.dao;
+package statPerson.element.keyword;
 
 import java.util.List;
 
@@ -9,45 +9,19 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import statPerson.Factory;
-import statPerson.element.account.Account;
-import statPerson.elements.Sites;
 
-public class SitesDao {
-	public static Integer addSite(Sites site) {
+public class KeywordDao {
+
+	public static Integer addKeyword(String name, int idPerson) {
 		Session session = Factory.getFactory().openSession();
 		Transaction tx = null;
-		Integer idSite = null;
-
-		try {
-			tx = session.beginTransaction();
-			idSite = (Integer) session.save(site);
-			tx.commit();
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return idSite;
-	}
-
-	public static Sites getSite(Integer idSite) {
-		Session session = Factory.getFactory().openSession();
-		Transaction tx = null;
-		Sites site = null;
+		Integer id = null;
 
 		try {
 			tx = session.beginTransaction();
 
-			Criteria criteria = session.createCriteria(Sites.class);
-			criteria.add(Restrictions.eq("ID", idSite));
-
-			List<Sites> sites = (List<Sites>) criteria.list();
-			if (sites.size() == 0) {
-				return null;
-			}
-			site = sites.get(0);
+			Keyword keyword = new Keyword(name, idPerson);
+			id = (Integer) session.save(keyword);
 
 			tx.commit();
 		} catch (HibernateException e) {
@@ -57,21 +31,46 @@ public class SitesDao {
 		} finally {
 			session.close();
 		}
-		return site;
+		return id;
 	}
 
-	public static void removeSite(Integer idSite) {
+	@SuppressWarnings("unchecked")
+	public static List<Keyword> getKeywordOfPerson(Integer idPerson) {
+		Session session = Factory.getFactory().openSession();
+		Transaction tx = null;
+		List<Keyword> keywors = null;
+		try {
+			tx = session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(Keyword.class);
+			criteria.add(Restrictions.eq("personId", idPerson));
+
+			keywors = (List<Keyword>) criteria.list();
+
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return keywors;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static void removeKeywordFromPerson(Integer idKeyword) {
 		Session session = Factory.getFactory().openSession();
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
 
-			Criteria criteria = session.createCriteria(Account.class);
-			criteria.add(Restrictions.eq("ID", idSite));
+			Criteria criteria = session.createCriteria(Keyword.class);
+			criteria.add(Restrictions.eq("id", idKeyword));
 
-			List<Sites> sites = (List<Sites>) criteria.list();
-			for (int i = 0; i < sites.size(); i++) {
-				session.delete(sites.get(i));
+			List<Keyword> keywords = (List<Keyword>) criteria.list();
+			for (int i = 0; i < keywords.size(); i++) {
+				session.delete(keywords.get(i));
 			}
 
 			tx.commit();
