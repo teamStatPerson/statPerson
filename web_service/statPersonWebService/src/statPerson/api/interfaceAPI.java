@@ -27,6 +27,7 @@ public interface interfaceAPI{
 
 	// par.3.2.2.
 	List<Person> getPersons(Account account);
+	List<Person> getPersons(String email, String password);
 
 	// par.3.3.2.
 	void changePassword(Account account, String newPassword);
@@ -107,16 +108,10 @@ public interface interfaceAPI{
 
 	//Pages for krauler statistic
 	// return null, if haven`t pages
-	List<Page> getPages(Site site);
+	//List<Page> getPages(Site site);
+	// no need
 	
-	
-	
-	// return null, if Administrator is not exist
-	Account getAdministrator(String email, String password);
 
-	Account getUser(String email, String password);
-	
-	
 	// Keywords
 	// return null, if haven`t keywords
 	Keyword[] getKeywords(Account administrator, Person person);
