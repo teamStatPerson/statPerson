@@ -5,22 +5,23 @@ import android.app.Fragment;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
-import com.proba.statperson.interfaces.IView;
-import com.proba.statperson.presenter.CatalogElement.CatalogElement;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,6 +86,42 @@ public class FragmentPersons extends ListFragment {
 
         view = inflater.inflate(R.layout.fragment_persons, null);
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedState) {
+        super.onActivityCreated(savedState);
+        setListAdapter(getListAdapter());
+        registerForContextMenu(getListView());
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId())
+        {
+            case R.id.edit:
+                Toast.makeText(getActivity(), "Edit clicked", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.delete:
+                Toast.makeText(getActivity(), "Delete clicked", Toast.LENGTH_LONG).show();
+                break;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+        return true;
     }
 
     @Subscribe
