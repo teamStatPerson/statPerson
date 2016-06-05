@@ -1,5 +1,6 @@
-package crauler.api;
+package crauler;
 
+import crauler.api.CraulerJob;
 import statPerson.element.person.Person;
 import statPerson.element.site.Site;
 
