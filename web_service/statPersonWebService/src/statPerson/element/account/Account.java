@@ -1,4 +1,4 @@
-package statPerson.element.administrator;
+package statPerson.element.account;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -6,26 +6,58 @@ import java.sql.Date;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "administrator")
-public class Administrator implements Serializable {
+@XmlRootElement(name = "account")
+public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	public static int PRIMARY_ADMINISTRATOR_ACCOUNT = 0;
+	public static int SECONDARY_ADMINISTRATOR_ACCOUNT = 10;
+	public static int USER_ACCOUNT = 100;
+	
+	public static int DEFAULF_EMPTY_LINKED_ADMINISRATOR = 100;
 
 	private int id;
 	private String email;
 	private String password;
 	private Date dateRegistration;
-	private boolean secondaryAdministrator;
+	private int typeAccount;
+	private int idLinkedAdministrator;
 
-	public Administrator() {
+	public Account() {
 	}
+//	
+//	public Account(String email, String password, Date dateRegistration) {
+//		super();
+//		this.email = email;
+//		this.password = password;
+//		this.dateRegistration = dateRegistration;
+//		this.typeAccount = PRIMARY_ADMINISTRATOR_ACCOUNT;
+//		this.id_linked_adminitsator = DEFAULF_EMPTY_LINKED_ADMINISRATOR;
+//	}
 
-	public Administrator(String email, String password, Date dateRegistration, boolean secondaryAdministrator) {
+	public Account(String email, String password, Date dateRegistration, int typeAccount, int idLinkedAdministrator) {
+		super();
 		this.email = email;
 		this.password = password;
 		this.dateRegistration = dateRegistration;
-		this.secondaryAdministrator = secondaryAdministrator;
+		this.typeAccount = typeAccount;
+		this.idLinkedAdministrator = idLinkedAdministrator;
 	}
+
+
+	public boolean isPrimaryAdministrator(){
+		if(typeAccount == PRIMARY_ADMINISTRATOR_ACCOUNT)
+			return true;
+		return false;
+	}
+	
+	public boolean isUser(){
+		if(typeAccount == USER_ACCOUNT)
+			return true;
+		return false;
+	}
+
 
 	public int getId() {
 		return id;
@@ -63,13 +95,22 @@ public class Administrator implements Serializable {
 		return dateRegistration;
 	}
 
-	@XmlElement
-	public void setSecondaryAdministrator(boolean secondaryAdministrator) {
-		this.secondaryAdministrator = secondaryAdministrator;
+	public int getTypeAccount() {
+		return typeAccount;
 	}
 
-	public boolean getSecondaryAdministrator() {
-		return secondaryAdministrator;
+	@XmlElement
+	public void setTypeAccount(int typeAccount) {
+		this.typeAccount = typeAccount;
+	}
+
+	public int getIdLinkedAdministrator() {
+		return idLinkedAdministrator;
+	}
+
+	@XmlElement
+	public void setIdLinkedAdministrator(int idLinkedAdministrator) {
+		this.idLinkedAdministrator = idLinkedAdministrator;
 	}
 
 	@Override
@@ -78,8 +119,9 @@ public class Administrator implements Serializable {
 		int result = 1;
 		result = prime * result + ((dateRegistration == null) ? 0 : dateRegistration.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + idLinkedAdministrator;
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + (secondaryAdministrator ? 1231 : 1237);
+		result = prime * result + typeAccount;
 		return result;
 	}
 
@@ -91,7 +133,7 @@ public class Administrator implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Administrator other = (Administrator) obj;
+		Account other = (Account) obj;
 		if (dateRegistration == null) {
 			if (other.dateRegistration != null)
 				return false;
@@ -102,12 +144,14 @@ public class Administrator implements Serializable {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
+		if (idLinkedAdministrator != other.idLinkedAdministrator)
+			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (secondaryAdministrator != other.secondaryAdministrator)
+		if (typeAccount != other.typeAccount)
 			return false;
 		return true;
 	}

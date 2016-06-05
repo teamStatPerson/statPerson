@@ -1,6 +1,6 @@
 package statPerson.api;
 
-import statPerson.element.administrator.Administrator;
+import statPerson.element.account.Account;
 import statPerson.elements.Keywords;
 import statPerson.elements.Pages;
 import statPerson.elements.Persons;
@@ -10,19 +10,19 @@ import statPerson.elements.Sites;
 
 interface AdministratorAPI{
 	// return null, if Administrator is not exist
-	Administrator getAdministrator(String email, String password);
+	Account getAdministrator(String email, String password);
 	
 	// Persons
 	// return null, if haven`t persons
-	Persons[] getPersons(Administrator administrator);
-	void addPerson(Administrator administrator, Persons person);
-	void removePerson(Administrator administrator, Persons person);
+	Persons[] getPersons(Account administrator);
+	void addPerson(Account administrator, Persons person);
+	void removePerson(Account administrator, Persons person);
 	
 	// Sites
 	// return null, if haven`t sites
-	Sites[] getSites(Administrator administrator);
-	void addSite(Administrator administrator, Sites site);
-	void removeSite(Administrator administrator, Sites site);
+	Sites[] getSites(Account administrator);
+	void addSite(Account administrator, Sites site);
+	void removeSite(Account administrator, Sites site);
 	
 	//Pages for krauler statistic
 	// return null, if haven`t pages
@@ -30,7 +30,7 @@ interface AdministratorAPI{
 	
 	// Keywords
 	// return null, if haven`t keywords
-	Keywords[] getKeywords(Administrator administrator, Persons person);
-	void addKeyword(Administrator administrator, Keywords keyword);
-	void removeKeyword(Administrator administrator, Keywords keyword);
+	Keywords[] getKeywords(Account administrator, Persons person);
+	void addKeyword(Account administrator, Keywords keyword);
+	void removeKeyword(Account administrator, Keywords keyword);
 }

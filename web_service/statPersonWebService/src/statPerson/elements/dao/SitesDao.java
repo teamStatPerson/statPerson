@@ -9,7 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import statPerson.Factory;
-import statPerson.element.administrator.Administrator;
+import statPerson.element.account.Account;
 import statPerson.elements.Sites;
 
 public class SitesDao {
@@ -66,7 +66,7 @@ public class SitesDao {
 		try {
 			tx = session.beginTransaction();
 
-			Criteria criteria = session.createCriteria(Administrator.class);
+			Criteria criteria = session.createCriteria(Account.class);
 			criteria.add(Restrictions.eq("ID", idSite));
 
 			List<Sites> sites = (List<Sites>) criteria.list();

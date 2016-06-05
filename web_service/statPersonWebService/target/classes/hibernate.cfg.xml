@@ -16,7 +16,7 @@
 
 
 
-		<mapping resource="/statPerson/element/administrator/Administrator.hbm.xml" />
+		<mapping resource="/statPerson/element/account/Account.hbm.xml" />
 		<mapping resource="/statPerson/element/price/Price.hbm.xml" />
 		<mapping resource="/statPerson/element/administrator_price/AdministratorPrice.hbm.xml" />
 
