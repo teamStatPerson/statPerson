@@ -1,0 +1,8 @@
+
+CREATE TABLE `PERSONPAGERANK` (
+	`ID` int PRIMARY KEY auto_increment NOT NULL,
+	`PERSONID` int NOT NULL,
+	`PAGEID` int NOT NULL,
+	`RANK` int NOT NULL
+);
+
