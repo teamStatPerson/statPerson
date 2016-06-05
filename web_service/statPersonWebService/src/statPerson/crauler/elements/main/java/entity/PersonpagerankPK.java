@@ -1,11 +1,15 @@
-package elements;
+package statPerson.crauler.elements.main.java.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * Created by alexey_n on 01.06.2016.
  */
 
-public class PersonpagerankElement{
-
+public class PersonpagerankPK implements Serializable {
     private int personId;
     private int pageId;
 
@@ -30,7 +34,7 @@ public class PersonpagerankElement{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PersonpagerankElement that = (PersonpagerankElement) o;
+        PersonpagerankPK that = (PersonpagerankPK) o;
 
         if (personId != that.personId) return false;
         if (pageId != that.pageId) return false;

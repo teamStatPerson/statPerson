@@ -1,7 +1,6 @@
-package elements;
+package statPerson.crauler.elements.main.java.entity;
 
 import javax.persistence.*;
-
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,9 +10,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "pages")
-public class Pages{
-
-
+public class Pages {
     private int id;
     private String url;
     private int siteId;
@@ -21,7 +18,7 @@ public class Pages{
     private Calendar lastScanDate;
     private String html;
     private Sites site;
-    private Set<PersonPageRanks> personpagerank = new HashSet<PersonPageRanks>();
+    private Set<Personpagerank> personpagerank = new HashSet<Personpagerank>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -96,12 +93,12 @@ public class Pages{
         this.site = site;
     }
 
-    @OneToMany(targetEntity = PersonPageRanks.class, mappedBy = "page")
-    public Set<PersonPageRanks> getPersonpagerank() {
+    @OneToMany(targetEntity = Personpagerank.class, mappedBy = "page")
+    public Set<Personpagerank> getPersonpagerank() {
         return personpagerank;
     }
 
-    public void setPersonpagerank(Set<PersonPageRanks> personpagerank) {
+    public void setPersonpagerank(Set<Personpagerank> personpagerank) {
         this.personpagerank = personpagerank;
     }
 

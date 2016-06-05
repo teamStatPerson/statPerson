@@ -1,7 +1,7 @@
 package statPerson.crauler.api;
 
-import elements.Persons;
-import elements.Sites;
+import statPerson.crauler.elements.main.java.entity.Persons;
+import statPerson.crauler.elements.main.java.entity.Sites;
 
 public class FakeCrauler implements CraulerJob {
 
