@@ -1,5 +1,12 @@
 package statPerson.api;
 
 public interface CraulerAPI {
-fd gsf
+
+	public static void function(){
+		
+	}
+
+	public static void function(){
+		
+	}
 }
