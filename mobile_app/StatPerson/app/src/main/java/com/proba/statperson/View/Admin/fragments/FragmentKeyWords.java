@@ -52,6 +52,7 @@ public class FragmentKeyWords extends ListFragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private String chosenPerson;
 
 //    final String[] keyWordsPutin = new String[]{"Путиным", "Путину", "Путина", "Путине"};
 //    final String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
@@ -132,7 +133,8 @@ public class FragmentKeyWords extends ListFragment {
                 editorDialogFragment.show(editManager, "dialog_editor");
                 break;
             case R.id.delete:
-                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance();
+                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance(item,
+                        Constants.PERSONS_CATALOG_INDEX, chosenPerson);
                 FragmentManager deleteManager = getFragmentManager();
                 deleteConfirmDialogFragment.show(deleteManager, "dialog_delete");
                 break;
@@ -224,9 +226,9 @@ public class FragmentKeyWords extends ListFragment {
                         setProgressBar();
 //                        Person person = new Person(item.getTitle().toString());
 //                        Toast.makeText(getActivity(), person.getName(), Toast.LENGTH_SHORT).show();
-
+                        chosenPerson = item.getTitle().toString();
                         ((AdminActivity) getActivity()).
-                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, item.getTitle().toString());
+                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, chosenPerson);
 
                         return false;
                     }

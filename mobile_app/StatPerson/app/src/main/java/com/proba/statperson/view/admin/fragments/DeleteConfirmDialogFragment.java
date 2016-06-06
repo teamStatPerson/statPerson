@@ -15,8 +15,6 @@ import com.proba.statperson.interfaces.DeleteConfirmListener;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.presenter.PresenterImpl;
 
-import statPerson.element.person.Person;
-
 /**
  * Created by Konstantin on 05.06.2016.
  */
@@ -56,19 +54,18 @@ public class DeleteConfirmDialogFragment extends DialogFragment {
                         mDeleteConfirmListenerListener.onDialogPositiveClick(DeleteConfirmDialogFragment.this);
                         switch (catalogIndex) {
                             case Constants.PERSONS_CATALOG_INDEX:
-                                Person person = new Person();
-                                person.setName(elementName);
-                                presenter.addElement(person);
+//                                Person person = new Person(elementName);
+                                presenter.adminDeleteElement(elementName, Constants.PERSONS_CATALOG_INDEX, 0);
                                 break;
                             case Constants.SITES_CATALOG_INDEX:
-
+//                                Site site = new Site(elementName, null);
+                                presenter.adminDeleteElement(elementName, Constants.SITES_CATALOG_INDEX, 0);
                                 break;
                             case Constants.KEYWORDS_CATALOG_INDEX:
+//                                Keyword keyword = new Keyword(elementName, 0);
+                                presenter.adminDeleteElement(elementName, Constants.KEYWORDS_CATALOG_INDEX, 0);
                                 break;
                         }
-                        Person person = new Person();
-                        person.setName(elementName);
-                        presenter.addElement(person);
                     }
                 })
                 .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {

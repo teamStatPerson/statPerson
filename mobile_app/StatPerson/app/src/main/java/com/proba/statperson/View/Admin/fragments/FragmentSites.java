@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
 import com.proba.statperson.view.admin.AdminActivity;
@@ -98,11 +99,11 @@ public class FragmentSites extends ListFragment {
                 editorDialogFragment.show(editManager, "dialog_editor");
                 break;
             case R.id.delete:
-                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance();
+                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance(item,
+                        Constants.SITES_CATALOG_INDEX, null);
                 FragmentManager deleteManager = getFragmentManager();
                 deleteConfirmDialogFragment.show(deleteManager, "dialog_delete");
                 break;
-
             default:
                 return super.onContextItemSelected(item);
         }

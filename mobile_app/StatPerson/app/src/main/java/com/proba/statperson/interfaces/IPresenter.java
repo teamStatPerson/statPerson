@@ -16,9 +16,5 @@ public interface IPresenter {
 
     void userGetOverallStatistics(Site site);
 
-    void addElement(Object object);
-
-//    void addSite(Site site);
-//
-//    void addKeyword(Keyword keyword, Person person);
+    void adminDeleteElement(String name, int catalogIndex, int personId);
 }
