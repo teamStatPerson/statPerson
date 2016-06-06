@@ -123,6 +123,7 @@ public class AdminActivity extends AppCompatActivity
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
+        // TODO: 06.06.2016 do switch, not else if
         if (id == R.id.status) {
             fragmentTransaction.replace(R.id.container, fragmentStatus);
         } else if (id == R.id.sites) {
