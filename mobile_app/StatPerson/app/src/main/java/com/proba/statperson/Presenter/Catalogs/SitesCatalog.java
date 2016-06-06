@@ -27,6 +27,11 @@ public class SitesCatalog implements ICatalog {
         sitesListTask.execute();
     }
 
+    @Override
+    public void adminDeleteElement(Object object) {
+
+    }
+
     class SitesListTask extends AsyncTask<Void, Void, ArrayList<CatalogElement>> {
 
         @Override

@@ -31,6 +31,11 @@ public class KeywordsCatalog implements ICatalog {
         keywordssListTask.execute(param);
     }
 
+    @Override
+    public void adminDeleteElement(Object object) {
+
+    }
+
     class KeywordsListTask extends AsyncTask<String, Void, ArrayList<CatalogElement>> {
 
         @Override

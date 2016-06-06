@@ -31,6 +31,11 @@ public class PersonsCatalog implements ICatalog {
         personsListTask.execute();
     }
 
+    @Override
+    public void adminDeleteElement(Object object) {
+
+    }
+
     class PersonsListTask extends AsyncTask<Void, Void, List<Person>> {
 
         @Override
