@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.SparseBooleanArray;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -261,6 +262,31 @@ public class FragmentKeyWords extends ListFragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean visible) {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed()) {
+            onResume();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!getUserVisibleHint()) {
+            return;
+        }
+
+        AdminActivity adminActivity = (AdminActivity) getActivity();
+        adminActivity.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(view, "KeyWordsFragment", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
@@ -272,18 +298,6 @@ public class FragmentKeyWords extends ListFragment {
         super.onStop();
     }
 
-    /*
-        @Override
-        public void onAttach(Context context) {
-            super.onAttach(context);
-            if (context instanceof OnFragmentInteractionListener) {
-                mListener = (OnFragmentInteractionListener) context;
-            } else {
-                throw new RuntimeException(context.toString()
-                        + " must implement OnFragmentInteractionListener");
-            }
-        }
-    */
     @Override
     public void onDetach() {
         super.onDetach();

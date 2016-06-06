@@ -6,6 +6,8 @@ import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.view.admin.AdminActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -160,17 +163,30 @@ public class FragmentPersons extends ListFragment {
         }
     }
 
-/*    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    @Override
+    public void setUserVisibleHint(boolean visible) {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed()) {
+            onResume();
         }
     }
-*/
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!getUserVisibleHint()) {
+            return;
+        }
+
+        AdminActivity adminActivity = (AdminActivity) getActivity();
+        adminActivity.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(view, "PersonsFragment", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
 
     @Override
     public void onStart() {

@@ -38,7 +38,7 @@ public class FakeWebServiceAPI implements interfaceAPI {
     }
 
     @Override
-    public List<Person> getPersons(Account account) {
+    public List<Person> getPersons(Account account) { //using in v.1.0.
         return null;
     }
 
@@ -53,27 +53,27 @@ public class FakeWebServiceAPI implements interfaceAPI {
     }
 
     @Override
-    public List<Site> getSites(Account account) {
+    public List<Site> getSites(Account account) { //using in v.1.0.
         return null;
     }
 
     @Override
-    public Integer addSite(Account account, Site site) {
+    public Integer addSite(Account account, Site site) { //using in v.1.0.
         return null;
     }
 
     @Override
-    public void removeSite(Account account, Site site) {
+    public void removeSite(Account account, Site site) { //using in v.1.0.
 
     }
 
     @Override
-    public Integer addPerson(Account account, Person person) {
+    public Integer addPerson(Account account, Person person) { //using in v.1.0.
         return null;
     }
 
     @Override
-    public void removePerson(Account account, Person person) {
+    public void removePerson(Account account, Person person) { //using in v.1.0.
 
     }
 
@@ -128,17 +128,17 @@ public class FakeWebServiceAPI implements interfaceAPI {
     }
 
     @Override
-    public Keyword[] getKeywords(Account account, Person person) {
+    public Keyword[] getKeywords(Account account, Person person) { //using in v.1.0.
         return new Keyword[0];
     }
 
     @Override
-    public void addKeyword(Account account, Keyword keyword) {
+    public void addKeyword(Account account, Keyword keyword) { //using in v.1.0.
 
     }
 
     @Override
-    public void removeKeyword(Account account, Keyword keyword) {
+    public void removeKeyword(Account account, Keyword keyword) { //using in v.1.0.
 
     }
 }
