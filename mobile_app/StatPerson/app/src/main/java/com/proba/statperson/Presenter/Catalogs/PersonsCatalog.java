@@ -40,12 +40,19 @@ public class PersonsCatalog implements ICatalog {
 
         @Override
         protected List<Person> doInBackground(Void... params) {
-            List<Person> persons;
-            Account account = new Account();
-            account.setEmail("q@q.com");
-            account.setPassword("paswword");
-            FakeWebServiceAPI fakeWebServiceAPI = new FakeWebServiceAPI();
-            persons = fakeWebServiceAPI.getPersons(account);
+            Person person = new Person();
+            person.setName("Васек");
+            List<Person> persons = new ArrayList<>();
+            persons.add(person);
+            Person person2 = new Person();
+            person2.setName("Санек");
+            persons.add(person2);
+//            List<Person> persons;
+//            Account account = new Account();
+//            account.setEmail("q@q.com");
+//            account.setPassword("paswword");
+//            FakeWebServiceAPI fakeWebServiceAPI = new FakeWebServiceAPI();
+//            persons = fakeWebServiceAPI.getPersons(account);
             return persons;
         }
 

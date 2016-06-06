@@ -21,8 +21,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.interfaces.IPresenter;
+import com.proba.statperson.presenter.PresenterImpl;
 import com.proba.statperson.view.admin.AdminActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,6 +52,8 @@ public class FragmentPersons extends ListFragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private IPresenter presenter;
 
     public FragmentPersons() {
         // Required empty public constructor
@@ -119,13 +124,14 @@ public class FragmentPersons extends ListFragment {
                 FragmentManager editManager = getFragmentManager();
                 EditorDialogFragment editorDialogFragment = new EditorDialogFragment();
                 editorDialogFragment.show(editManager, "dialog_editor");
+
                 break;
             case R.id.delete:
-                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance();
+                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance(item,
+                        Constants.PERSONS_CATALOG_INDEX, null);
                 FragmentManager deleteManager = getFragmentManager();
                 deleteConfirmDialogFragment.show(deleteManager, "dialog_delete");
                 break;
-
             default:
                 return super.onContextItemSelected(item);
         }
@@ -182,8 +188,8 @@ public class FragmentPersons extends ListFragment {
         adminActivity.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(view, "PersonsFragment", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                presenter = new PresenterImpl();
+//                presenter.addElement();
             }
         });
     }
