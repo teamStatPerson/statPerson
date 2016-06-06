@@ -2,25 +2,28 @@ package com.proba.statperson.view.admin.fragments;
 
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
-import com.proba.statperson.interfaces.IView;
-import com.proba.statperson.presenter.CatalogElement.CatalogElement;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,12 +90,61 @@ public class FragmentPersons extends ListFragment {
         return view;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedState) {
+        super.onActivityCreated(savedState);
+        setListAdapter(getListAdapter());
+        registerForContextMenu(getListView());
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+            case R.id.edit:
+                FragmentManager editManager = getFragmentManager();
+                EditorDialogFragment editorDialogFragment = new EditorDialogFragment();
+                editorDialogFragment.show(editManager, "dialog_editor");
+                break;
+            case R.id.delete:
+                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance();
+                FragmentManager deleteManager = getFragmentManager();
+                deleteConfirmDialogFragment.show(deleteManager, "dialog_delete");
+                break;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+        return true;
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        String prompt = "Вы выбрали: "
+                + getListView().getItemAtPosition(position).toString();
+        Toast.makeText(getActivity(), prompt, Toast.LENGTH_LONG).show();
+    }
+
     @Subscribe
     public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
         removeProgressBar();
 
         ListAdapter adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, catalogElements.message);
+//                android.R.layout.simple_list_item_1, catalogElements.message);
+                android.R.layout.simple_list_item_single_choice, catalogElements.message);
         setListAdapter(adapter);
     }
 

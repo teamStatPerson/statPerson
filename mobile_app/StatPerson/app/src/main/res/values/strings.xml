@@ -49,5 +49,10 @@
     <string name="from_less_today">Date from should be less today</string>
     <string name="till_less_today">Date till should be less today</string>
     <string name="from_less_initdate">Date from should be more 2016, May 01</string>
+    <string name="empty">List</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="sure">Delete? Are you sure?</string>
+    <string name="type">Type</string>
 
 </resources>

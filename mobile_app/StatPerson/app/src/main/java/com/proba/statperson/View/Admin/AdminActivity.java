@@ -1,5 +1,6 @@
 package com.proba.statperson.view.admin;
 
+import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,11 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.proba.statperson.presenter.CatalogElement.CatalogElement;
-import com.proba.statperson.presenter.CatalogElement.Person;
+import com.proba.statperson.interfaces.DeleteConfirmListener;
+import com.proba.statperson.interfaces.EditorDialogListener;
 import com.proba.statperson.presenter.PresenterImpl;
 import com.proba.statperson.R;
 import com.proba.statperson.Constants;
@@ -32,7 +32,9 @@ import com.proba.statperson.view.admin.fragments.FragmentTotalStat;
 import com.proba.statperson.view.admin.fragments.FragmentUsers;
 
 public class AdminActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        DeleteConfirmListener,
+        EditorDialogListener {
 
     private IPresenter presenter;
 
@@ -174,4 +176,18 @@ public class AdminActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        Toast.makeText(this, "Вы подтвердили удаление!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        Toast.makeText(this, "Вы отменили удаление!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onFinishEditDialog(String inputText) {
+        Toast.makeText(getApplicationContext(), "Вы ввели, " + inputText, Toast.LENGTH_SHORT).show();
+    }
 }
