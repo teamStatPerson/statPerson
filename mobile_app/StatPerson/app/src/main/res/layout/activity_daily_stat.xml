@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".view.DailyStatActivity">
+    tools:context="com.proba.statperson.view.user.DailyStatActivity">
 
     <TextView
         android:id="@+id/textViewDailyStat"
@@ -31,6 +31,7 @@
             android:id="@+id/textViewSite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickSite"
             android:text="@string/sites"
             android:textColor="#03A9F4"
             android:textSize="20sp"/>
@@ -39,6 +40,7 @@
             android:id="@+id/textViewSiteName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickSite"
             android:text="@string/fragment_sites"
             android:textColor="#03A9F4"
             android:textSize="20sp"/>
@@ -107,6 +109,7 @@
             android:id="@+id/textViewPerson"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickPerson"
             android:text="@string/person"
             android:textColor="#03A9F4"
             android:textSize="20sp"/>
@@ -115,6 +118,7 @@
             android:id="@+id/textViewPersonName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickPerson"
             android:text="@string/fragment_persons"
             android:textColor="#03A9F4"
             android:textSize="20sp"/>

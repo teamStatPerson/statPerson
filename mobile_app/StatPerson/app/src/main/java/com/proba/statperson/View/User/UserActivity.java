@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
@@ -19,7 +20,6 @@ import com.proba.statperson.events.OverallStatisticsEvent;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.presenter.CatalogElement.Site;
 import com.proba.statperson.presenter.PresenterImpl;
-import com.proba.statperson.view.DailyStatActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
