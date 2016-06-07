@@ -28,8 +28,8 @@
     <string name="period_from">Period from: </string>
     <string name="period_till">Period till: </string>
 
-    <string name="fragment_persons">Choice person</string>
-    <string name="fragment_sites">Choice site</string>
+    <string name="fragment_persons"> Choice person</string>
+    <string name="fragment_sites"> Choice site</string>
     <string name="fragment_status">Choice status</string>
     <string name="fragment_date">Choice date</string>
     <string name="choose_date">Choose date</string>

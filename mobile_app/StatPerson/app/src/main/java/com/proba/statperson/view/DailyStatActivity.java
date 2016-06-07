@@ -1,4 +1,4 @@
-package com.proba.statperson.view.user;
+package com.proba.statperson.view;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -21,6 +21,7 @@ import com.proba.statperson.events.SetDateTillEvent;
 import com.proba.statperson.interfaces.DailyStatDate;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.presenter.PresenterImpl;
+import com.proba.statperson.view.user.DateFormater;
 import com.proba.statperson.view.user.fragments.DailyStatListFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -128,19 +129,23 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         TextView tvChoosePerson = (TextView) findViewById(R.id.textViewPersonName);
         TextView tvChoosePerson2 = (TextView) findViewById(R.id.textViewPerson);
 
-        tvChoosePerson.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPopupMenuPersons(v);
-            }
-        });
+        if (tvChoosePerson != null) {
+            tvChoosePerson.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showPopupMenuPersons(v);
+                }
+            });
+        }
 
-        tvChoosePerson2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPopupMenuPersons(v);
-            }
-        });
+        if (tvChoosePerson2 != null) {
+            tvChoosePerson2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showPopupMenuPersons(v);
+                }
+            });
+        }
     }
 
     public void showPopupMenuPersons(View v) {

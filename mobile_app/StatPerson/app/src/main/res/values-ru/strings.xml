@@ -23,8 +23,8 @@
     <string name="period_from">Период с: </string>
     <string name="period_till">Период по: </string>
 
-    <string name="fragment_persons">Выбор личности</string>
-    <string name="fragment_sites">Выбор сайта</string>
+    <string name="fragment_persons"> Выбор личности</string>
+    <string name="fragment_sites"> Выбор сайта</string>
     <string name="fragment_status">Выбор статуса</string>
     <string name="fragment_date">Выбор даты</string>
     <string name="fragment_key_words">Выбор ключевых слов</string>

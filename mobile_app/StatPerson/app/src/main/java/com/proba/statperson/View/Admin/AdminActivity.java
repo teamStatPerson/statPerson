@@ -2,6 +2,7 @@ package com.proba.statperson.view.admin;
 
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -16,13 +17,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.proba.statperson.Constants;
+import com.proba.statperson.R;
 import com.proba.statperson.interfaces.DeleteConfirmListener;
 import com.proba.statperson.interfaces.EditorDialogListener;
-import com.proba.statperson.presenter.PresenterImpl;
-import com.proba.statperson.R;
-import com.proba.statperson.Constants;
 import com.proba.statperson.interfaces.IPresenter;
-import com.proba.statperson.view.admin.fragments.FragmentDailyStat;
+import com.proba.statperson.presenter.PresenterImpl;
+import com.proba.statperson.view.DailyStatActivity;
 import com.proba.statperson.view.admin.fragments.FragmentDate;
 import com.proba.statperson.view.admin.fragments.FragmentKeyWords;
 import com.proba.statperson.view.admin.fragments.FragmentPersons;
@@ -42,7 +43,6 @@ public class AdminActivity extends AppCompatActivity
     FragmentSites fragmentSites;
     FragmentStatus fragmentStatus;
     FragmentTotalStat fragmentTotalStat;
-    FragmentDailyStat fragmentDailyStat;
     FragmentDate fragmentDate;
     FragmentKeyWords fragmentKeyWords;
     FragmentUsers fragmentUsers;
@@ -83,7 +83,6 @@ public class AdminActivity extends AppCompatActivity
         fragmentSites = new FragmentSites();
         fragmentStatus = new FragmentStatus();
         fragmentTotalStat = new FragmentTotalStat();
-        fragmentDailyStat = new FragmentDailyStat();
         fragmentDate = new FragmentDate();
         fragmentKeyWords = new FragmentKeyWords();
         fragmentUsers = new FragmentUsers();
@@ -144,7 +143,8 @@ public class AdminActivity extends AppCompatActivity
         } else if (id == R.id.total_stat) {
             fragmentTransaction.replace(R.id.container, fragmentTotalStat);
         } else if (id == R.id.daily_stat) {
-            fragmentTransaction.replace(R.id.container, fragmentDailyStat);
+            Intent intent = new Intent(AdminActivity.this, DailyStatActivity.class);
+            startActivity(intent);
         } else if (id == R.id.date) {
             fragmentTransaction.replace(R.id.container, fragmentDate);
         } else if (id == R.id.key_words) {

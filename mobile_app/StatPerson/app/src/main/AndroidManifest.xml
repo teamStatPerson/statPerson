@@ -28,7 +28,7 @@
             android:label="@string/user"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".view.user.DailyStatActivity">
+        <activity android:name=".view.DailyStatActivity">
         </activity>
     </application>
 
