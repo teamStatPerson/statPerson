@@ -47,7 +47,7 @@ public class TotalStatListFragment extends ListFragment {
     @Subscribe
     public void onReceiveOverallStatistics(OverallStatisticsEvent overallStatistics) {
         mCallback.removeProgressBar();
-        mCallback.initFAB();
+//        mCallback.initFAB();
 
         ListAdapter adapter = new SimpleAdapter(getActivity(), totalStatList, R.layout.total_stat_list_item,
                 new String[]{TotalStatHashMap.PERSON, TotalStatHashMap.QUANTITY}, new int[]{

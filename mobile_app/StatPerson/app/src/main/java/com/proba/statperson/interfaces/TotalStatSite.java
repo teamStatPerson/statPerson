@@ -8,5 +8,4 @@ public interface TotalStatSite {
 
     public void removeProgressBar();
 
-    public void initFAB();
 }
