@@ -286,7 +286,7 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
                 if (calendarFrom.before(calendarToday)) {
                     textViewDateFrom.setTextSize(20);
                     String sday = DateFormater.DayFormater(day);
-                    String smonth = DateFormater.DayFormater(month);
+                    String smonth = DateFormater.MonthFormater(month);
                     from_date = " " + sday + "." + smonth + "." + year;
                     EventBus.getDefault().post(new SetDateFromEvent(from_date));
                     textViewDateFrom.setText(from_date);
@@ -309,7 +309,7 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
                 if (calendarTill.after(calendarFrom)) {
                     textViewDateTill.setTextSize(20);
                     String sday = DateFormater.DayFormater(day);
-                    String smonth = DateFormater.DayFormater(month);
+                    String smonth = DateFormater.MonthFormater(month);
                     to_date = " " + sday + "." + smonth + "." + year;
                     EventBus.getDefault().post(new SetDateTillEvent(to_date));
                     textViewDateTill.setText(to_date);
