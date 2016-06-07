@@ -12,12 +12,16 @@ public class Crawler {
 
     public void doJob(String site, List<String > keywords){
         ParsingRobots parsingRobots = new ParsingRobots(site);
+        parsingRobots.foundURLSiteMap();
         //parsingRobots.getRobotsFileFound();
         if (parsingRobots.getURLsiteMapFound() == true) { // если ссылка на sitemap найдена в robots.txt
+            //System.out.println("найдена");
+           // System.out.println("URLSM = " + parsingRobots.getUrlSiteMap());
             doParsing(site, parsingRobots.getUrlSiteMap());
         } else {
             doParsing(site, site +"/sitemap.xml");
         }
+       // System.out.println("fff");
         printUrl(urlSites);
 
         doStatPerson(keywords);
@@ -33,7 +37,7 @@ public class Crawler {
             int raitingPutin = parsingHTML.raitingPerson();
             raitngTotal = raitngTotal + raitingPutin;
             // TODO: 05.06.2016 сюда вставить запись в таблицу PagePersonRank рейтинг личности, url - имя сайта, raitingPutin - рейтинг на странице url)
-            System.out.println("На странице " + url + " Рейтинг равен " + raitingPutin);
+          //  System.out.println("На странице " + url + " Рейтинг равен " + raitingPutin);
         }
         System.out.println("Общий рейтинг " + raitngTotal);
     }

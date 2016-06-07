@@ -52,7 +52,7 @@ public class ParsingXML {
     }
 
     private void parseXML(String urlXML) {
-
+      //  System.out.println("urlXML = " +  urlXML);
         DownloaderXML downloaderXML = new DownloaderXML(urlXML);
         Document doc = downloaderXML.getDoc();
         if (doc != null) {
@@ -70,12 +70,14 @@ public class ParsingXML {
 
    private void addUrl(String url) {
     boolean gzXML = url.matches("^http(.*).[xml.gz]$"); // проверка есть ли файл с gz архивом
-        if (gzXML) {
+        if ((gzXML)&(countUrl <= countUrlTotal)) {
           listUrlXMLgz.add(url);
+         //   System.out.println("есть " + url);
+            countUrl++;
          } else {
             if (countUrl <= countUrlTotal) {
-              //  System.out.println("url  = " + url);
-             //   System.out.println("countUrl = " + countUrl);
+             //   System.out.println("url  = " + url);
+           //     System.out.println("countUrl = " + countUrl);
                 listUrl.add(url);
                 countUrl++;
             }

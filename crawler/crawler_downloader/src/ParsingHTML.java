@@ -24,12 +24,12 @@ public class ParsingHTML {
         String  pageHTML = doc.html();
      //   System.out.println("url = " + html);
         for (String keyword : keywords) {
-           // System.out.println(keyword);
+          //  System.out.println(keyword);
 
             Pattern p = Pattern.compile("\\b" + keyword + "\\b", Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
             Matcher m = p.matcher(pageHTML);
             while (m.find()) raiting++;
-        //    System.out.println("raiting  = " + raiting);
+          //  System.out.println("raiting  = " + raiting);
         }
         return raiting;
     }
