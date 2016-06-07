@@ -1,10 +1,6 @@
 package com.proba.statperson.interfaces;
 
 
-import java.util.Objects;
-
-import statPerson.element.keyword.Keyword;
-import statPerson.element.person.Person;
 import statPerson.element.site.Site;
 
 /**
