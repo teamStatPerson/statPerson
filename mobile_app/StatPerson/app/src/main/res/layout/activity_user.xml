@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:context="com.proba.statperson.view.user.UserActivity">
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -53,9 +54,18 @@
             android:layout_height="wrap_content"
             android:text="@string/fragment_sites"
             android:textColor="#03A9F4"
-            android:textSize="30sp"/>
+            android:textSize="20sp"/>
 
     </LinearLayout>
+
+    <fragment
+        android:id="@+id/totalStatListFragment"
+        android:name="com.proba.statperson.view.user.fragments.TotalStatListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayoutSite"
+        tools:layout="@android:layout/list_content">
+    </fragment>
 
     <ProgressBar
         android:layout_width="wrap_content"
@@ -63,106 +73,5 @@
         android:id="@+id/progressBar2"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true" />
-
-    <TableLayout
-        android:id="@+id/tableTotalStat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:shrinkColumns="*"
-        android:stretchColumns="*"
-        android:layout_below="@+id/linearLayoutSite">
-
-        <TableRow
-            android:id="@+id/tableRowHead"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp">
-
-            <TextView
-                android:id="@+id/textViewName"
-                android:text="@string/name"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:typeface="serif" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/textViewQuantity"
-                android:text="@string/quantity"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:typeface="serif" >
-            </TextView>
-        </TableRow>
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp">
-
-            <TextView
-                android:id="@+id/textViewName1"
-                android:text="@string/putin"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:typeface="serif" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/textViewQuantity1"
-                android:text="100500"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:typeface="serif" >
-            </TextView>
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp">
-
-            <TextView
-                android:id="@+id/textViewName2"
-                android:text="@string/medvedev"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:typeface="serif" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/textViewQuantity2"
-                android:text="50000"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:typeface="serif" >
-            </TextView>
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp">
-
-            <TextView
-                android:id="@+id/textViewName3"
-                android:text="@string/navalny"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:typeface="serif" >
-            </TextView>
-
-            <TextView
-                android:id="@+id/textViewQuantity3"
-                android:text="50000"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:typeface="serif" >
-            </TextView>
-        </TableRow>
-
-    </TableLayout>
 
 </RelativeLayout>

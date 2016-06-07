@@ -3,6 +3,7 @@ package com.proba.statperson.view.user;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,20 +12,21 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
 import com.proba.statperson.events.OverallStatisticsEvent;
 import com.proba.statperson.interfaces.IPresenter;
+import com.proba.statperson.interfaces.TotalStatSite;
 import com.proba.statperson.presenter.CatalogElement.Site;
 import com.proba.statperson.presenter.PresenterImpl;
+import com.proba.statperson.view.user.fragments.TotalStatListFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity implements TotalStatSite {
 
     private IPresenter presenter;
 
@@ -40,6 +42,7 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         init();
+
     }
 
     private void init() {
@@ -52,10 +55,10 @@ public class UserActivity extends AppCompatActivity {
         presenter = new PresenterImpl();
         presenter.adminGetListOfCatalogElements(Constants.SITES_CATALOG_INDEX, null);
 
-//        textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
+        textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
         textViewSiteName = (TextView) findViewById(R.id.textViewSiteName);
 
-        findViewById(R.id.tableTotalStat).setVisibility(View.GONE);
+//        findViewById(R.id.totalStatListFragment).setVisibility(View.GONE);
 
         findViewById(R.id.textViewSite).setVisibility(View.INVISIBLE);
         findViewById(R.id.textViewSiteName).setVisibility(View.INVISIBLE);
@@ -128,6 +131,18 @@ public class UserActivity extends AppCompatActivity {
             }
         });
         popupMenu.show();
+    }
+
+    @Override
+    public void onSiteSelected(String date) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        TotalStatListFragment totalStatListFragment = (TotalStatListFragment) fragmentManager
+                .findFragmentById(R.id.totalStatListFragment);
+/*
+        if (totalStatListFragment != null && totalStatListFragment.isInLayout()) {
+            totalStatListFragment.userGetOverallStatistics(site);
+        }
+*/
     }
 
     private void initFAB(final String siteName) {
