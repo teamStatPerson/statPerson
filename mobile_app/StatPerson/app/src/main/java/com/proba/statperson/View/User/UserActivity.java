@@ -137,7 +137,7 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setProgressBar();
-                presenter.userGetOverallStatistics(new Site(siteName));
+//                presenter.userGetOverallStatistics(new Site(siteName));
             }
         });
     }

@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
+import com.proba.statperson.events.EditCatalogElementsEvent;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.presenter.PresenterImpl;
@@ -157,9 +158,20 @@ public class FragmentPersons extends ListFragment {
         setListAdapter(adapter);
     }
 
+    @Subscribe
+    public void catalogUpdate(EditCatalogElementsEvent catalogElements) {
+        setProgressBar();
+        Toast.makeText(getActivity(), catalogElements.message, Toast.LENGTH_SHORT).show();
+    }
+
     private void removeProgressBar() {
         ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
+    }
+
+    private void setProgressBar() {
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
