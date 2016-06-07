@@ -38,7 +38,7 @@ public class AdministratorPersonDao {
 
 	public static List<AdministratorPerson> getAllPersonAccount(Integer idAccount) {
 
-		Account account = AccountDao.getAccount(idAccount);
+		Account account = AccountDao.getAccountById(idAccount);
 		List<AdministratorPerson> persons = new ArrayList<AdministratorPerson>();
 
 		persons.addAll((List<AdministratorPerson>) getPersonsAccount(idAccount));

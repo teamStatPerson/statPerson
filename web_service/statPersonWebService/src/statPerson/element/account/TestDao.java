@@ -27,7 +27,7 @@ public class TestDao {
 			e.printStackTrace();
 		}
 
-		Account out = AccountDao.getAccount(id);
+		Account out = AccountDao.getAccountById(id);
 
 		Assert.assertTrue(administratorInput.getEmail().equals(out.getEmail()));
 		Assert.assertTrue(administratorInput.getPassword().equals(out.getPassword()));
