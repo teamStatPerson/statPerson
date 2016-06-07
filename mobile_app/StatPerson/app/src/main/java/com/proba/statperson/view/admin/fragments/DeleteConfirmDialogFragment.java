@@ -15,6 +15,7 @@ import com.proba.statperson.interfaces.DeleteConfirmListener;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.presenter.PresenterImpl;
 
+import statPerson.element.person.Person;
 import statPerson.element.site.Site;
 
 /**
@@ -60,7 +61,7 @@ public class DeleteConfirmDialogFragment extends DialogFragment {
                                 presenter.adminDeleteElement(elementName, Constants.PERSONS_CATALOG_INDEX, 0);
                                 break;
                             case Constants.SITES_CATALOG_INDEX:
-                                Site site = new Site(elementName, null);
+//                                Site site = new Site(elementName, null);
                                 presenter.adminDeleteElement(elementName, Constants.SITES_CATALOG_INDEX, 0);
                                 break;
                             case Constants.KEYWORDS_CATALOG_INDEX:

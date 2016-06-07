@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
+import com.proba.statperson.events.EditCatalogElementsEvent;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
 import com.proba.statperson.view.admin.AdminActivity;
 
@@ -149,6 +150,17 @@ public class FragmentSites extends ListFragment {
 //                android.R.layout.simple_list_item_1, catalogElements.message);
                 android.R.layout.simple_list_item_single_choice, catalogElements.message);
         setListAdapter(adapter);
+    }
+
+    @Subscribe
+    public void catalogUpdate(EditCatalogElementsEvent catalogElements) {
+        setProgressBar();
+        Toast.makeText(getActivity(), catalogElements.message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setProgressBar() {
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     private void removeProgressBar() {
