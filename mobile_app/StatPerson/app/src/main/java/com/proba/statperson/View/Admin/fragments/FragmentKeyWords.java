@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
+import com.proba.statperson.events.EditCatalogElementsEvent;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
 import com.proba.statperson.events.PersonKeywordsListEvent;
 import com.proba.statperson.view.admin.AdminActivity;
@@ -184,6 +185,12 @@ public class FragmentKeyWords extends ListFragment {
 //                android.R.layout.simple_list_item_1, catalogElements.message);
                 android.R.layout.simple_list_item_multiple_choice, catalogElements.message);
         setListAdapter(adapter);
+    }
+
+    @Subscribe
+    public void catalogUpdate(EditCatalogElementsEvent catalogElements) {
+        setProgressBar();
+        Toast.makeText(getActivity(), catalogElements.message, Toast.LENGTH_SHORT).show();
     }
 
     private void removeProgressBar() {

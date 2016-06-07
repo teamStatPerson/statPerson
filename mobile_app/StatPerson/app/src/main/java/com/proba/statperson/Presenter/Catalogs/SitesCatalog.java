@@ -113,6 +113,5 @@ public class SitesCatalog implements ICatalog {
             EventBus.getDefault().post(new EditCatalogElementsEvent(result));
             adminGetListOfCatalogElements(null);
         }
-
     }
 }
