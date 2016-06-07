@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.SparseBooleanArray;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
+import com.proba.statperson.events.EditCatalogElementsEvent;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
 import com.proba.statperson.events.PersonKeywordsListEvent;
 import com.proba.statperson.view.admin.AdminActivity;
@@ -51,6 +53,7 @@ public class FragmentKeyWords extends ListFragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private String chosenPerson;
 
 //    final String[] keyWordsPutin = new String[]{"Путиным", "Путину", "Путина", "Путине"};
 //    final String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
@@ -131,7 +134,8 @@ public class FragmentKeyWords extends ListFragment {
                 editorDialogFragment.show(editManager, "dialog_editor");
                 break;
             case R.id.delete:
-                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance();
+                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance(item,
+                        Constants.PERSONS_CATALOG_INDEX, chosenPerson);
                 FragmentManager deleteManager = getFragmentManager();
                 deleteConfirmDialogFragment.show(deleteManager, "dialog_delete");
                 break;
@@ -183,6 +187,12 @@ public class FragmentKeyWords extends ListFragment {
         setListAdapter(adapter);
     }
 
+    @Subscribe
+    public void catalogUpdate(EditCatalogElementsEvent catalogElements) {
+        setProgressBar();
+        Toast.makeText(getActivity(), catalogElements.message, Toast.LENGTH_SHORT).show();
+    }
+
     private void removeProgressBar() {
         ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
@@ -223,9 +233,9 @@ public class FragmentKeyWords extends ListFragment {
                         setProgressBar();
 //                        Person person = new Person(item.getTitle().toString());
 //                        Toast.makeText(getActivity(), person.getName(), Toast.LENGTH_SHORT).show();
-
+                        chosenPerson = item.getTitle().toString();
                         ((AdminActivity) getActivity()).
-                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, item.getTitle().toString());
+                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, chosenPerson);
 
                         return false;
                     }
@@ -261,6 +271,31 @@ public class FragmentKeyWords extends ListFragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean visible) {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed()) {
+            onResume();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!getUserVisibleHint()) {
+            return;
+        }
+
+        AdminActivity adminActivity = (AdminActivity) getActivity();
+        adminActivity.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(view, "KeyWordsFragment", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
@@ -272,18 +307,6 @@ public class FragmentKeyWords extends ListFragment {
         super.onStop();
     }
 
-    /*
-        @Override
-        public void onAttach(Context context) {
-            super.onAttach(context);
-            if (context instanceof OnFragmentInteractionListener) {
-                mListener = (OnFragmentInteractionListener) context;
-            } else {
-                throw new RuntimeException(context.toString()
-                        + " must implement OnFragmentInteractionListener");
-            }
-        }
-    */
     @Override
     public void onDetach() {
         super.onDetach();

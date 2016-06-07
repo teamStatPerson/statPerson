@@ -37,6 +37,7 @@ public class AdminActivity extends AppCompatActivity
         EditorDialogListener {
 
     private IPresenter presenter;
+    public FloatingActionButton fab;
 
     FragmentPersons fragmentPersons;
     FragmentSites fragmentSites;
@@ -59,14 +60,7 @@ public class AdminActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -129,6 +123,7 @@ public class AdminActivity extends AppCompatActivity
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
+        // TODO: 06.06.2016 do switch, not else if
         if (id == R.id.status) {
             fragmentTransaction.replace(R.id.container, fragmentStatus);
         } else if (id == R.id.sites) {

@@ -8,4 +8,6 @@ import com.proba.statperson.presenter.CatalogElement.Person;
  */
 public interface ICatalog {
     void adminGetListOfCatalogElements(String param);
+
+    void adminDeleteElement(Object object);
 }

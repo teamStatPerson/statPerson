@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -18,8 +19,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.proba.statperson.Constants;
 import com.proba.statperson.R;
+import com.proba.statperson.events.EditCatalogElementsEvent;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.view.admin.AdminActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -96,11 +100,11 @@ public class FragmentSites extends ListFragment {
                 editorDialogFragment.show(editManager, "dialog_editor");
                 break;
             case R.id.delete:
-                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance();
+                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance(item,
+                        Constants.SITES_CATALOG_INDEX, null);
                 FragmentManager deleteManager = getFragmentManager();
                 deleteConfirmDialogFragment.show(deleteManager, "dialog_delete");
                 break;
-
             default:
                 return super.onContextItemSelected(item);
         }
@@ -148,6 +152,17 @@ public class FragmentSites extends ListFragment {
         setListAdapter(adapter);
     }
 
+    @Subscribe
+    public void catalogUpdate(EditCatalogElementsEvent catalogElements) {
+        setProgressBar();
+        Toast.makeText(getActivity(), catalogElements.message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setProgressBar() {
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
     private void removeProgressBar() {
         ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
@@ -160,18 +175,32 @@ public class FragmentSites extends ListFragment {
         }
     }
 
-    /*
-        @Override
-        public void onAttach(Context context) {
-            super.onAttach(context);
-            if (context instanceof OnFragmentInteractionListener) {
-                mListener = (OnFragmentInteractionListener) context;
-            } else {
-                throw new RuntimeException(context.toString()
-                        + " must implement OnFragmentInteractionListener");
-            }
+
+    @Override
+    public void setUserVisibleHint(boolean visible) {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed()) {
+            onResume();
         }
-    */
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!getUserVisibleHint()) {
+            return;
+        }
+
+        AdminActivity adminActivity = (AdminActivity) getActivity();
+        adminActivity.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(view, "SitesFragment", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
     @Override
     public void onStart() {
         super.onStart();

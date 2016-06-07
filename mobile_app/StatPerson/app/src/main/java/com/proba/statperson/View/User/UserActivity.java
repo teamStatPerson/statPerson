@@ -152,7 +152,7 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
             @Override
             public void onClick(View view) {
                 setProgressBar();
-                presenter.userGetOverallStatistics(new Site(siteName));
+//                presenter.userGetOverallStatistics(new Site(siteName));
             }
         });
     }

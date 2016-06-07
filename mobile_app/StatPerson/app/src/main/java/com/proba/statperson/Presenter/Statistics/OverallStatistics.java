@@ -3,13 +3,15 @@ package com.proba.statperson.presenter.Statistics;
 import android.os.AsyncTask;
 
 import com.proba.statperson.events.OverallStatisticsEvent;
-import com.proba.statperson.presenter.CatalogElement.Site;
+
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import statPerson.element.site.Site;
 
 /**
  * Created by vadik on 04.06.2016.

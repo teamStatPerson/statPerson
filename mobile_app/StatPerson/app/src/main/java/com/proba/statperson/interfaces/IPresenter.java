@@ -1,8 +1,11 @@
 package com.proba.statperson.interfaces;
 
-import com.proba.statperson.presenter.CatalogElement.CatalogElement;
-import com.proba.statperson.presenter.CatalogElement.Person;
-import com.proba.statperson.presenter.CatalogElement.Site;
+
+import java.util.Objects;
+
+import statPerson.element.keyword.Keyword;
+import statPerson.element.person.Person;
+import statPerson.element.site.Site;
 
 /**
  * Created by vadik on 30.05.2016.
@@ -12,4 +15,6 @@ public interface IPresenter {
     void adminGetListOfCatalogElements(int catalogIndex, String param);
 
     void userGetOverallStatistics(Site site);
+
+    void adminDeleteElement(String name, int catalogIndex, int personId);
 }
