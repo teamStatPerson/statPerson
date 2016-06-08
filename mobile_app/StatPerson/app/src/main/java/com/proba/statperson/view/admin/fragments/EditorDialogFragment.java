@@ -22,6 +22,9 @@ import com.proba.statperson.interfaces.IPresenter;
 public class EditorDialogFragment extends DialogFragment
         implements TextView.OnEditorActionListener {
     private EditText mEditText;
+    public static String oldElementName;
+    public static int catalogIndex;
+    public static String personName;
 
     public static final String CATALOG_INDEX = "catalogIndex";
     public static final String ELEMENT_NAME = "elementName";
@@ -31,15 +34,18 @@ public class EditorDialogFragment extends DialogFragment
         // Пустой конструктор должен быть прописан для DialogFragment
     }
 
-    public static EditorDialogFragment newInstance(String elementName, int index, String personName) {
+    public static EditorDialogFragment newInstance(String elementName, int index, String name) {
         String title = "";
         EditorDialogFragment editorDialogFragment = new EditorDialogFragment();
-        Bundle args = new Bundle();
-//        args.putString(TITLE, title);
-        args.putString(ELEMENT_NAME, elementName);
-        args.putInt(CATALOG_INDEX, index);
-        args.putString(PERSON_NAME, personName);
-        editorDialogFragment.setArguments(args);
+        oldElementName = elementName;
+        catalogIndex = index;
+        personName = name;
+//        Bundle args = new Bundle();
+////        args.putString(TITLE, title);
+//        args.putString(ELEMENT_NAME, elementName);
+//        args.putInt(CATALOG_INDEX, index);
+//        args.putString(PERSON_NAME, personName);
+//        editorDialogFragment.setArguments(args);
         return editorDialogFragment;
     }
 
@@ -65,7 +71,7 @@ public class EditorDialogFragment extends DialogFragment
         if (EditorInfo.IME_ACTION_DONE == actionId) {
             // Return input text to activity
             EditorDialogListener activity = (EditorDialogListener) getActivity();
-            activity.onFinishEditDialog(mEditText.getText().toString());
+            activity.onFinishEditDialog(mEditText.getText().toString(), oldElementName, catalogIndex, personName);
             this.dismiss();
             return true;
         }

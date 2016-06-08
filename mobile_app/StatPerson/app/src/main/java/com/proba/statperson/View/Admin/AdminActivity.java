@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.proba.statperson.interfaces.DeleteConfirmListener;
@@ -219,7 +217,10 @@ public class AdminActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFinishEditDialog(String inputText) {
-        Toast.makeText(getApplicationContext(), "Вы ввели, " + inputText, Toast.LENGTH_SHORT).show();
+    public void onFinishEditDialog(String newElementName, String oldElementName, int catalogIndex, String personName) {
+        Toast.makeText(getApplicationContext(), "Вы ввели, " + newElementName, Toast.LENGTH_SHORT).show();
+
+        deleteElement(oldElementName, catalogIndex, personName);
+        addElement(newElementName, catalogIndex, 0);
     }
 }
