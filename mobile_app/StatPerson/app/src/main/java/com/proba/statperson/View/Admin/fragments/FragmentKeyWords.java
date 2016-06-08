@@ -6,6 +6,7 @@ import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.text.InputType;
 import android.util.SparseBooleanArray;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.EditCatalogElementsEvent;
@@ -263,6 +265,21 @@ public class FragmentKeyWords extends ListFragment {
         return popupMenu;
     }
 
+    private void setOnClickListenerFab() {
+        new MaterialDialog.Builder(getActivity()) //https://github.com/afollestad/material-dialogs
+                .title(R.string.add)
+                .content(R.string.add_key_word)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+//                .input(R.string.input_hint, R.string.input_prefill, new MaterialDialog.InputCallback() {
+                .input("", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        Toast.makeText(getActivity(), "Вы подтвердили добавление ключевого слова: " + input,
+                                Toast.LENGTH_LONG).show();
+                    }
+                }).show();
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -289,6 +306,7 @@ public class FragmentKeyWords extends ListFragment {
         adminActivity.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setOnClickListenerFab();
                 Snackbar.make(view, "KeyWordsFragment", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

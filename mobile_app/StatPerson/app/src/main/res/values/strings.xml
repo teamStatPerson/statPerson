@@ -54,5 +54,10 @@
     <string name="edit">Edit</string>
     <string name="sure">Delete? Are you sure?</string>
     <string name="type">Type</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_person">Add person</string>
+    <string name="add_site">Add site</string>
+    <string name="add_key_word">Add key word</string>
 
 </resources>

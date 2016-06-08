@@ -6,6 +6,7 @@ import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.text.InputType;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -19,6 +20,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.EditCatalogElementsEvent;
@@ -141,6 +143,21 @@ public class FragmentSites extends ListFragment {
         return view;
     }
 
+    private void setOnClickListenerFab() {
+        new MaterialDialog.Builder(getActivity()) //https://github.com/afollestad/material-dialogs
+                .title(R.string.add)
+                .content(R.string.add_site)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+//                .input(R.string.input_hint, R.string.input_prefill, new MaterialDialog.InputCallback() {
+                .input("", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        Toast.makeText(getActivity(), "Вы подтвердили добавление сайта: " + input,
+                                Toast.LENGTH_LONG).show();
+                    }
+                }).show();
+    }
+
     @Subscribe
     public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
         removeProgressBar();
@@ -195,6 +212,7 @@ public class FragmentSites extends ListFragment {
         adminActivity.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setOnClickListenerFab();
                 Snackbar.make(view, "SitesFragment", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
