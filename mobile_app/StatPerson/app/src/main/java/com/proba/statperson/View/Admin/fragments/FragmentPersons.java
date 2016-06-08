@@ -6,8 +6,6 @@ import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -26,7 +24,6 @@ import com.proba.statperson.R;
 import com.proba.statperson.events.EditCatalogElementsEvent;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
 import com.proba.statperson.interfaces.IPresenter;
-import com.proba.statperson.presenter.PresenterImpl;
 import com.proba.statperson.view.admin.AdminActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -200,8 +197,10 @@ public class FragmentPersons extends ListFragment {
         adminActivity.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                presenter = new PresenterImpl();
-//                presenter.addElement();
+/*
+                presenter = new PresenterImpl();
+                presenter.addElement();
+*/
             }
         });
     }
