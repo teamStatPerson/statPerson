@@ -114,4 +114,9 @@ public class SitesCatalog implements ICatalog {
             adminGetListOfCatalogElements(null);
         }
     }
+
+    @Override
+    public void adminAddElement(Object object) {
+
+    }
 }

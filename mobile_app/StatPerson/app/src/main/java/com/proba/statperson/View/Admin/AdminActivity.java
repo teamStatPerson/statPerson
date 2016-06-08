@@ -171,6 +171,20 @@ public class AdminActivity extends AppCompatActivity
         }
     }
 
+    public void addElement(CharSequence input, int catalogIndex, int personId) {
+        switch (catalogIndex) {
+            case Constants.PERSONS_CATALOG_INDEX:
+                presenter.adminAddElement(input.toString(), catalogIndex, 0);
+                break;
+            case Constants.SITES_CATALOG_INDEX:
+                presenter.adminAddElement(input.toString(), catalogIndex, 0);
+                break;
+            case Constants.KEYWORDS_CATALOG_INDEX:
+                presenter.adminAddElement(input.toString(), catalogIndex, 0);
+                break;
+        }
+    }
+
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         Toast.makeText(this, "Вы подтвердили удаление!", Toast.LENGTH_LONG).show();
