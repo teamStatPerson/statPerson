@@ -16,6 +16,7 @@ import com.proba.statperson.view.user.UserActivity;
  * Created by vadik on 28.05.2016.
  */
 public class MainActivity extends AppCompatActivity {
+    public FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         final RadioGroup radioGroup;
         radioGroup = (RadioGroup) findViewById(R.id.rg_choose_role);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,5 +47,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentUser);
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }

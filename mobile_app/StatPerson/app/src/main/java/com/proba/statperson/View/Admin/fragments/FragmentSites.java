@@ -1,10 +1,13 @@
 package com.proba.statperson.view.admin.fragments;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.text.InputType;
 import android.view.ContextMenu;
@@ -51,6 +54,7 @@ public class FragmentSites extends ListFragment {
     private View view;
 
     private OnFragmentInteractionListener mListener;
+    public FloatingActionButton fab;
 
     public FragmentSites() {
         // Required empty public constructor
@@ -74,6 +78,7 @@ public class FragmentSites extends ListFragment {
         return fragment;
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onActivityCreated(Bundle savedState) {
         super.onActivityCreated(savedState);
