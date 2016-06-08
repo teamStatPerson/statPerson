@@ -133,5 +133,9 @@ public class PersonsCatalog implements ICatalog {
 
     }
 
+    @Override
+    public void adminAddElement(Object object) {
+
+    }
 
 }

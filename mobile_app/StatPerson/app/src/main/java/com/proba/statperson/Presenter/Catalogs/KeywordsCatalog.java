@@ -83,6 +83,8 @@ public class KeywordsCatalog implements ICatalog {
         sitesDeleteElementTask.execute(keyword);
     }
 
+
+
     class SitesDeleteElementTask extends AsyncTask<Keyword, Void, String> {
 
         @Override
@@ -110,6 +112,11 @@ public class KeywordsCatalog implements ICatalog {
             EventBus.getDefault().post(new EditCatalogElementsEvent(result));
             adminGetListOfCatalogElements(null);
         }
+    }
+
+    @Override
+    public void adminAddElement(Object object) {
+
     }
 
 }
