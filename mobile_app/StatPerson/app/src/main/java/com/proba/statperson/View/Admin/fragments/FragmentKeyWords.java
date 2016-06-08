@@ -276,6 +276,8 @@ public class FragmentKeyWords extends ListFragment {
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         Toast.makeText(getActivity(), "Вы подтвердили добавление ключевого слова: " + input,
                                 Toast.LENGTH_LONG).show();
+                        // TODO: 08.06.2016 handle person ids
+                        ((AdminActivity) getActivity()).addElement(input, Constants.KEYWORDS_CATALOG_INDEX, 0);
                     }
                 }).show();
     }
