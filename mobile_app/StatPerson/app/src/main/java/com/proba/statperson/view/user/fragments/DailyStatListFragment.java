@@ -54,7 +54,6 @@ public class DailyStatListFragment extends ListFragment {
     public void onReceiveOverallStatistics(ReceivedStatisticsEvent overallStatistics) {
         mCallback.removeProgressBar();
 
-
         ListAdapter adapter = new SimpleAdapter(getActivity(), dailyStatList, R.layout.total_stat_list_item,
                 new String[]{DailyStatHashMap.DAILYDATE, DailyStatHashMap.QUANTITY}, new int[]{
                 R.id.tvPerson, R.id.tvQty});
