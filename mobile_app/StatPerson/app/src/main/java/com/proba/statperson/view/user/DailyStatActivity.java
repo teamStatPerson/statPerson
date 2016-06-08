@@ -3,6 +3,7 @@ package com.proba.statperson.view.user;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -29,6 +30,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import statPerson.element.site.Site;
+
 public class DailyStatActivity extends AppCompatActivity implements DailyStatDate {
 
     public String from_date;
@@ -51,6 +54,7 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
     private String[] sites;
     private String[] persons;
 
+    private FloatingActionButton fab;
     public static boolean isSitesListRetrieved;
 
     @Override
@@ -63,6 +67,10 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
     }
 
     private void init() {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setVisibility(View.INVISIBLE);
+        initFAB();
+
         textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
         textViewSiteName = (TextView) findViewById(R.id.textViewSiteName);
         textViewDateFrom = (TextView) findViewById(R.id.textViewDateFrom);
@@ -323,6 +331,18 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
             }
         }
     };
+
+    public void initFAB() {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.VISIBLE);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                setProgressBar();
+//                presenter.userGetOverallStatistics(new Site(siteName, null));
+            }
+        });
+    }
 
     @Override
     public void onDateSelected(String date) {
