@@ -16,4 +16,6 @@ public interface IPresenter {
     void userGetDailyStatistics(Site site, Person person, String dateTill, String dateFrom);
 
     void adminDeleteElement(String name, int catalogIndex, int personId);
+
+    void adminAddElement(String name, int catalogIndex, int personId);
 }

@@ -23,6 +23,10 @@ import statPerson.element.site.Site;
  */
 public class DeleteConfirmDialogFragment extends DialogFragment {
 
+    public static final String CATALOG_INDEX = "catalogIndex";
+    public static final String ELEMENT_NAME = "elementName";
+    public static final String PERSON_NAME = "personName";
+    public static final String TITLE = "title";
     private DeleteConfirmListener mDeleteConfirmListenerListener;
     Context mContext;
     static String elementName;
@@ -35,11 +39,12 @@ public class DeleteConfirmDialogFragment extends DialogFragment {
 
     public static DeleteConfirmDialogFragment newInstance(MenuItem item, int index, String personName) {
         String title = "";
-        elementName = item.getTitle().toString();
-        catalogIndex = index;
         DeleteConfirmDialogFragment deleteConfirmDialogFragment = new DeleteConfirmDialogFragment();
         Bundle args = new Bundle();
-        args.putString("title", title);
+        args.putString(TITLE, title);
+        args.putString(ELEMENT_NAME, item.getTitle().toString());
+        args.putInt(CATALOG_INDEX, index);
+        args.putString(PERSON_NAME, personName);
         deleteConfirmDialogFragment.setArguments(args);
         return deleteConfirmDialogFragment;
     }
@@ -55,20 +60,7 @@ public class DeleteConfirmDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         presenter = new PresenterImpl();
                         mDeleteConfirmListenerListener.onDialogPositiveClick(DeleteConfirmDialogFragment.this);
-                        switch (catalogIndex) {
-                            case Constants.PERSONS_CATALOG_INDEX:
-//                                Person person = new Person(elementName);
-                                presenter.adminDeleteElement(elementName, Constants.PERSONS_CATALOG_INDEX, 0);
-                                break;
-                            case Constants.SITES_CATALOG_INDEX:
-//                                Site site = new Site(elementName, null);
-                                presenter.adminDeleteElement(elementName, Constants.SITES_CATALOG_INDEX, 0);
-                                break;
-                            case Constants.KEYWORDS_CATALOG_INDEX:
-//                                Keyword keyword = new Keyword(elementName, 0);
-                                presenter.adminDeleteElement(elementName, Constants.KEYWORDS_CATALOG_INDEX, 0);
-                                break;
-                        }
+
                     }
                 })
                 .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {

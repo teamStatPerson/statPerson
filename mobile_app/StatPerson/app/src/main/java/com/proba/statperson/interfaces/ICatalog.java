@@ -10,4 +10,6 @@ public interface ICatalog {
     void adminGetListOfCatalogElements(String param);
 
     void adminDeleteElement(Object object);
+
+    void adminAddElement(Object object);
 }

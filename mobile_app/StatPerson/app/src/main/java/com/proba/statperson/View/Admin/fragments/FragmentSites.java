@@ -103,7 +103,8 @@ public class FragmentSites extends ListFragment {
         switch (item.getItemId()) {
             case R.id.edit:
                 FragmentManager editManager = getFragmentManager();
-                EditorDialogFragment editorDialogFragment = new EditorDialogFragment();
+                EditorDialogFragment editorDialogFragment = EditorDialogFragment.newInstance(item.getTitle().toString(),
+                        Constants.SITES_CATALOG_INDEX, null);
                 editorDialogFragment.show(editManager, "dialog_editor");
                 break;
             case R.id.delete:
@@ -148,21 +149,6 @@ public class FragmentSites extends ListFragment {
         return view;
     }
 
-    private void setOnClickListenerFab() {
-        new MaterialDialog.Builder(getActivity()) //https://github.com/afollestad/material-dialogs
-                .title(R.string.add)
-                .content(R.string.add_site)
-                .inputType(InputType.TYPE_CLASS_TEXT)
-//                .input(R.string.input_hint, R.string.input_prefill, new MaterialDialog.InputCallback() {
-                .input("", "", new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(MaterialDialog dialog, CharSequence input) {
-                        Toast.makeText(getActivity(), "Вы подтвердили добавление сайта: " + input,
-                                Toast.LENGTH_LONG).show();
-                    }
-                }).show();
-    }
-
     @Subscribe
     public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
         removeProgressBar();
@@ -197,7 +183,6 @@ public class FragmentSites extends ListFragment {
         }
     }
 
-
     @Override
     public void setUserVisibleHint(boolean visible) {
         super.setUserVisibleHint(visible);
@@ -205,6 +190,7 @@ public class FragmentSites extends ListFragment {
             onResume();
         }
     }
+
 
     @Override
     public void onResume() {
@@ -218,10 +204,25 @@ public class FragmentSites extends ListFragment {
             @Override
             public void onClick(View v) {
                 setOnClickListenerFab();
-                Snackbar.make(view, "SitesFragment", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
+    }
+
+    private void setOnClickListenerFab() {
+        new MaterialDialog.Builder(getActivity())
+                .title(R.string.add)
+                .content(R.string.add_site)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+//                .input(R.string.input_hint, R.string.input_prefill, new MaterialDialog.InputCallback() {
+                .input("", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        Toast.makeText(getActivity(), "Вы подтвердили добавление сайта: " + input,
+                                Toast.LENGTH_LONG).show();
+                        ((AdminActivity) getActivity()).addElement(input, Constants.SITES_CATALOG_INDEX, 0);
+                    }
+                }).show();
     }
 
     @Override

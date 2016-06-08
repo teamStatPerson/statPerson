@@ -133,12 +133,13 @@ public class FragmentKeyWords extends ListFragment {
         {
             case R.id.edit:
                 FragmentManager editManager = getFragmentManager();
-                EditorDialogFragment editorDialogFragment = new EditorDialogFragment();
+                EditorDialogFragment editorDialogFragment = EditorDialogFragment.newInstance(item.getTitle().toString(),
+                        Constants.KEYWORDS_CATALOG_INDEX, chosenPerson);
                 editorDialogFragment.show(editManager, "dialog_editor");
                 break;
             case R.id.delete:
                 DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance(item,
-                        Constants.PERSONS_CATALOG_INDEX, chosenPerson);
+                        Constants.KEYWORDS_CATALOG_INDEX, chosenPerson);
                 FragmentManager deleteManager = getFragmentManager();
                 deleteConfirmDialogFragment.show(deleteManager, "dialog_delete");
                 break;
@@ -277,6 +278,8 @@ public class FragmentKeyWords extends ListFragment {
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         Toast.makeText(getActivity(), "Вы подтвердили добавление ключевого слова: " + input,
                                 Toast.LENGTH_LONG).show();
+                        // TODO: 08.06.2016 handle person ids
+                        ((AdminActivity) getActivity()).addElement(input, Constants.KEYWORDS_CATALOG_INDEX, 0);
                     }
                 }).show();
     }

@@ -37,7 +37,6 @@ public class PresenterImpl implements IPresenter {
                 catalog.adminGetListOfCatalogElements(param);
                 break;
         }
-
     }
 
     @Override
@@ -55,6 +54,25 @@ public class PresenterImpl implements IPresenter {
             case Constants.KEYWORDS_CATALOG_INDEX:
                 catalog = new KeywordsCatalog();
                 catalog.adminDeleteElement(new Keyword(elementName, 0));
+                break;
+        }
+    }
+
+    @Override
+    public void adminAddElement(String elementName, int catalogIndex, int personId) {
+        ICatalog catalog;
+        switch (catalogIndex) {
+            case Constants.PERSONS_CATALOG_INDEX:
+                catalog = new PersonsCatalog();
+                catalog.adminAddElement(new Person(elementName));
+                break;
+            case Constants.SITES_CATALOG_INDEX:
+                catalog = new SitesCatalog();
+                catalog.adminAddElement(new Site(elementName, null));
+                break;
+            case Constants.KEYWORDS_CATALOG_INDEX:
+                catalog = new KeywordsCatalog();
+                catalog.adminAddElement(new Keyword(elementName, 0));
                 break;
         }
     }

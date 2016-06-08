@@ -122,7 +122,8 @@ public class FragmentPersons extends ListFragment {
         switch (item.getItemId()) {
             case R.id.edit:
                 FragmentManager editManager = getFragmentManager();
-                EditorDialogFragment editorDialogFragment = new EditorDialogFragment();
+                EditorDialogFragment editorDialogFragment = EditorDialogFragment.newInstance(item.getTitle().toString(),
+                        Constants.PERSONS_CATALOG_INDEX, null);
                 editorDialogFragment.show(editManager, "dialog_editor");
                 break;
             case R.id.delete:
@@ -148,6 +149,7 @@ public class FragmentPersons extends ListFragment {
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         Toast.makeText(getActivity(), "Вы подтвердили добавление личности: " + input,
                                 Toast.LENGTH_LONG).show();
+                        ((AdminActivity) getActivity()).addElement(input, Constants.PERSONS_CATALOG_INDEX, 0);
                     }
                 }).show();
     }

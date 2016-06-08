@@ -5,6 +5,6 @@ package com.proba.statperson.interfaces;
  */
 public interface EditorDialogListener {
 
-        void onFinishEditDialog(String inputText);
+        void onFinishEditDialog(String text, String oldElementName, int catalogIndex, String inputText);
 
 }

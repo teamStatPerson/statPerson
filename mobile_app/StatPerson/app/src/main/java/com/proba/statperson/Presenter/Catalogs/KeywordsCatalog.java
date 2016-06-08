@@ -1,13 +1,11 @@
 package com.proba.statperson.presenter.Catalogs;
 
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import com.proba.statperson.events.EditCatalogElementsEvent;
 import com.proba.statperson.events.PersonKeywordsListEvent;
 import com.proba.statperson.interfaces.ICatalog;
 import com.proba.statperson.interfaces.IView;
-import com.proba.statperson.presenter.CatalogElement.Person;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -79,11 +77,13 @@ public class KeywordsCatalog implements ICatalog {
     public void adminDeleteElement(Object object) {
         Keyword keyword;
         keyword = (Keyword) object;
-        SitesDeleteElementTask sitesDeleteElementTask = new SitesDeleteElementTask();
-        sitesDeleteElementTask.execute(keyword);
+        KeywordsDeleteElementTask keywordsDeleteElementTask = new KeywordsDeleteElementTask();
+        keywordsDeleteElementTask.execute(keyword);
     }
 
-    class SitesDeleteElementTask extends AsyncTask<Keyword, Void, String> {
+
+
+    class KeywordsDeleteElementTask extends AsyncTask<Keyword, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -99,6 +99,43 @@ public class KeywordsCatalog implements ICatalog {
             for (Keyword keyword : keywords) {
 //                FakeWebServiceAPI fakeWebServiceAPI = new FakeWebServiceAPI();
 //                fakeWebServiceAPI.removeKeyword(account, keyword);
+            }
+
+            return "Done";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            EventBus.getDefault().post(new EditCatalogElementsEvent(result));
+            adminGetListOfCatalogElements(null);
+        }
+    }
+
+    @Override
+    public void adminAddElement(Object object) {
+        Keyword keyword;
+        keyword = (Keyword) object;
+        KeywordsAddElementTask sitesAddElementTask = new KeywordsAddElementTask();
+        sitesAddElementTask.execute(keyword);
+    }
+
+    class KeywordsAddElementTask extends AsyncTask<Keyword, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Keyword... keywords) {
+            Account account = new Account();
+            account.setEmail("q@q.com");
+            account.setPassword("paswword");
+
+            for (Keyword keyword : keywords) {
+//                FakeWebServiceAPI fakeWebServiceAPI = new FakeWebServiceAPI();
+//                fakeWebServiceAPI.addKeyword(account, keyword);
             }
 
             return "Done";
