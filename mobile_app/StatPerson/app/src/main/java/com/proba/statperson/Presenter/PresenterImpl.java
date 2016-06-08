@@ -37,7 +37,6 @@ public class PresenterImpl implements IPresenter {
                 catalog.adminGetListOfCatalogElements(param);
                 break;
         }
-
     }
 
     @Override

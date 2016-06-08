@@ -148,6 +148,7 @@ public class FragmentPersons extends ListFragment {
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         Toast.makeText(getActivity(), "Вы подтвердили добавление личности: " + input,
                                 Toast.LENGTH_LONG).show();
+                        ((AdminActivity) getActivity()).addElement(input, Constants.PERSONS_CATALOG_INDEX, 0);
                     }
                 }).show();
     }

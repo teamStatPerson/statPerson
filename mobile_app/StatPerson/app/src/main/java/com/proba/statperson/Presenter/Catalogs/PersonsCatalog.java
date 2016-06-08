@@ -135,7 +135,39 @@ public class PersonsCatalog implements ICatalog {
 
     @Override
     public void adminAddElement(Object object) {
-
+        Person person;
+        person = (Person) object;
+        PersonsAddElementTask personsAddElementTask = new PersonsAddElementTask();
+        personsAddElementTask.execute(person);
     }
 
+    class PersonsAddElementTask extends AsyncTask<Person, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(Person... persons) {
+            Account account = new Account();
+            account.setEmail("q@q.com");
+            account.setPassword("paswword");
+
+            for (Person person : persons) {
+//                FakeWebServiceAPI fakeWebServiceAPI = new FakeWebServiceAPI();
+//                fakeWebServiceAPI.addPerson(account, person);
+            }
+
+            return "Done";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            EventBus.getDefault().post(new EditCatalogElementsEvent(result));
+            adminGetListOfCatalogElements(null);
+        }
+
+    }
 }
