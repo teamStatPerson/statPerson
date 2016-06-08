@@ -14,23 +14,15 @@
 
 		<property name="javax.persistence.validation.mode">none</property>
 
-
-
 		<mapping resource="/statPerson/element/account/Account.hbm.xml" />
 		<mapping resource="/statPerson/element/price/Price.hbm.xml" />
 		<mapping resource="/statPerson/element/administrator_price/AdministratorPrice.hbm.xml" />
-		<mapping resource="/statPerson/element/administrator_person/AdministratorPerson.hbm.xml" />
-
-<!-- 	<property name="connection.pool_size">1</property> -->
-<!-- 	<property name="current_session_context_class">thread</property> -->
-<!-- 	<property name="show_sql">true</property> -->
-<!-- 	<property name="hibernate.hbm2ddl.auto">validate</property> -->
-        
-<!--         <mapping class="statPerson.crauler.elements.main.java.entity.Keywords"/> -->
-<!--         <mapping class="statPerson.crauler.elements.main.java.entity.Pages"/> -->
-<!--         <mapping class="statPerson.crauler.elements.main.java.entity.Personpagerank"/> -->
-<!--         <mapping class="statPerson.crauler.elements.main.java.entity.Persons"/> -->
-<!--         <mapping class="statPerson.crauler.elements.main.java.entity.Sites"/> -->
+		<mapping resource="/statPerson/element/keyword/Keyword.hbm.xml" />
+		<mapping resource="/statPerson/element/person/Person.hbm.xml" />
+		<mapping resource="/statPerson/element/page/Page.hbm.xml" />
+		<mapping resource="/statPerson/element/site/Site.hbm.xml" />
+		<mapping resource="/statPerson/element/person_page_rank/PersonPageRank.hbm.xml" />
+		<mapping resource="/statPerson/element/administrator_site/AdministratorSite.hbm.xml" />
 
 	</session-factory>
 </hibernate-configuration>

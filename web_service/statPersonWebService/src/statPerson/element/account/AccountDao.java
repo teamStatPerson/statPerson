@@ -59,9 +59,41 @@ public class AccountDao {
 	public static Integer addUser(String email, String password, int idLinkedAdministrator) throws NotCorrectInputData{
 		return addAccount( email,  password,  Account.USER_ACCOUNT,  idLinkedAdministrator);
 	}
-	
 
-	public static Account getAccount(Integer idAccount) {
+	public static Integer getAccount(String email, String password)
+			throws  NotCorrectInputData {
+		if (email == null || password == null) {
+			throw new NotCorrectInputData();
+		}
+		Session session = Factory.getFactory().openSession();
+		Transaction tx = null;
+		Integer idAccount = null;
+
+		try {
+			tx = session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(Account.class);
+			criteria.add(Restrictions.eq("email", email));
+			criteria.add(Restrictions.eq("password", password));
+
+			@SuppressWarnings("unchecked")
+			List<Account> accounts = (List<Account>) criteria.list();
+			if (accounts.size() == 1) {
+				idAccount = accounts.get(0).getId();
+			}
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return idAccount;
+	}
+
+	public static Account getAccountById(Integer idAccount) {
 		Session session = Factory.getFactory().openSession();
 		Transaction tx = null;
 		Account account = null;
@@ -102,12 +134,12 @@ public class AccountDao {
 	}
 
 	public static boolean isPrimaryAdministator(Integer idAccount) {
-		Account account = getAccount(idAccount);
+		Account account = getAccountById(idAccount);
 		return account.isPrimaryAdministrator();
 	}
 
 	public static boolean isAdministator(Integer idAccount) {
-		Account account = getAccount(idAccount);
+		Account account = getAccountById(idAccount);
 		return !account.isUser();
 	}
 	

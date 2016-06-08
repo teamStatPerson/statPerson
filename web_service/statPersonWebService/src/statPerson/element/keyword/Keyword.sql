@@ -1,0 +1,6 @@
+
+CREATE TABLE `KEYWORD` (
+	`ID` int PRIMARY KEY auto_increment NOT NULL,
+	`NAME` varchar(2048) NOT NULL,
+	`PERSONID` int NOT NULL
+);
