@@ -248,8 +248,8 @@ public class FragmentKeyWords extends ListFragment {
 
             @Override
             public void onDismiss(PopupMenu menu) {
-                Toast.makeText(getActivity(), "onDismiss",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "onDismiss",
+//                        Toast.LENGTH_SHORT).show();
             }
         });
         popupMenu.show();
