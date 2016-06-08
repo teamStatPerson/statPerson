@@ -2,13 +2,12 @@ package com.proba.statperson.presenter.Statistics;
 
 import android.os.AsyncTask;
 
-import com.proba.statperson.events.OverallStatisticsEvent;
+import com.proba.statperson.events.ReceivedStatisticsEvent;
 
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import statPerson.element.site.Site;
@@ -21,11 +20,11 @@ public class OverallStatistics {
     HashMap<String, Integer> overallStatistics;
 
     public void userGetOverallStatistics(Site site) {
-        getOverallStatisticsTask sitesListTask = new getOverallStatisticsTask();
-        sitesListTask.execute(site);
+        GetOverallStatisticsTask getOverallStatisticsTask = new GetOverallStatisticsTask();
+        getOverallStatisticsTask.execute(site);
     }
 
-    class getOverallStatisticsTask extends AsyncTask<Site, Void, HashMap<String, Integer>> {
+    class GetOverallStatisticsTask extends AsyncTask<Site, Void, HashMap<String, Integer>> {
 
         @Override
         protected void onPreExecute() {
@@ -55,7 +54,7 @@ public class OverallStatistics {
         protected void onPostExecute(HashMap<String, Integer> result) {
             super.onPostExecute(result);
 
-            EventBus.getDefault().post(new OverallStatisticsEvent(result));
+            EventBus.getDefault().post(new ReceivedStatisticsEvent(result));
         }
 
     }

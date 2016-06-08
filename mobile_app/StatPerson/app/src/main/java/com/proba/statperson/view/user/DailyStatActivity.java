@@ -3,6 +3,7 @@ package com.proba.statperson.view.user;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -29,6 +30,9 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import statPerson.element.person.Person;
+import statPerson.element.site.Site;
+
 public class DailyStatActivity extends AppCompatActivity implements DailyStatDate {
 
     public String from_date;
@@ -51,7 +55,14 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
     private String[] sites;
     private String[] persons;
 
+    private FloatingActionButton fab;
     public static boolean isSitesListRetrieved;
+    public static String siteName;
+    public static String personName;
+    public static boolean isPersonChosen;
+    public static boolean isSiteChosen;
+    public static boolean isDateFromChosen;
+    public static boolean isDateTillChosen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +74,14 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
     }
 
     private void init() {
+        isPersonChosen = false;
+        isSiteChosen = false;
+        isDateFromChosen = false;
+        isDateTillChosen = false;
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.INVISIBLE);
+
         textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
         textViewSiteName = (TextView) findViewById(R.id.textViewSiteName);
         textViewDateFrom = (TextView) findViewById(R.id.textViewDateFrom);
@@ -119,9 +138,14 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         }
     }
 
-    private void removeProgressBar() {
+    public void removeProgressBar() {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar3);
         progressBar.setVisibility(View.GONE);
+    }
+
+    private void setProgressBar() {
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar3);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     private void setOnClickListenerOnPersonsPopup() {
@@ -152,6 +176,9 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         showPersonName(item.getTitle().toString());
+                        personName = item.getTitle().toString();
+                        isPersonChosen = true;
+                        checkIfItIsPossibleToInitFab();
 //                        setProgressBar();
 //                        Person person = new Person(item.getTitle().toString());
 //                        Toast.makeText(getActivity(), person.getName(), Toast.LENGTH_SHORT).show();
@@ -167,10 +194,10 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
 
             @Override
             public void onDismiss(PopupMenu menu) {
-
             }
         });
         popupMenu.show();
+
     }
 
     private PopupMenu populatePersonsPopupMenu(PopupMenu popupMenu) {
@@ -222,6 +249,9 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         showSiteName(item.getTitle().toString());
+                        siteName = item.getTitle().toString();
+                        isSiteChosen = true;
+                        checkIfItIsPossibleToInitFab();
 //                        setProgressBar();
 //                        Person person = new Person(item.getTitle().toString());
 //                        Toast.makeText(getActivity(), person.getName(), Toast.LENGTH_SHORT).show();
@@ -237,10 +267,15 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
 
             @Override
             public void onDismiss(PopupMenu menu) {
-
             }
         });
         popupMenu.show();
+    }
+
+    private void checkIfItIsPossibleToInitFab() {
+        if (isSiteChosen && isPersonChosen && isDateFromChosen && isDateTillChosen) {
+            initFAB();
+        }
     }
 
     private PopupMenu populateSitesPopupMenu(PopupMenu popupMenu) {
@@ -290,6 +325,8 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
                     from_date = " " + sday + "." + smonth + "." + year;
                     EventBus.getDefault().post(new SetDateFromEvent(from_date));
                     textViewDateFrom.setText(from_date);
+                    isDateFromChosen = true;
+                    checkIfItIsPossibleToInitFab();
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.from_less_today), Toast.LENGTH_LONG).show();
                     calendarFrom = calendarToday;
@@ -313,6 +350,8 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
                     to_date = " " + sday + "." + smonth + "." + year;
                     EventBus.getDefault().post(new SetDateTillEvent(to_date));
                     textViewDateTill.setText(to_date);
+                    isDateTillChosen = true;
+                    checkIfItIsPossibleToInitFab();
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.from_less_till), Toast.LENGTH_LONG).show();
                     calendarTill = calendarFrom;
@@ -323,6 +362,18 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
             }
         }
     };
+
+    public void initFAB() {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.VISIBLE);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setProgressBar();
+                presenter.userGetDailyStatistics(new Site(siteName, null), new Person(personName), to_date, from_date);
+            }
+        });
+    }
 
     @Override
     public void onDateSelected(String date) {

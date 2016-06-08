@@ -16,15 +16,15 @@ import android.widget.TextView;
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
-import com.proba.statperson.events.OverallStatisticsEvent;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.interfaces.TotalStatSite;
-import com.proba.statperson.presenter.CatalogElement.Site;
 import com.proba.statperson.presenter.PresenterImpl;
 import com.proba.statperson.view.user.fragments.TotalStatListFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import statPerson.element.site.Site;
 
 public class UserActivity extends AppCompatActivity implements TotalStatSite {
 
@@ -33,6 +33,7 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
     private FloatingActionButton fab;
     TextView textViewPersonName;
     TextView textViewSiteName;
+    public static String siteName;
 
     private String[] sites;
 
@@ -40,7 +41,6 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
         init();
 
     }
@@ -75,12 +75,6 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
         findViewById(R.id.textViewSiteName).setVisibility(View.VISIBLE);
 
         setOnClickListenerOnSitesPopup();
-    }
-
-    @Subscribe
-    public void onReceiveOverallStatistics(OverallStatisticsEvent overallStatistics) {
-        removeProgressBar();
-        // TODO: 05.06.2016 display overall statistics
     }
 
     private void setOnClickListenerOnSitesPopup() {
@@ -118,7 +112,8 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
 //                        ((AdminActivity) getActivity()).
 //                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, item.getTitle().toString());
 
-                        initFAB(item.getTitle().toString());
+                        initFAB();
+                        siteName = item.getTitle().toString();
                         return false;
                     }
                 });
@@ -145,14 +140,14 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
 */
     }
 
-    private void initFAB(final String siteName) {
+    public void initFAB() {
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setVisibility(View.VISIBLE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setProgressBar();
-//                presenter.userGetOverallStatistics(new Site(siteName));
+                presenter.userGetOverallStatistics(new Site(siteName, null));
             }
         });
     }
@@ -173,7 +168,7 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    private void removeProgressBar() {
+    public void removeProgressBar() {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.GONE);
     }

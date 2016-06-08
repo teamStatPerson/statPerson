@@ -5,4 +5,7 @@ package com.proba.statperson.interfaces;
  */
 public interface TotalStatSite {
     public void onSiteSelected(String date);
+
+    public void removeProgressBar();
+
 }

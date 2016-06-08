@@ -1,9 +1,6 @@
 package com.proba.statperson.interfaces;
 
 
-import java.util.Objects;
-
-import statPerson.element.keyword.Keyword;
 import statPerson.element.person.Person;
 import statPerson.element.site.Site;
 
@@ -15,6 +12,8 @@ public interface IPresenter {
     void adminGetListOfCatalogElements(int catalogIndex, String param);
 
     void userGetOverallStatistics(Site site);
+
+    void userGetDailyStatistics(Site site, Person person, String dateTill, String dateFrom);
 
     void adminDeleteElement(String name, int catalogIndex, int personId);
 }
