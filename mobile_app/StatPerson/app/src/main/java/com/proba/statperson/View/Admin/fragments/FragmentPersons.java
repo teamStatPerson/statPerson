@@ -122,7 +122,8 @@ public class FragmentPersons extends ListFragment {
         switch (item.getItemId()) {
             case R.id.edit:
                 FragmentManager editManager = getFragmentManager();
-                EditorDialogFragment editorDialogFragment = new EditorDialogFragment();
+                EditorDialogFragment editorDialogFragment = EditorDialogFragment.newInstance(item.getTitle().toString(),
+                        Constants.PERSONS_CATALOG_INDEX, null);
                 editorDialogFragment.show(editManager, "dialog_editor");
                 break;
             case R.id.delete:
