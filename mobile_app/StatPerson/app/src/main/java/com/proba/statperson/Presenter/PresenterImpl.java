@@ -64,4 +64,9 @@ public class PresenterImpl implements IPresenter {
         overallStatistics.userGetOverallStatistics(site);
     }
 
+    @Override
+    public void userGetDailyStatistics(Site site, Person person, String dateTill, String dateFrom) {
+
+    }
+
 }

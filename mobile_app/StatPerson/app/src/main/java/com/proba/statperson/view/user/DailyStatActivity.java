@@ -30,6 +30,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import statPerson.element.person.Person;
 import statPerson.element.site.Site;
 
 public class DailyStatActivity extends AppCompatActivity implements DailyStatDate {
@@ -140,6 +141,11 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
     private void removeProgressBar() {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar3);
         progressBar.setVisibility(View.GONE);
+    }
+
+    private void setProgressBar() {
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar3);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     private void setOnClickListenerOnPersonsPopup() {
@@ -363,8 +369,8 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                setProgressBar();
-//                presenter.userGetOverallStatistics(new Site(siteName, null));
+                setProgressBar();
+                presenter.userGetDailyStatistics(new Site(siteName, null), new Person(personName), to_date, from_date);
             }
         });
     }
