@@ -48,6 +48,10 @@ public class AdminActivity extends AppCompatActivity
     FragmentKeyWords fragmentKeyWords;
     FragmentUsers fragmentUsers;
 
+    public static final String CATALOG_INDEX = "catalogIndex";
+    public static final String ELEMENT_NAME = "elementName";
+    public static final String PERSON_NAME = "personName";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,9 +189,28 @@ public class AdminActivity extends AppCompatActivity
         }
     }
 
+    public void deleteElement(String elementName, int catalogIndex, String personName) {
+        switch (catalogIndex) {
+            case Constants.PERSONS_CATALOG_INDEX:
+//                                Person person = new Person(elementName);
+                presenter.adminDeleteElement(elementName, Constants.PERSONS_CATALOG_INDEX, 0);
+                break;
+            case Constants.SITES_CATALOG_INDEX:
+//                                Site site = new Site(elementName, null);
+                presenter.adminDeleteElement(elementName, Constants.SITES_CATALOG_INDEX, 0);
+                break;
+            case Constants.KEYWORDS_CATALOG_INDEX:
+//                                Keyword keyword = new Keyword(elementName, 0);
+                presenter.adminDeleteElement(elementName, Constants.KEYWORDS_CATALOG_INDEX, 0);
+                break;
+        }
+    }
+
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         Toast.makeText(this, "Вы подтвердили удаление!", Toast.LENGTH_LONG).show();
+        deleteElement(dialog.getArguments().getString(ELEMENT_NAME), dialog.getArguments().getInt(CATALOG_INDEX),
+                dialog.getArguments().getString(PERSON_NAME));
     }
 
     @Override

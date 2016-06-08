@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.proba.statperson.R;
 import com.proba.statperson.interfaces.EditorDialogListener;
+import com.proba.statperson.interfaces.IPresenter;
 
 /**
  * Created by Konstantin on 05.06.2016.
