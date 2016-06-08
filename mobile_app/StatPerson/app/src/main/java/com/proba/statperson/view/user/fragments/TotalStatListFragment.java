@@ -3,13 +3,11 @@ package com.proba.statperson.view.user.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.view.View;
 import android.widget.ListAdapter;
-import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 
 import com.proba.statperson.R;
-import com.proba.statperson.events.OverallStatisticsEvent;
+import com.proba.statperson.events.ReceivedStatisticsEvent;
 import com.proba.statperson.interfaces.TotalStatSite;
 import com.proba.statperson.util.TotalStatHashMap;
 
@@ -45,7 +43,7 @@ public class TotalStatListFragment extends ListFragment {
     }
 
     @Subscribe
-    public void onReceiveOverallStatistics(OverallStatisticsEvent overallStatistics) {
+    public void onReceiveOverallStatistics(ReceivedStatisticsEvent overallStatistics) {
         mCallback.removeProgressBar();
 //        mCallback.initFAB();
 

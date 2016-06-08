@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.NewCatalogElementsListEvent;
-import com.proba.statperson.events.OverallStatisticsEvent;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.interfaces.TotalStatSite;
 import com.proba.statperson.presenter.PresenterImpl;

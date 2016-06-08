@@ -7,6 +7,7 @@ import com.proba.statperson.presenter.Catalogs.SitesCatalog;
 import com.proba.statperson.interfaces.ICatalog;
 import com.proba.statperson.interfaces.IModel;
 import com.proba.statperson.interfaces.IPresenter;
+import com.proba.statperson.presenter.Statistics.DailyStatistics;
 import com.proba.statperson.presenter.Statistics.OverallStatistics;
 
 import statPerson.element.keyword.Keyword;
@@ -66,7 +67,8 @@ public class PresenterImpl implements IPresenter {
 
     @Override
     public void userGetDailyStatistics(Site site, Person person, String dateTill, String dateFrom) {
-
+        DailyStatistics dailyStatistics = new DailyStatistics();
+        dailyStatistics.userGetDailyStatistics(site, person, dateTill, dateFrom);
     }
 
 }
