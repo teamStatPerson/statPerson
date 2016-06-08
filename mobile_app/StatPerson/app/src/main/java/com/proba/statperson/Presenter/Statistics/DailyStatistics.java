@@ -43,14 +43,10 @@ public class DailyStatistics {
             dailyStatistics = new HashMap<>();
 
             for (int i = 0; i < 5; i++) {
-//                CatalogElement person = new Person("FakeSite #_" + i);
-//                sites.add(person);
-                dailyStatistics.put(dateFrom, i * i);
+                dailyStatistics.put(dateFrom + i, i * i);
             }
             for (int i = 0; i < 5; i++) {
-//                CatalogElement person = new Person("FakeSite #_" + i);
-//                sites.add(person);
-                dailyStatistics.put(dateTill, i * i);
+                dailyStatistics.put(dateTill + i, i * i);
             }
 
             try {

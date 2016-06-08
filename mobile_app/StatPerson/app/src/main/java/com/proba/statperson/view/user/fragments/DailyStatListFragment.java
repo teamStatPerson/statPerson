@@ -7,6 +7,7 @@ import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 
 import com.proba.statperson.R;
+import com.proba.statperson.events.ReceivedStatisticsEvent;
 import com.proba.statperson.events.SetDateFromEvent;
 import com.proba.statperson.events.SetDateTillEvent;
 import com.proba.statperson.interfaces.DailyStatDate;
@@ -16,6 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by Konstantin on 02.06.2016.
@@ -42,10 +44,27 @@ public class DailyStatListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         dailyStatList = new ArrayList<DailyStatHashMap>();
-
         ListAdapter adapter = new SimpleAdapter(getActivity(), dailyStatList, R.layout.daily_stat_list_item,
                 new String[]{DailyStatHashMap.DAILYDATE, DailyStatHashMap.QUANTITY}, new int[]{
                 R.id.tvDate, R.id.tvQty});
+        setListAdapter(adapter);
+    }
+
+    @Subscribe
+    public void onReceiveOverallStatistics(ReceivedStatisticsEvent overallStatistics) {
+        mCallback.removeProgressBar();
+
+
+        ListAdapter adapter = new SimpleAdapter(getActivity(), dailyStatList, R.layout.total_stat_list_item,
+                new String[]{DailyStatHashMap.DAILYDATE, DailyStatHashMap.QUANTITY}, new int[]{
+                R.id.tvPerson, R.id.tvQty});
+        dailyStatList.clear();
+        setListAdapter(adapter);
+
+        for (Map.Entry<String, Integer> entry : overallStatistics.message.entrySet()) {
+            dailyStatList.add(new DailyStatHashMap(entry.getKey(), entry.getValue().toString()));
+        }
+
         setListAdapter(adapter);
     }
 

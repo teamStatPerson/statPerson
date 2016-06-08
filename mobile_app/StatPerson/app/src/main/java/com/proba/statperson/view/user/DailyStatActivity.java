@@ -138,7 +138,7 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         }
     }
 
-    private void removeProgressBar() {
+    public void removeProgressBar() {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar3);
         progressBar.setVisibility(View.GONE);
     }
