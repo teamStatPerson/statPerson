@@ -56,6 +56,7 @@ public class FragmentKeyWords extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
     private String chosenPerson;
+    TextView tvChoosePerson2;
 
 //    final String[] keyWordsPutin = new String[]{"Путиным", "Путину", "Путина", "Путине"};
 //    final String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
@@ -207,7 +208,7 @@ public class FragmentKeyWords extends ListFragment {
 
     private void setOnClickListenerOnPersonsPopup(View view) {
         TextView tvChoosePerson = (TextView) view.findViewById(R.id.textViewPerson);
-        TextView tvChoosePerson2 = (TextView) view.findViewById(R.id.textViewPersonName);
+        tvChoosePerson2 = (TextView) view.findViewById(R.id.textViewPersonName);
 
         tvChoosePerson.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,7 +239,7 @@ public class FragmentKeyWords extends ListFragment {
                         chosenPerson = item.getTitle().toString();
                         ((AdminActivity) getActivity()).
                                 getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, chosenPerson);
-
+                        tvChoosePerson2.setText(chosenPerson);
                         return false;
                     }
                 });

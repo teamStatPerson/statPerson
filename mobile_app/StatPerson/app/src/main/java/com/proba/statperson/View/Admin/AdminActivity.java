@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,15 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
+import com.proba.statperson.Constants;
+import com.proba.statperson.R;
 import com.proba.statperson.interfaces.DeleteConfirmListener;
 import com.proba.statperson.interfaces.EditorDialogListener;
-import com.proba.statperson.presenter.PresenterImpl;
-import com.proba.statperson.R;
-import com.proba.statperson.Constants;
 import com.proba.statperson.interfaces.IPresenter;
+import com.proba.statperson.presenter.PresenterImpl;
 import com.proba.statperson.view.admin.fragments.FragmentDailyStat;
 import com.proba.statperson.view.admin.fragments.FragmentDate;
 import com.proba.statperson.view.admin.fragments.FragmentKeyWords;
@@ -127,15 +125,13 @@ public class AdminActivity extends AppCompatActivity
         if (id == R.id.status) {
             fragmentTransaction.replace(R.id.container, fragmentStatus);
         } else if (id == R.id.sites) {
+            fab.setImageResource(R.drawable.ic_add_white_24dp);
             fragmentTransaction.replace(R.id.container, fragmentSites);
-
             getCatalogElements(Constants.SITES_CATALOG_INDEX, null);
-
         } else if (id == R.id.persons) {
+            fab.setImageResource(R.drawable.ic_add_white_24dp);
             fragmentTransaction.replace(R.id.container, fragmentPersons);
-
             getCatalogElements(Constants.PERSONS_CATALOG_INDEX, null);
-
         } else if (id == R.id.total_stat) {
             fragmentTransaction.replace(R.id.container, fragmentTotalStat);
         } else if (id == R.id.daily_stat) {
@@ -143,10 +139,9 @@ public class AdminActivity extends AppCompatActivity
         } else if (id == R.id.date) {
             fragmentTransaction.replace(R.id.container, fragmentDate);
         } else if (id == R.id.key_words) {
+            fab.setImageResource(R.drawable.ic_add_white_24dp);
             fragmentTransaction.replace(R.id.container, fragmentKeyWords);
-
             getCatalogElements(Constants.PERSONS_CATALOG_INDEX, null);
-
         } else if (id == R.id.users) {
             fragmentTransaction.replace(R.id.container, fragmentUsers);
         }
@@ -184,5 +179,20 @@ public class AdminActivity extends AppCompatActivity
     @Override
     public void onFinishEditDialog(String inputText) {
         Toast.makeText(getApplicationContext(), "Вы ввели, " + inputText, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }
