@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -19,6 +20,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.EditCatalogElementsEvent;
@@ -122,7 +124,6 @@ public class FragmentPersons extends ListFragment {
                 FragmentManager editManager = getFragmentManager();
                 EditorDialogFragment editorDialogFragment = new EditorDialogFragment();
                 editorDialogFragment.show(editManager, "dialog_editor");
-
                 break;
             case R.id.delete:
                 DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance(item,
@@ -134,6 +135,21 @@ public class FragmentPersons extends ListFragment {
                 return super.onContextItemSelected(item);
         }
         return true;
+    }
+
+    private void setOnClickListenerFab() {
+        new MaterialDialog.Builder(getActivity()) //https://github.com/afollestad/material-dialogs
+                .title(R.string.add)
+                .content(R.string.add_person)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+//                .input(R.string.input_hint, R.string.input_prefill, new MaterialDialog.InputCallback() {
+                .input("", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        Toast.makeText(getActivity(), "Вы подтвердили добавление личности: " + input,
+                                Toast.LENGTH_LONG).show();
+                    }
+                }).show();
     }
 
     @Override
@@ -197,10 +213,9 @@ public class FragmentPersons extends ListFragment {
         adminActivity.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
-                presenter = new PresenterImpl();
-                presenter.addElement();
-*/
+                setOnClickListenerFab();
+//                presenter = new PresenterImpl();
+//                presenter.addElement();
             }
         });
     }

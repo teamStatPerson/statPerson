@@ -41,4 +41,10 @@
     <string name="edit">Редактировать</string>
     <string name="sure">Удалить? Вы уверены?</string>
     <string name="type">Отредактируйте</string>
+    <string name="add">Добавить</string>
+    <string name="cancel">Отменить</string>
+    <string name="add_person">Добавить личность</string>
+    <string name="add_site">Добавить сайт</string>
+    <string name="add_key_word">Добавить ключевое слово</string>
+
 </resources>
