@@ -25,14 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if ((networkInfo != null) && (networkInfo.isConnected())) {
-            Toast.makeText(this, "Network is available", Toast.LENGTH_LONG).show();
-        }else {
-            Toast.makeText(this, "Network is not available" +"\n"+
-                    "Data can not be updated", Toast.LENGTH_LONG).show();
-        }
+
 
 
         final RadioGroup radioGroup;
