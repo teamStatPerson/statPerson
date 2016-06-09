@@ -34,6 +34,12 @@ public class DailyStatListFragment extends ListFragment {
 
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
     public String getStartDate(String startDate) {
         dateFrom = startDate;
         return dateFrom;
