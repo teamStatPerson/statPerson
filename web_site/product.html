@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Страница продукта</title>
+<!-- Bootstrap link -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<!-- Bootstrap link  end-->
+<!-- CSS stylesheet -->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- CSS stylesheet end-->
+<!-- Google fonts Link-->
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="js/jquery.min.js"> </script>
+<script src="js/hover_pack.js"></script>
+</head>
+<body>
+<!-- Header starts here -->
+	<div class="strip"> </div>
+	<div class="header">
+		<div class="container">
+			<div class="header-top">
+				<div class="logo">
+                    <h1><a href="index.html">teamPRO COMPANY</a></h1>
+				</div>
+				<div class="menu">
+					<a class="toggleMenu" href="#"><img src="images/nav_icon.png" alt="" /> </a>
+		  				<ul class="nav" id="nav">
+                            <li><a href="index.html">Главная</a></li>
+                            <li><a href="product.html">Продукт</a></li>
+                            <li><a href="texp.html">Техподдержка</a></li>
+                           
+						 </ul>
+						<script type="text/javascript" src="js/responsive-nav.js"></script>
+						<script type="text/javascript" src="js/move-top.js"></script>
+						<script type="text/javascript" src="js/easing.js"></script>
+						<script type="text/javascript">
+						jQuery(document).ready(function($) {
+						$(".scroll").click(function(event){		
+						event.preventDefault();
+						$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+							});
+						});
+						</script>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<section class="product-inro">
+		<div class="container">
+			<h2 class="text-center block-title">StatPerson - определение популярности чего угодно</h2>
+			<div class="col-md-6 col-xs-12">
+				<figure>
+					<img src="images/psd-black-software-box.png" alt="">
+				</figure>
+			</div>
+			<div class="col-md-6 col-xs-12">
+                <h3>- это универсальный инструмент: </h3>
+                <h3>мы можем узнать, кто популярнее на новостном сайте - Путин, Медведев, или Навальный;</h3>
+                <h3>или о какой религии чаще пишут в ЖЖ;</h3>
+                <h3> или какой цвет модный в этом году;</h3>
+                <h3>или самый популярный школьный предмет на ЕГЭ;</h3>
+                <h3>или самая популярная команда на турнире по DOTA2!</h3>
+			</div>
+		</div>
+	</section>
+	
+	
+	<section class="product-benefit">
+		<div class="container">
+			<h2 class="text-center block-title">StatPerson - выгода использования</h2>
+			<div class="col-md-12">
+				<h4>1.Наш продукт очень прост в использовании - Вам не придется часами изучать инструкцию!</h4>
+				<h4>2.Наш продукт удобен - скачайте наше Android-приложение и в любое время, в любом месте Вы всегда будете в курсе самых популярных людей, событий и фактов!</h4>
+				<h4>3.Наш продукт надежен - в любое время и с любого устройства Вы получаете самые свежую информацию!</h4>
+                <h4>4.И кроме этого наш продукт - практичен и функционален. Приступайте прямо сейчас!</h4>
+			</div>
+		</div>
+	</section>
+	
+	
+	<section class="product-compare">
+		<div class="container">
+			<h2 class="text-center block-title">Таблица сравнения платной и demo-версии</h2>
+			<div class="col-md-12">
+				
+				<table class="table table-striped product-compare__table">
+					<tr>
+						<td></td>
+						<td>Demo-версия</td>
+						<td>Платная версия</td>
+					</tr>
+					<tr>
+						<td>Менеджер паролей. Обеспечивает безопасность интернет-паролей и учетных записей.</td>
+						<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+						<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+					</tr>
+					<tr>
+						<td>Автоматическое резервное копирование по расписанию. Помогает сохранить ценные цифровые активы.</td>
+						<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+						<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+					</tr>
+					<tr>
+						<td>2 ГБ бесплатного пространства в облачном хранилище. Служат для дополнительной защиты на случай утери, кражи или неисправности компьютера.</td>
+						<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+						<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+					</tr>
+					<tr>
+						<td>Простое в использовании шифрование. Позволяет более безопасно хранить и передавать важные файлы.</td>
+						<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+						<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+					</tr>
+					<tr>
+						<td>Контроль изменений. Предупреждает об изменениях параметров браузера, например, установке рекламных программ, панелей инструментов и др.</td>
+						<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+						<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+					</tr>
+					<tr>
+						<td>Функция безопасной клавиатуры. Защищает личные сведения при использовании аппаратной клавиатуры.</td>
+						<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+						<td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+					</tr>
+				</table>
+
+				<div class="btn-wrap">
+					<a href="#" class="btn btn-success btn-lg">Заказать платную версию</a>
+				</div>
+				<div class="btn-wrap">
+					<a href="#" class="btn btn-warning btn-lg">Попробовать demo-версию</a>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	
+	
+	
+
+	
+    <div class="footer">
+		<div class="container">
+			<div class="footer-top">
+                <p>2016 &copy; TeamPro&nbsp; <a href="https://github.com/teamStatPerson/statPerson">Репозиторий команды разработчиков</a></p>
+			</div>
+		</div>
+    </div>
+</body>
+</html>
+
+
+

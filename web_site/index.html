@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>statPerson</title>
+<!-- Bootstrap link -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<!-- Bootstrap link  end-->
+<!-- CSS stylesheet -->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- CSS stylesheet end-->
+<!-- Google fonts Link-->
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="js/jquery.min.js"> </script>
+<script src="js/hover_pack.js"></script>
+</head>
+<body>
+<!-- Header starts here -->
+	<div class="strip"> </div>
+	<div class="header">
+		<div class="container">
+			<div class="header-top">
+				<div class="logo">
+					<h1><a href="index.html">teamPRO COMPANY</a></h1>
+				</div>
+				<div class="menu">
+					<a class="toggleMenu" href="#"><img src="images/nav_icon.png" alt="" /> </a>
+		  				<ul class="nav" id="nav">
+                          <li><a href="index.html">Главная</a></li>
+						  <li><a href="product.html">Продукт</a></li>
+						  <li><a href="texp.html">Техподдержка</a></li>
+                            <li class="scroll"><a href="#work" class="scroll">Отзывы</a></li>							
+						 </ul>
+						<script type="text/javascript" src="js/responsive-nav.js"></script>
+						<script type="text/javascript" src="js/move-top.js"></script>
+						<script type="text/javascript" src="js/easing.js"></script>
+						<script type="text/javascript">
+						jQuery(document).ready(function($) {
+						$(".scroll").click(function(event){		
+						event.preventDefault();
+						$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+							});
+						});
+						</script>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<!-- Banner Starts Here -->
+				<div class="slide-banner-left">
+					<img class="slide-img" src="images/slider-frame.png" />
+				<!----slider-script---->
+						<script>
+							$(function() {
+							
+								$("#slideshow > div:gt(0)").hide();
+						
+								setInterval(function() { 
+								  $('#slideshow > div:first')
+								    .fadeOut(1000)
+								    .next()
+								    .fadeIn(1000)
+								    .end()
+								    .appendTo('#slideshow');
+								},  3000);
+								
+							});
+						</script>
+						<!----//End-script---->
+						<div id="slideshow">
+							   <div>
+							     <img src="images/s1.png" alt="" />
+							   </div>
+							   <div>
+							     <img src="images/s3.png" alt="" />
+							   </div>
+							   <div>
+							     <img src="images/s4.png" alt="" />
+							   </div>
+							   <div>
+							     <img src="images/s5.png" alt="" />
+							   </div>
+							   <div>
+							     <img src="images/s6.jpg" alt="" />
+							   </div>
+							   <div>
+                                  <img src="images/s7.png" alt="" />
+							   </div>
+					</div>
+					<div class="banner-head">
+						<h2>statPerson</h2>
+                        <p>Сервис для решения статистических задач на каждый день
+						<br> для ПК и Android-устройств</p>
+					</div>
+										
+			</div>
+				<!-- Banner Ends Here -->
+			</div>
+		</div>
+		<!-- Header ends here -->
+		<!-- About Us -->
+		<div class="container">
+			<div class="about-us" id="about">
+				<div class="row about-us-row">
+					<div class="col-md-4 about-us-column-left">
+						<h3>О компании</h3>
+						<p>Наш девиз: <br>простота, <br>удобство, <br>надежность, <br>практичность и <br>функциональность</p>
+						
+					</div>
+					<div class="col-md-8 about-us-column-right">
+						
+						<div class="row about-us-one-row">
+							<div class="col-md-2 about-us-one-row-col">
+								<i class="ring6"> </i>									
+							</div>
+							<div class="col-md-10 about-us-one-row-col">
+								<br>
+								<p>IT-компания teamPRO образована в мае 2016 года. </p>
+							</div>
+					    </div>
+					    <div class="row about-us-one-row">
+							<div class="col-md-2 about-us-one-row-col">
+								<i class="ring7"> </i>									
+							</div>
+							<div class="col-md-10 about-us-one-row-col">
+								<p>Да, мы только начинаем свой путь в мире web-сервисов, но мы - амбициозны, полны решимости и азарта, и нам нравиться дело, которым мы занимаемся!</p>
+							</div>
+					    </div>
+					    <div class="row about-us-one-row">
+							<div class="col-md-2 about-us-one-row-col">
+								<i class="ring8"> </i>									
+							</div>
+							<div class="col-md-10 about-us-one-row-col">
+                                <br>
+                                <p>Сервис <strong>statPerson</strong> - это наша первая командная работа.</p>
+							</div>
+					    </div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+			</div>
+		</div>	
+		<!-- Portfolio starts Here -->
+		<div class="portfolio" id="services">
+			<div class="container">
+				<div class="Portfolio-top">
+					<h3>Наша дружная команда разработчиков</h3>
+					<p class="portfolio-para">Имя и фамилия разработчика, язык программирования, <br>функционал приложения, в разработке которого принимал участие</p>
+				</div>
+				
+				<div class="row portfolio-row">
+					<div class="col-md-3 portfolio-row-column">
+                        <a href="" class="b-link-flow b-animate-go  thickbox">
+						<img src="images/5.png" />
+				        <h4><a href="#">Вадим Дворянинов</a></h4>
+						<p>team-leader команды <br>Java-программист <br>Android-приложение</p>
+					</div>
+					
+                    <div class="col-md-3 portfolio-row-column">
+                        <a href="https://geekbrains.ru/users/236103" class="b-link-flow b-animate-go  thickbox" target="_blank">
+						<img src="images/1.png" />					
+						<h4><a href="#">Алексей Алексеев</a></h4>
+                             <p>Java-программист <br>веб-сервис</p>
+					</div>
+								
+					<div class="col-md-3 portfolio-row-column">
+                        <a href="https://geekbrains.ru/users/223635" class="b-link-flow b-animate-go  thickbox" target="_blank">
+                        <img src="images/2.png" />				
+                        <h4><a href="#">Алексей Назаров </a></h4>
+                        <p>Java-программист <br>краулер</p>
+					</div>
+					
+					<div class="col-md-3 portfolio-row-column">
+                        <a href="https://geekbrains.ru/users/279375" class="b-link-flow b-animate-go  thickbox" target="_blank">
+                        <img src="images/3.png" />
+                        <h4><a href="#">Андрей Турубчук </a></h4>
+                        <p>Java-программист <br>краулер</p>  
+					</div>
+					
+					<div class="clearfix"> </div>
+				</div>
+				
+				<div class="portfolio-row-2">
+					<div class="portfolio-row-2-column1">
+                        <a href="https://geekbrains.ru/users/3797" class="b-link-flow b-animate-go  thickbox" target="_blank">
+                        <img src="images/4.png"/>
+                        <h4><a href="#">Арина Сандакова</a></h4>
+                        <p>верстальщик<br>web-сайт комании</p>   
+					</div>
+					
+					<div class="portfolio-row-2-column2">
+                        <a href="https://geekbrains.ru/users/15096" class="b-link-flow b-animate-go  thickbox" target="_blank">
+                        <img src="images/6.jpg" />					
+                        <h4><a href="#">Виктор Кателевский</a></h4>
+                        <p>верстальщик <br> web-сайт комании</p>                       
+                    </div>        
+				
+                    
+                    <div class="portfolio-row-2-column3">
+                        <a href="https://geekbrains.ru/users/139888" class="b-link-flow b-animate-go  thickbox" target="_blank">
+                        <img src="images/11.jpg" />
+                        <h4><a href="#">Байр Церенов</a></h4>
+                        <p>Java-программист <br> Android-приложение</p>
+					<div class="clearfix"> </div>
+				    </div>
+                </div>
+
+                <div class="row portfolio-row">
+                    <div class="col-md-3 portfolio-row-column">
+                        <a href="https://geekbrains.ru/users/357998" class="b-link-flow b-animate-go  thickbox" target="_blank">
+                        <img src="images/7.png" />
+                        <h4><a href="#">Константин Изюмов</a></h4>
+                        <p>Java-программист <br>Android-приложение</p>
+                    </div>
+
+                    <div class="col-md-3 portfolio-row-column">
+                        <a href="https://geekbrains.ru/users/252669" class="b-link-flow b-animate-go  thickbox" target="_blank">
+                        <img src="images/8.png" />
+                        <h4><a href="#">Константин Константинов</a></h4>
+                        <p>Java-программист <br>веб-сервис</p>
+                    </div>
+
+                    <div class="col-md-3 portfolio-row-column">
+                        <a href="https://geekbrains.ru/users/343210" class="b-link-flow b-animate-go  thickbox" target="_blank">
+                        <img src="images/9.png" />
+                        <h4><a href="#">Павел Кольчевский</a></h4>
+                        <p>верстальщик <br> web-сайт комании</p>
+                    </div>
+
+                    <div class="col-md-3 portfolio-row-column">
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+			</div>
+		</div>
+		<!-- Portfolio ends Here -->
+                    <!-- Services starts Here -->
+                    <div class="services" id="work">
+                        <div class="container">
+                            <div class="services-top">
+                                <h3>Отзывы наших пользователей</h3>
+                                <p></p>
+                            </div>
+                            <div class="row services-row">
+                                <div class="col-md-4 service-row-column"><i class="image-left"> </i><i class="para"><p>Интересный продукт, попробовал - понравилось! <br><br><br></p><small><span><a href="#">Матвей Романов </a></span></small></i> <div class="clearfix"> </div></div>
+                                <div class="col-md-4 service-row-column"><i class="image-left-1"> </i><i class="para"><p>Удобый сервис, особенно когда данные нужны здесь и сейчас. <br>Мне понравилось...<br>Рекомендую! <br> </p><small><span><a href="#">Наталья Меньшова</a></span></small></i> <div class="clearfix"> </div> </div>
+                                <div class="col-md-4 service-row-column"><i class="image-left-2"> </i><i class="para"><p>Я раньше встречал только громоздкие десктопные приложения, но теперь - всё в сети...  </p><small><span><a href="#">Андрей Франков</a></span></small></i> <div class="clearfix"> </div></div>
+                            </div> 
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+                    <!-- Services ENDS Here -->
+		<!-- Contact starts Here -->
+		<div class="contact" id="contact">
+			<div class="container">
+				<div class="row contact-row">
+					<div class="col-md-6 contact-row-column">
+                        <h2>Наши контакты</h2>
+                        <h4>Российская Федерация</h4>
+                        <h4>Офис: г.Москва, ул.Декабристов, 12 </h4>
+                        <h4>Phone: +8 (800) 55555-333</h4>
+                        <h4>Email: <a href="#">team-pro@mail.ru</a></h4>	
+					</div>
+					<div class="col-md-6 contact-row-column"><h3>Как нас найти </h3>
+						<div class="map">
+                            <img src="images/map.png" />	
+							
+                            
+						</div>	
+						
+					 </div>
+				</div>
+			</div>
+		</div>
+		<!-- Contact Ends Here -->
+		<!-- Footer starts Here -->
+		<div class="footer">
+			<div class="container">
+				<div class="footer-top">
+                    <p>2016 &copy; TeamPro&nbsp; <a href="https://github.com/teamStatPerson/statPerson">Репозиторий команды разработчиков</a></p>
+				</div>
+			</div>
+			<script type="text/javascript">
+						$(document).ready(function() {
+							/*
+							var defaults = {
+					  			containerID: 'toTop', // fading element id
+								containerHoverID: 'toTopHover', // fading element hover id
+								scrollSpeed: 1200,
+								easingType: 'linear' 
+					 		};
+							*/
+							
+							$().UItoTop({ easingType: 'easeOutQuart' });
+							
+						});
+					</script>
+				<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+</div>
+</body>
+</html>
