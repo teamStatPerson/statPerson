@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="com.proba.statperson.view.user.UserActivity">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.proba.statperson.view.user.UserActivity">
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,21 +20,22 @@
         tools:openDrawer="start">
 
         <include
-            layout="@layout/app_bar_main"
+            layout="@layout/app_bar_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
     </android.support.v4.widget.DrawerLayout>
 
+
     <TextView
         android:id="@+id/textViewTotalStat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
         android:layout_marginTop="70dp"
+        android:padding="16dp"
         android:text="@string/total_stat"
-        android:textSize="20sp"
-        android:textColor="#03A9F4"/>
+        android:textColor="#03A9F4"
+        android:textSize="20sp"/>
 
     <LinearLayout
         android:id="@+id/linearLayoutSite"
@@ -68,10 +73,20 @@
     </fragment>
 
     <ProgressBar
+        android:id="@+id/progressBar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar2"
-        android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_done_white_24dp"/>
 
 </RelativeLayout>

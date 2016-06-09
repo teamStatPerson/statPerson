@@ -42,12 +42,13 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         init();
-
     }
 
     private void init() {
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setVisibility(View.INVISIBLE);
+        if (fab != null) {
+            fab.setVisibility(View.INVISIBLE);
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

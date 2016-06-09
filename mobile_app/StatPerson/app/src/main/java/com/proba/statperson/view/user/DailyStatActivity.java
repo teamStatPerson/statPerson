@@ -80,7 +80,9 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         isDateTillChosen = false;
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setVisibility(View.INVISIBLE);
+        if (fab != null) {
+            fab.setVisibility(View.INVISIBLE);
+        }
 
         textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
         textViewSiteName = (TextView) findViewById(R.id.textViewSiteName);
