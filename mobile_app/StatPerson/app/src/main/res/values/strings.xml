@@ -9,7 +9,7 @@
     <string name="status">Status</string>
     <string name="admin">Administrator</string>
     <string name="user">User</string>
-    <string name="sites">Sites</string>
+    <string name="sites">Sites:</string>
     <string name="stat">Statistic</string>
     <string name="total_stat">Total Statistic</string>
     <string name="daily_stat">Daily Statistic</string>
