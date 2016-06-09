@@ -3,6 +3,11 @@ package com.proba.statperson.view.user;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
+import com.jjoe64.graphview.BarGraphView;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.GraphView.GraphViewData;
+import com.jjoe64.graphview.LineGraphView;
 
 import com.jjoe64.graphview.GraphView;
 import com.proba.statperson.R;
@@ -24,6 +29,19 @@ public class TotalStatGraphView extends AppCompatActivity {
         graphView.addSeries(exampleSeries);
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.total_stat_graph_view);
+        layout.addView(graphView);
+
+
+
+        GraphViewSeries exampleSeries = new GraphViewSeries(
+                new GraphViewData[] { new GraphViewData(1, 3),
+                        new GraphViewData(2, 6), new GraphViewData(3, 6),
+                        new GraphViewData(4, 5), new GraphViewData(5, 1)
+                });
+        GraphView graphView = new BarGraphView(this,
+                "Число пойманных мышек за неделю");
+        graphView.addSeries(exampleSeries);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
         layout.addView(graphView);
 
     }
