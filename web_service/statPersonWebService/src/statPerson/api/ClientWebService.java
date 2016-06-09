@@ -1,7 +1,10 @@
 package statPerson.api;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,16 +15,21 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import exceptions.NotCorrectInputData;
+import statPerson.MapToXml;
 import statPerson.element.account.Account;
 import statPerson.element.account.AccountDao;
+import statPerson.element.administrator_person.AdministratorPerson;
+import statPerson.element.administrator_person.AdministratorPersonDao;
 import statPerson.element.administrator_price.AdministratorPrice;
 import statPerson.element.keyword.Keyword;
 import statPerson.element.page.Page;
 import statPerson.element.person.Person;
+import statPerson.element.person.PersonDao;
 import statPerson.element.price.Price;
 import statPerson.element.site.Site;
 
 public class ClientWebService implements interfaceAPI{
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //даты принимаем как строки в виде гггг-мм-дд, надо их преобразовывать в Date 
 
 	@Path("/admin/add")
 	@GET
@@ -38,16 +46,32 @@ public class ClientWebService implements interfaceAPI{
 		return id;
 	}
 
+	@Path("/admin/addlinked")
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
 	@Override
-	public Integer addSecondaryAdministrator(String email, String password, int idLinkedAdministrator) {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer addSecondaryAdministrator(@HeaderParam("email") String email, @HeaderParam("password") String password, @HeaderParam("idlinked") int idLinkedAdministrator) {
+		int id = 0;
+		try {
+			id = AccountDao.addSecondaryAdministrator(email, password, idLinkedAdministrator);
+		} catch (NotCorrectInputData e) {
+			e.printStackTrace();
+		}
+		return id;
 	}
 
+	@Path("/user/add")
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
 	@Override
-	public Integer addUser(String email, String password, int idLinkedAdministrator) {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer addUser(@HeaderParam("email") String email, @HeaderParam("password") String password, @HeaderParam("idlinked") int idLinkedAdministrator) {
+		int id = 0;
+		try {
+			id = AccountDao.addUser(email, password, idLinkedAdministrator);
+		} catch (NotCorrectInputData e) {
+			e.printStackTrace();
+		}
+		return id;
 	}
 
 	@Override
@@ -170,10 +194,28 @@ public class ClientWebService implements interfaceAPI{
 		return null;
 	}
 
+	
+	@Path("/user/add")
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
 	@Override
-	public Map<Person, Page> getStatisticPersonPage() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getNewPagesCount(@HeaderParam("account") Integer accountId, @HeaderParam("beginDate") String beginDateString, @HeaderParam("endDate") String endDateString) {
+		Map<Person, Integer> PersonsRank = new HashMap<Person, Integer>();
+		try {
+			Date beginDate = dateFormat.parse(beginDateString);
+			Date endDate = dateFormat.parse(endDateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		List<AdministratorPerson> administratorsPersons = AdministratorPersonDao.getAllPersonAccount(accountId);
+		for (AdministratorPerson administratorPerson : administratorsPersons) {
+			int personId = administratorPerson.getIdPerson();
+			//тут надо по персон ид получить статистику
+		}
+		
+		return MapToXml.PersonsRankToXML(PersonsRank);
 	}
 
 	@Override

@@ -28,8 +28,9 @@ public interface interfaceAPI extends AccountAPI,KeywordAPI,PersonAPI,PriceAPI,S
 	// par.2.1.1 Функциональные требования
 	Map<Date, Integer> getRankByPerDayByPerson(Person person, Date beginDate, Date endDate);
 	
-	// par.6.1.2
-	Map<Person, Page> getStatisticPersonPage();
+	// par.6.1.2 Количество новых страниц в периоде
+	String getNewPagesCount(Integer accountId, String beginDate, String endDate);
+	//Map<Person, Page> getStatisticPersonPage(Integer personId);
 	
 	// par.6.1.3
 	Map<Person, Page> getStatisticPersonNewPages();
