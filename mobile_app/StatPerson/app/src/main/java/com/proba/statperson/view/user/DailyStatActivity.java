@@ -75,6 +75,7 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
 
         init();
         determineCurrentDate();
+
         if (savedInstanceState != null) {
             siteName = savedInstanceState.getString(KEY_SITE_NAME, getString(R.string.fragment_sites));
             personName = savedInstanceState.getString(KEY_PERSON_NAME, getString(R.string.fragment_sites));
@@ -85,6 +86,10 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
             textViewDateFrom.setText(from_date);
             textViewDateTill.setText(to_date);
             initFAB();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            DailyStatListFragment dailyStatListFragment = (DailyStatListFragment) fragmentManager
+                    .findFragmentById(R.id.dailyStatListFragment);
+
         }
     }
 

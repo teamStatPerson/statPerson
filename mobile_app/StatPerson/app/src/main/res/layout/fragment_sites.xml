@@ -9,10 +9,10 @@
         android:id="@+id/textViewSites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="@dimen/activity_horizontal_margin"
         android:text="@string/sites"
         android:textColor="#03A9F4"
-        android:textSize="30sp">
+        android:textSize="@dimen/head_text">
     </TextView>
 
     <ProgressBar
@@ -25,6 +25,7 @@
         android:id="@id/android:list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textSize="@dimen/normal_text"
         android:choiceMode="singleChoice">
     </ListView>
 

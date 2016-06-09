@@ -29,7 +29,7 @@
         android:padding="16dp"
         android:layout_marginTop="70dp"
         android:text="@string/total_stat"
-        android:textSize="20sp"
+        android:textSize="@dimen/normal_text"
         android:textColor="#03A9F4"/>
 
     <LinearLayout
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewTotalStat"
         android:orientation="horizontal"
-        android:paddingLeft="16dp">
+        android:paddingLeft="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/textViewSite"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sites"
             android:textColor="#03A9F4"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/normal_text"/>
 
         <TextView
             android:id="@+id/textViewSiteName"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:text="@string/fragment_sites"
             android:textColor="#03A9F4"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/normal_text"/>
 
     </LinearLayout>
 
