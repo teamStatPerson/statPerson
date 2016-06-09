@@ -59,5 +59,10 @@
     <string name="add_person">Add person</string>
     <string name="add_site">Add site</string>
     <string name="add_key_word">Add key word</string>
+    <string name="login">Login</string>
+    <string name="e_mail_pass">Enter your e-mail and password</string>
+    <string name="enter_email">Enter your e-mail</string>
+    <string name="enter_pass">Enter password</string>
+    <string name="enter">Enter</string>
 
 </resources>

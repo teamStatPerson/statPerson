@@ -46,5 +46,11 @@
     <string name="add_person">Добавить личность</string>
     <string name="add_site">Добавить сайт</string>
     <string name="add_key_word">Добавить ключевое слово</string>
+    <string name="login">Войти</string>
+    <string name="e_mail_pass">Введите ваш e-mail и пароль</string>
+    <string name="enter_email">Введите ваш e-mail</string>
+    <string name="enter_pass">Введите пароль</string>
+    <string name="enter">Войти</string>
+
 
 </resources>
