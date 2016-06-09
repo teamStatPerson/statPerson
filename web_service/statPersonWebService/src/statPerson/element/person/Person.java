@@ -1,7 +1,14 @@
 package statPerson.element.person;
 
-public class Person{
+import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Person")
+public class Person implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	
@@ -11,11 +18,18 @@ public class Person{
 		super();
 		this.name = name;
 	}
+	
+	public Person(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
 	public int getId() {
 		return id;
 	}
 
+	@XmlElement
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -24,6 +38,7 @@ public class Person{
 		return name;
 	}
 
+	@XmlElement
 	public void setName(String name) {
 		this.name = name;
 	}
