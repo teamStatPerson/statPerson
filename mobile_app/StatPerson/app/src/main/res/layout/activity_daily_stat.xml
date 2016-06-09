@@ -17,7 +17,7 @@
         android:padding="16dp"
         android:text="@string/daily_stat"
         android:textColor="#03A9F4"
-        android:textSize="20sp"/>
+        android:textSize="@dimen/normal_text"/>
 
     <LinearLayout
         android:id="@+id/linearLayoutSite"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewDailyStat"
         android:orientation="horizontal"
-        android:paddingLeft="16dp">
+        android:paddingLeft="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/textViewSite"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sites"
             android:textColor="#03A9F4"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/normal_text"/>
 
         <TextView
             android:id="@+id/textViewSiteName"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:text="@string/fragment_sites"
             android:textColor="#03A9F4"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/normal_text"/>
 
     </LinearLayout>
 
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayoutSite"
         android:orientation="horizontal"
-        android:paddingLeft="16dp">
+        android:paddingLeft="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/textViewPeriodFrom"
@@ -60,7 +60,7 @@
             android:onClick="onClickDateFrom"
             android:text="@string/period_from"
             android:textColor="#03A9F4"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/normal_text"/>
 
         <TextView
             android:id="@+id/textViewDateFrom"
@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayoutPeriodFrom"
         android:orientation="horizontal"
-        android:paddingLeft="16dp">
+        android:paddingLeft="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/textViewPeriodTill"
@@ -84,7 +84,7 @@
             android:onClick="onClickDateTill"
             android:text="@string/period_till"
             android:textColor="#03A9F4"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/normal_text"/>
 
         <TextView
             android:id="@+id/textViewDateTill"
@@ -101,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayoutPeriodTill"
         android:orientation="horizontal"
-        android:paddingLeft="16dp">
+        android:paddingLeft="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/textViewPerson"
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:text="@string/person"
             android:textColor="#03A9F4"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/normal_text"/>
 
         <TextView
             android:id="@+id/textViewPersonName"
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:text="@string/fragment_persons"
             android:textColor="#03A9F4"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/normal_text"/>
 
     </LinearLayout>
 
@@ -138,7 +138,7 @@
             <TextView
                 android:id="@+id/textViewDate"
                 android:text="@string/date"
-                android:textSize="20sp"
+                android:textSize="@dimen/normal_text"
                 android:textStyle="bold"
                 android:typeface="serif">
             </TextView>
@@ -146,7 +146,7 @@
             <TextView
                 android:id="@+id/textViewQuantity"
                 android:text="@string/quantity"
-                android:textSize="20sp"
+                android:textSize="@dimen/normal_text"
                 android:textStyle="bold"
                 android:typeface="serif">
             </TextView>
@@ -174,7 +174,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:src="@android:drawable/ic_dialog_email"
+        android:src="@drawable/ic_done_white_24dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>

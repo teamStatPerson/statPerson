@@ -36,13 +36,24 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
     public static String siteName;
 
     private String[] sites;
+    private static final String KEY_SITE_NAME = "SITE_NAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         init();
+        if (savedInstanceState != null) {
+            siteName = savedInstanceState.getString(KEY_SITE_NAME, getString(R.string.fragment_sites));
+            textViewSiteName.setText(siteName);
+            initFAB();
+        }
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_SITE_NAME, siteName);
     }
 
     private void init() {
@@ -81,19 +92,23 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
         TextView tvChooseSite = (TextView) findViewById(R.id.textViewSite);
         TextView tvChooseSite2 = (TextView) findViewById(R.id.textViewSiteName);
 
-        tvChooseSite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPopupMenuSites(v);
-            }
-        });
+        if (tvChooseSite != null) {
+            tvChooseSite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showPopupMenuSites(v);
+                }
+            });
+        }
 
-        tvChooseSite2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPopupMenuSites(v);
-            }
-        });
+        if (tvChooseSite2 != null) {
+            tvChooseSite2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showPopupMenuSites(v);
+                }
+            });
+        }
     }
 
     public void showPopupMenuSites(View v) {
@@ -113,7 +128,7 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
 //                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, item.getTitle().toString());
 
                         initFAB();
-                        siteName = item.getTitle().toString();
+                        siteName = " " + item.getTitle().toString();
                         return false;
                     }
                 });
@@ -147,6 +162,7 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
             @Override
             public void onClick(View view) {
                 setProgressBar();
+//                Toast.makeText(getApplicationContext(), "siteName: " + siteName, Toast.LENGTH_LONG).show();
                 presenter.userGetOverallStatistics(new Site(siteName, null));
             }
         });
@@ -185,6 +201,7 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
 
         if (id == R.id.action_daily_stat) {
             Intent intent = new Intent(UserActivity.this, DailyStatActivity.class);
+//            fab.setImageResource(R.drawable.ic_add_white_24dp);
             startActivity(intent);
             return true;
         }
