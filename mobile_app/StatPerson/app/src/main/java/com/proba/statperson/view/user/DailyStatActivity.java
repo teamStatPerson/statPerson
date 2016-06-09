@@ -63,6 +63,10 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
     public static boolean isSiteChosen;
     public static boolean isDateFromChosen;
     public static boolean isDateTillChosen;
+    private static final String KEY_SITE_NAME = "SITE_NAME";
+    private static final String KEY_PERSON_NAME = "PERSON_NAME";
+    private static final String KEY_DATE_FROM = "DATE_FROM";
+    private static final String KEY_DATE_TO = "DATE_TO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,29 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
 
         init();
         determineCurrentDate();
+        if (savedInstanceState != null) {
+            siteName = savedInstanceState.getString(KEY_SITE_NAME, getString(R.string.fragment_sites));
+            personName = savedInstanceState.getString(KEY_PERSON_NAME, getString(R.string.fragment_sites));
+            from_date = savedInstanceState.getString(KEY_DATE_FROM, "");
+            to_date = savedInstanceState.getString(KEY_DATE_TO, "");
+            textViewSiteName.setText(siteName);
+            textViewPersonName.setText(personName);
+            textViewDateFrom.setText(from_date);
+            textViewDateTill.setText(to_date);
+            initFAB();
+        }
     }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_SITE_NAME, siteName);
+        outState.putString(KEY_PERSON_NAME, personName);
+        outState.putString(KEY_DATE_FROM, from_date);
+        outState.putString(KEY_DATE_TO, to_date);
+    }
+
 
     private void init() {
         isPersonChosen = false;

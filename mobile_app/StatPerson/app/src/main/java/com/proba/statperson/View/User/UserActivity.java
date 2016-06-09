@@ -46,6 +46,7 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
         if (savedInstanceState != null) {
             siteName = savedInstanceState.getString(KEY_SITE_NAME, getString(R.string.fragment_sites));
             textViewSiteName.setText(siteName);
+            initFAB();
         }
     }
 
@@ -127,7 +128,7 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
 //                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, item.getTitle().toString());
 
                         initFAB();
-                        siteName = item.getTitle().toString();
+                        siteName = " " + item.getTitle().toString();
                         return false;
                     }
                 });
