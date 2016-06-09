@@ -1,10 +1,8 @@
 package statPerson.element.person;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -14,8 +12,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/PersonAPI")
 public class PersonAPI_Rest_test implements PersonAPI {
@@ -34,7 +32,7 @@ public class PersonAPI_Rest_test implements PersonAPI {
 	public Integer addPerson(@FormParam("administratorId") Integer administratorId,
 			@FormParam("personName") String personName) {
 		persons.add(new Person(personName));
-		return 0;//todo
+		return new Integer(45);//todo
 	}
 
 	@Override

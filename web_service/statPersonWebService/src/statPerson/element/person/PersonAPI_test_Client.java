@@ -22,7 +22,7 @@ public class PersonAPI_test_Client {
 		int size2 = prc.getPersons(0).size();
 		assertTrue(size1 > size2);
 	}
-	
+
 	@Test
 	public void testADD() {
 		PersonRestClient prc = new PersonRestClient();

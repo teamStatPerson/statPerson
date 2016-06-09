@@ -8,6 +8,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 public class PersonRestClient implements PersonAPI {
 	private static final Client client = ClientBuilder.newClient();
@@ -19,10 +20,11 @@ public class PersonRestClient implements PersonAPI {
 		form.param("administratorId", administratorId.toString());
 		form.param("personName", personName);
 
-		String callResult = client.target(REST_SERVICE_URL).request(MediaType.TEXT_PLAIN)
+		String callResult = client.target(REST_SERVICE_URL)
+				.request(MediaType.TEXT_PLAIN)
 				.put(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED), String.class);
 
-		return new Integer(342);
+		return new Integer(3232);
 	}
 
 	@Override
