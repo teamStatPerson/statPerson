@@ -2,11 +2,16 @@ package com.proba.statperson.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.proba.statperson.R;
 import com.proba.statperson.view.admin.AdminActivity;
 import com.proba.statperson.view.user.UserActivity;
@@ -39,8 +44,24 @@ public class MainActivity extends AppCompatActivity {
     private void startUserOrAdminActivity(int checkedRadioButtonId) {
         switch (checkedRadioButtonId) {
             case R.id.rb_admin:
-                Intent intentAdmin = new Intent(getApplicationContext(), AdminActivity.class);
-                startActivity(intentAdmin);
+                new MaterialDialog.Builder(this)
+                        .title(R.string.login)
+                        .inputType(InputType.TYPE_CLASS_TEXT)
+                        .customView(R.layout.admin_login, true)
+                        .positiveText(R.string.enter)
+                        .negativeText(R.string.cancel)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                View dialogView = dialog.getView();
+                                String admin_email = ((EditText) dialogView.findViewById(R.id.admin_email)).getText().toString();
+                                String admin_pass = ((EditText) dialogView.findViewById(R.id.admin_pass)).getText().toString();
+//                                Toast.makeText(getApplicationContext(), admin_email + admin_pass, Toast.LENGTH_LONG).show();
+                                Intent intentAdmin = new Intent(getApplicationContext(), AdminActivity.class);
+                                startActivity(intentAdmin);
+                            }
+                        })
+                        .show();
                 break;
             case R.id.rb_user:
                 Intent intentUser = new Intent(getApplicationContext(), UserActivity.class);
