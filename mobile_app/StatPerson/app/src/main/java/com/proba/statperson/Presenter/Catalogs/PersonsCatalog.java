@@ -53,6 +53,8 @@ public class PersonsCatalog implements ICatalog {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+
 //            List<Person> persons;
 //            Account account = new Account();
 //            account.setEmail("q@q.com");
