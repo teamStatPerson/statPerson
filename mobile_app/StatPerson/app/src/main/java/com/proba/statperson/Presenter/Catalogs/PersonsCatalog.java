@@ -14,8 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+
 import statPerson.element.account.Account;
 import statPerson.element.person.Person;
+import statPerson.element.person.PersonAPI_REST_Client;
 import statPerson.element.site.Site;
 
 /**
@@ -40,20 +46,36 @@ public class PersonsCatalog implements ICatalog {
 
         @Override
         protected List<Person> doInBackground(Void... params) {
-            Person person = new Person();
-            person.setName("Васек");
-            List<Person> persons = new ArrayList<>();
-            persons.add(person);
-            Person person2 = new Person();
-            person2.setName("Санек");
-            persons.add(person2);
+//            Person person = new Person();
+//            person.setName("Васек");
+            List<Person> persons;
+//            persons.add(person);
+//            Person person2 = new Person();
+//            person2.setName("Санек");
+//            persons.add(person2);
+//
+//            try {
+//                TimeUnit.SECONDS.sleep(2);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
 
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            String DEMO_SERVICE_URL = "http://146.66.177.105:8080/statPerson/rest/restDemo";
+//            Client client = ClientBuilder.newClient();
+//            String demo = client.target(DEMO_SERVICE_URL).request().get(String.class);
+//            System.out.println(demo);
 
+//            PersonAPI_REST_Client client =  new PersonAPI_REST_Client();
+//            persons =  client.getAllPersons();
+
+            Client client = ClientBuilder.newClient();
+            String REST_SERVICE_URL = "http://146.66.177.105:8080/statPerson/rest/PersonAPI/";
+            GenericType<List<Person>> list = new GenericType<List<Person>>() {
+            };
+            persons  = client.target(REST_SERVICE_URL).request(MediaType.APPLICATION_XML).get(list);
+
+
+//            persons = client.target(REST_SERVICE_URL).request(MediaType.APPLICATION_XML).get(list);
 
 //            List<Person> persons;
 //            Account account = new Account();
