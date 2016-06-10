@@ -12,6 +12,11 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+
 import statPerson.element.account.Account;
 import statPerson.element.person.Person;
 
@@ -59,11 +64,11 @@ public class PersonsCatalog implements ICatalog {
 //            PersonAPI_REST_Client client =  new PersonAPI_REST_Client();
 //            persons =  client.getAllPersons();
 
-//            Client client = ClientBuilder.newClient();
-//            String REST_SERVICE_URL = "http://146.66.177.105:8080/statPerson/rest/PersonAPI/";
-//            GenericType<List<Person>> list = new GenericType<List<Person>>() {
-//            };
-//            persons  = client.target(REST_SERVICE_URL).request(MediaType.APPLICATION_XML).get(list);
+            Client client = ClientBuilder.newClient();
+            String REST_SERVICE_URL = "http://146.66.177.105:8080/statPerson/rest/PersonAPI/";
+            GenericType<List<Person>> list = new GenericType<List<Person>>() {
+            };
+            persons  = client.target(REST_SERVICE_URL).request(MediaType.APPLICATION_XML).get(list);
 
 
 //            persons = client.target(REST_SERVICE_URL).request(MediaType.APPLICATION_XML).get(list);
@@ -75,8 +80,8 @@ public class PersonsCatalog implements ICatalog {
 //            FakeWebServiceAPI fakeWebServiceAPI = new FakeWebServiceAPI();
 //            persons = fakeWebServiceAPI.getPersons(account);
 
-            persons.add(new Person(0, "somePerson1"));
-            persons.add(new Person(1, "somePerson2"));
+//            persons.add(new Person(0, "somePerson1"));
+//            persons.add(new Person(1, "somePerson2"));
             return persons;
         }
 
