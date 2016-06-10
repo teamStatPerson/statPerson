@@ -2,14 +2,13 @@ package statPerson.element.person;
 
 import java.util.List;
 
-import javax.ws.rs.core.Response;
-
-
 public interface PersonAPI {
 	
 	Integer addPerson(Integer  administratorId, String personName);
 	
 	List<Person> getPersons(Integer  administratorId);
+
+	List<Person> getAllPersons();
 	
 	void removePerson(Integer administratorId, Integer personId);
 

@@ -3,3 +3,20 @@ CREATE TABLE PERSON (
 	ID int PRIMARY KEY auto_increment NOT NULL,
 	NAME varchar(2048) NOT NULL
 );
+
+
+INSERT into PERSON
+(ID, NAME)
+VALUES
+(5001,"Putin");
+
+INSERT into PERSON
+(ID, NAME)
+VALUES
+(5002,"Medvedev");
+
+
+INSERT into PERSON
+(ID, NAME)
+VALUES
+(5003,"Navalniy");

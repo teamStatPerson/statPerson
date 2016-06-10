@@ -1,10 +1,14 @@
 package statPerson.element.person;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import statPerson.Factory;
+import statPerson.element.price.Price;
 
 public class PersonDao {
 
@@ -48,6 +52,28 @@ public class PersonDao {
 			session.close();
 		}
 		return person;
+	}
+
+	public static List<Person> getAllPerson() {
+		Session session = Factory.getFactory().openSession();
+		Transaction tx = null;
+		List<Person> persons = null;
+		try {
+			tx = session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(Person.class);
+
+			persons = (List<Person>) criteria.list();
+
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return persons;
 	}
 
 	public static void removePerson(Integer idPerson){

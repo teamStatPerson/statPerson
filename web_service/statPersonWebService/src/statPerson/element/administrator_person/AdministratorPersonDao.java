@@ -43,7 +43,7 @@ public class AdministratorPersonDao {
 
 		persons.addAll((List<AdministratorPerson>) getPersonsAccount(idAccount));
 		if (!account.isPrimaryAdministrator()) {
-			persons.addAll((List<AdministratorPerson>) getAllPersonAccount(account.getIdLinkedAdministrator()));
+			persons.addAll(getAllPersonAccount(account.getIdLinkedAdministrator()));
 		}
 
 		return persons;

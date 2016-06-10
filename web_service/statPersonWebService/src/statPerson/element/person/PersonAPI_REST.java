@@ -7,23 +7,17 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+
+import statPerson.element.administrator_person.AdministratorPerson;
+import statPerson.element.administrator_person.AdministratorPersonDao;
 
 @Path("/PersonAPI")
-public class PersonAPI_Rest_test implements PersonAPI {
-
-	static List<Person> persons = new ArrayList<Person>();
-	static {
-		persons.add(new Person("Putin"));
-		persons.add(new Person("Putinf"));
-		persons.add(new Person("Putina"));
-	}
+public class PersonAPI_REST implements PersonAPI {
 
 	@Override
 	@PUT
@@ -31,8 +25,9 @@ public class PersonAPI_Rest_test implements PersonAPI {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Integer addPerson(@FormParam("administratorId") Integer administratorId,
 			@FormParam("personName") String personName) {
-		persons.add(new Person(personName));
-		return new Integer(45);//todo
+		Integer idPerson = PersonDao.addPerson(personName);
+		AdministratorPersonDao.addPersonToAdministrator(administratorId, idPerson);
+		return idPerson;
 	}
 
 	@Override
@@ -40,6 +35,11 @@ public class PersonAPI_Rest_test implements PersonAPI {
 	@Path("/{administratorId}")
 	@Produces(MediaType.APPLICATION_XML)
 	public List<Person> getPersons(@PathParam("administratorId") Integer administratorId) {
+		List<AdministratorPerson> administratorPersons = AdministratorPersonDao.getAllPersonAccount(administratorId);
+		List<Person> persons = new ArrayList<Person>();
+		for(AdministratorPerson that: administratorPersons){
+			persons.add(PersonDao.getPerson(that.getIdPerson()));
+		}
 		return persons;
 	}
 
@@ -48,12 +48,15 @@ public class PersonAPI_Rest_test implements PersonAPI {
 	@Path("/{administratorId}/{personId}")
 	public void removePerson(@PathParam("administratorId") Integer administratorId,
 			@PathParam("personId") Integer personId) {
-		for (int i = 0; i < persons.size(); i++) {
-			if (personId == persons.get(i).getId()) {
-				persons.remove(i);
-				break;
-			}
-		}
+		AdministratorPersonDao.removePersonFromAdministrator(administratorId, personId);
+		PersonDao.removePerson(personId);
+	}
+
+	@Override
+	@GET
+	@Produces(MediaType.APPLICATION_XML)
+	public List<Person> getAllPersons() {
+		return PersonDao.getAllPerson();
 	}
 
 }
