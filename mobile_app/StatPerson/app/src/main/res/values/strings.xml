@@ -64,5 +64,6 @@
     <string name="enter_email">Enter your e-mail</string>
     <string name="enter_pass">Enter password</string>
     <string name="enter">Enter</string>
+    <string name="total_stat_graph">See graph</string>
 
 </resources>

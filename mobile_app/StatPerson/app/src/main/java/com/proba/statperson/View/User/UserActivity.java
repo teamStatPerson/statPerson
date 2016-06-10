@@ -207,6 +207,11 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
             startActivity(intent);
             return true;
         }
+        if (id == R.id.total_stat_graph) {
+            Intent intent = new Intent(UserActivity.this, TotalStatGraphView.class);
+            startActivity(intent);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

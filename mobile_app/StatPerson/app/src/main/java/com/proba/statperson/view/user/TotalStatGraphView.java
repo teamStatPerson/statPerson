@@ -2,14 +2,10 @@ package com.proba.statperson.view.user;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.LinearLayout;
-import com.jjoe64.graphview.BarGraphView;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GraphViewSeries;
-import com.jjoe64.graphview.GraphView.GraphViewData;
-import com.jjoe64.graphview.LineGraphView;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.proba.statperson.R;
 
 public class TotalStatGraphView extends AppCompatActivity {
@@ -19,30 +15,15 @@ public class TotalStatGraphView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_total_stat_graph_view);
 
-        // Линейный график
-        GraphViewSeries exampleSeries = new GraphViewSeries(
-                new GraphViewData[]{new GraphViewData(1, 3.0d),
-                        new GraphViewData(2, 1.5d), new GraphViewData(3, 2.5d),
-                        new GraphViewData(4, 1.0d), new GraphViewData(5, 1.3d)});
-
-        GraphView graphView = new LineGraphView(this, "График каких-то данных");
-        graphView.addSeries(exampleSeries);
-
-        LinearLayout layout = (LinearLayout) findViewById(R.id.total_stat_graph_view);
-        layout.addView(graphView);
-
-
-
-        GraphViewSeries exampleSeries = new GraphViewSeries(
-                new GraphViewData[] { new GraphViewData(1, 3),
-                        new GraphViewData(2, 6), new GraphViewData(3, 6),
-                        new GraphViewData(4, 5), new GraphViewData(5, 1)
-                });
-        GraphView graphView = new BarGraphView(this,
-                "Число пойманных мышек за неделю");
-        graphView.addSeries(exampleSeries);
-        LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
-        layout.addView(graphView);
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
+        graph.addSeries(series);
 
     }
 }

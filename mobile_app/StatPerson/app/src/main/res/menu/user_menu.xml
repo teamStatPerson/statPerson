@@ -3,9 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.user.UserActivity">
+
     <item
         android:id="@+id/action_daily_stat"
         android:orderInCategory="100"
         android:title="@string/daily_stat"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/total_stat_graph"
+        android:orderInCategory="100"
+        android:title="@string/total_stat_graph"
+        app:showAsAction="never"/>
+
 </menu>

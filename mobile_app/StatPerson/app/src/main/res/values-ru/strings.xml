@@ -51,6 +51,6 @@
     <string name="enter_email">Введите ваш e-mail</string>
     <string name="enter_pass">Введите пароль</string>
     <string name="enter">Войти</string>
-
+    <string name="total_stat_graph">Посмотреть на диаграмме</string>
 
 </resources>
