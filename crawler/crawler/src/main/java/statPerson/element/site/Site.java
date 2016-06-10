@@ -1,18 +1,18 @@
 package statPerson.element.site;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public class Site{
     private int id;
     private String name;
-    private Calendar StartDateStatistics;
+    private Date startDateStatistics;
 
-    Site(){}
+    public Site(){}
 
-	public Site(String name, Calendar startDateStatistics) {
+	public Site(String name, Date startDateStatistics) {
 		super();
 		this.name = name;
-		StartDateStatistics = startDateStatistics;
+		this.startDateStatistics = startDateStatistics;
 	}
 
 	public int getId() {
@@ -31,19 +31,19 @@ public class Site{
 		this.name = name;
 	}
 
-	public Calendar getStartDateStatistics() {
-		return StartDateStatistics;
+	public Date getStartDateStatistics() {
+		return startDateStatistics;
 	}
 
-	public void setStartDateStatistics(Calendar startDateStatistics) {
-		StartDateStatistics = startDateStatistics;
+	public void setStartDateStatistics(Date startDateStatistics) {
+		this.startDateStatistics = startDateStatistics;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((StartDateStatistics == null) ? 0 : StartDateStatistics.hashCode());
+		result = prime * result + ((startDateStatistics == null) ? 0 : startDateStatistics.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -57,10 +57,10 @@ public class Site{
 		if (getClass() != obj.getClass())
 			return false;
 		Site other = (Site) obj;
-		if (StartDateStatistics == null) {
-			if (other.StartDateStatistics != null)
+		if (startDateStatistics == null) {
+			if (other.startDateStatistics != null)
 				return false;
-		} else if (!StartDateStatistics.equals(other.StartDateStatistics))
+		} else if (!startDateStatistics.equals(other.startDateStatistics))
 			return false;
 		if (name == null) {
 			if (other.name != null)

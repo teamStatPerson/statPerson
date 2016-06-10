@@ -34,6 +34,40 @@ public class PersonPageRankDao {
 		return id;
 	}
 
+	public static void saveOrUpdate(PersonPageRank personPageRank) {
+		Session session = Factory.getFactory().openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.saveOrUpdate(personPageRank);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+
+	public static PersonPageRank getByPersonPage(int idPerson, int idPage) {
+		Session session = Factory.getFactory().openSession();
+		Transaction tx = null;
+		PersonPageRank personPageRank = null;
+		try {
+			tx = session.beginTransaction();
+			personPageRank = (PersonPageRank)session.createCriteria(PersonPageRank.class).add(Restrictions.eq("personId", idPerson)).add(Restrictions.eq("pageId", idPage)).uniqueResult();
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return personPageRank;
+	}
+
 	@SuppressWarnings("unchecked")
 	public static List<PersonPageRank> getPersonPageRankByPage(Integer pageId) {
 		Session session = Factory.getFactory().openSession();

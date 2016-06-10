@@ -6,7 +6,7 @@ public class PersonPageRank {
     private int pageId;
     private int rank;
     
-    PersonPageRank(){}
+    public PersonPageRank(){}
 
 	public PersonPageRank(int personId, int pageId, int rank) {
 		super();

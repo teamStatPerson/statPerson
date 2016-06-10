@@ -4,6 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import statPerson.Factory;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class PageDao {
 
-    public static Integer addPage(String url, int siteId, Date foundDateTime, Date lastScanDate, String html) {
+    public static Integer addPages(String url, int siteId, Date foundDateTime, Date lastScanDate, String html) {
         Session session = Factory.getFactory().openSession();
         Transaction tx = null;
         Integer id = null;
@@ -34,18 +35,88 @@ public class PageDao {
         return id;
     }
 
-    public static void addPage(List<Page> pages) {
+    public static Date getMinimumDateForSite(int idSite) {
         Session session = Factory.getFactory().openSession();
         Transaction tx = null;
-        Integer id = null;
+        Date minimumDate = null;
+        try {
+            tx = session.beginTransaction();
+            Page page = (Page) session.createCriteria(Page.class).add(Restrictions.eq("siteId",idSite)).addOrder(Order.asc("foundDateTime")).setMaxResults(1).uniqueResult();
+            minimumDate = page.getFoundDateTime();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null)
+                tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return minimumDate;
+    }
 
+    public static List<Page> getNewestPageForSite(int idSite, int count) {
+        Session session = Factory.getFactory().openSession();
+        Transaction tx = null;
+        List<Page> newestPages= null;
+        try {
+            tx = session.beginTransaction();
+            newestPages = session.createCriteria(Page.class).add(Restrictions.isNull("lastScanDate")).add(Restrictions.eq("siteId",idSite)).addOrder(Order.desc("foundDateTime")).setMaxResults(count).list();
+
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null)
+                tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return newestPages;
+    }
+
+
+    public static void updatePage(Page page) {
+        Session session = Factory.getFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.saveOrUpdate(page);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null)
+                tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
+    public static Page getPageById(int idPage) {
+        Session session = Factory.getFactory().openSession();
+        Transaction tx = null;
+        Page page = null;
+        try {
+            tx = session.beginTransaction();
+            page = (Page) session.createCriteria(Page.class).add(Restrictions.eq("id", idPage)).uniqueResult();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null)
+                tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return page;
+    }
+
+    public static void addPages(List<Page> pages) {
+        Session session = Factory.getFactory().openSession();
+        Transaction tx = null;
         try {
             tx = session.beginTransaction();
 
             for (Page page : pages) {
                 session.save(page);
             }
-
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null)

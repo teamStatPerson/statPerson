@@ -11,7 +11,7 @@
         <property name="name" type="java.lang.String">
             <column name="NAME" />
         </property>
-        <property name="StartDateStatistics" type="java.util.Calendar">
+        <property name="startDateStatistics" type="java.util.Date">
             <column name="STARTDATESTATISTICS" />
         </property>
     </class>

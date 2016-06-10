@@ -6,6 +6,8 @@ import org.hibernate.Transaction;
 
 import statPerson.Factory;
 
+import java.util.List;
+
 public class PersonDao {
 
 	public static Integer addPerson(String name) {
@@ -28,6 +30,24 @@ public class PersonDao {
 			session.close();
 		}
 		return id;
+	}
+
+	public static List<Person> getAllPerson() {
+		Session session = Factory.getFactory().openSession();
+		Transaction tx = null;
+		List<Person> persons = null;
+		try {
+			tx = session.beginTransaction();
+			persons = session.createCriteria(Person.class).list();
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return persons;
 	}
 
 	public static Person getPerson(Integer idPerson) {

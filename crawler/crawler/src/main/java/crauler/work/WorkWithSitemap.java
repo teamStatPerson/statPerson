@@ -62,11 +62,11 @@ public class WorkWithSitemap {
         Elements links = doc.select("sitemap loc");
         for (Element link : links) {
             String url = link.text();
-//                System.out.println(url);
             Pattern pattern = Pattern.compile("^http(.*).xml");
             Matcher matcher = pattern.matcher(url);
             matcher.find();
             String xml = matcher.group();
+//            System.out.println(xml);
             listXML.add(xml);
         }
     }
@@ -79,13 +79,12 @@ public class WorkWithSitemap {
             Elements loc = link.select("loc");
             for (Element element : loc
                     ) {
-//                System.out.println(eli.text());
+//                System.out.println(element.text());
                 page.setUrl(element.text());
             }
             Elements lastmod = link.select("lastmod");
             for (Element element : lastmod
                     ) {
-//                System.out.println(element.text());
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ") {
                     public Date parse(String source, ParsePosition pos) {
                         return super.parse(source.replaceFirst(":(?=[0-9]{2}$)", ""), pos);
@@ -108,11 +107,11 @@ public class WorkWithSitemap {
             if (firstIndex + COUNT_OF_PART_LIST_URL < listPages.size()) {
                 nextPart = listPages.subList(firstIndex, firstIndex + COUNT_OF_PART_LIST_URL);
                 firstIndex += COUNT_OF_PART_LIST_URL;
-                PageDao.addPage(nextPart);
+                PageDao.addPages(nextPart);
             } else {
                 nextPart = listPages.subList(firstIndex, listPages.size());
                 firstIndex += COUNT_OF_PART_LIST_URL;
-                PageDao.addPage(nextPart);
+                PageDao.addPages(nextPart);
             }
         }
     }

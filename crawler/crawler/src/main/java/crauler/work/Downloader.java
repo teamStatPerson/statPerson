@@ -1,7 +1,14 @@
 package crauler.work;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+
+import java.io.IOException;
+import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 
 /**
@@ -40,5 +47,19 @@ public class Downloader {
             System.out.println("Проблемы с загрузкой - " + url);
         }
         return doc;
+    }
+
+    public static Date getLastModified(String url) {
+        Date lastModified = null;
+        try {
+            Connection.Response rs = Jsoup.connect(url).ignoreContentType(true).execute();
+            String dateString = rs.headers().get("Last-Modified");
+            System.out.println(dateString);
+            SimpleDateFormat format = new SimpleDateFormat("EE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH);
+            lastModified = format.parse(dateString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lastModified;
     }
 }
