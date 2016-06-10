@@ -56,6 +56,5 @@ public class OverallStatistics {
 
             EventBus.getDefault().post(new ReceivedStatisticsEvent(result));
         }
-
     }
 }

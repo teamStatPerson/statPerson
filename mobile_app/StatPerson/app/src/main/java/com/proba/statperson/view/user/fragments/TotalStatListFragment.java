@@ -45,7 +45,6 @@ public class TotalStatListFragment extends ListFragment {
                 new String[]{TotalStatHashMap.PERSON, TotalStatHashMap.QUANTITY}, new int[]{
                 R.id.tvPerson, R.id.tvQty});
         setListAdapter(adapter);
-
     }
 
     @Subscribe
@@ -63,7 +62,6 @@ public class TotalStatListFragment extends ListFragment {
         for (Map.Entry<String, Integer> entry : overallStatistics.message.entrySet()) {
             totalStatList.add(new TotalStatHashMap(entry.getKey(), entry.getValue().toString()));
         }
-
         setListAdapter(adapter);
     }
 

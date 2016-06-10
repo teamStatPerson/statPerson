@@ -16,15 +16,13 @@ import java.util.ArrayList;
 
 public class TotalStatGraphView extends AppCompatActivity {
 
+    String[] labels;
     ArrayList<TotalStatHashMap> totalStatList;
-    String[] horizontalLabels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_total_stat_graph_view);
-
-        totalStatList = new ArrayList<TotalStatHashMap>();
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
@@ -44,7 +42,7 @@ public class TotalStatGraphView extends AppCompatActivity {
         series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
             @Override
             public int get(DataPoint data) {
-                return Color.rgb((int) data.getX()*255/4, (int) Math.abs(data.getY()*255/6), 100);
+                return Color.rgb((int) data.getX() * 255 / 4, (int) Math.abs(data.getY() * 255 / 6), 100);
             }
         });
         if (graph != null) {
