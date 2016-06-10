@@ -17,7 +17,7 @@
         android:padding="16dp"
         android:text="@string/daily_stat"
         android:textColor="#03A9F4"
-        android:textSize="@dimen/normal_text"/>
+        android:textSize="@dimen/head_text"/>
 
     <LinearLayout
         android:id="@+id/linearLayoutSite"
@@ -66,6 +66,8 @@
             android:id="@+id/textViewDateFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/normal_text"
+            android:textColor="#03A9F4"
             android:ems="10"/>
     </LinearLayout>
 
@@ -91,6 +93,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="@dimen/normal_text"
+            android:textColor="#03A9F4"
             android:ems="10"/>
 
     </LinearLayout>

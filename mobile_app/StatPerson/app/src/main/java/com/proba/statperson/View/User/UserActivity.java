@@ -203,7 +203,6 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
 
         if (id == R.id.action_daily_stat) {
             Intent intent = new Intent(UserActivity.this, DailyStatActivity.class);
-//            fab.setImageResource(R.drawable.ic_add_white_24dp);
             startActivity(intent);
             return true;
         }

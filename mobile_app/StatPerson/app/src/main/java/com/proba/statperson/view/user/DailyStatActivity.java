@@ -2,10 +2,12 @@ package com.proba.statperson.view.user;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
@@ -103,6 +105,29 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         outState.putString(KEY_DATE_TO, to_date);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.user_daily_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_total_stat) {
+            Intent intent = new Intent(DailyStatActivity.this, UserActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.daily_stat_graph) {
+            Intent intent = new Intent(DailyStatActivity.this, DailyStatGraphView.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void init() {
         isPersonChosen = false;

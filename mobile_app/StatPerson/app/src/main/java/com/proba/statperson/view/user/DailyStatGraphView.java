@@ -6,31 +6,34 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.ValueDependentColor;
-import com.jjoe64.graphview.helper.StaticLabelsFormatter;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.proba.statperson.R;
 
-public class TotalStatGraphView extends AppCompatActivity {
+import java.util.Calendar;
+import java.util.Date;
+
+public class DailyStatGraphView extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_total_stat_graph_view);
+        setContentView(R.layout.activity_daily_stat_graph_view);
+
+        Calendar calendar = Calendar.getInstance();
+        Date d1 = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date d2 = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date d3 = calendar.getTime();
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
-        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-        staticLabelsFormatter.setHorizontalLabels(
-                new String[]{
-                        getResources().getString(R.string.putin),
-                        getResources().getString(R.string.medvedev),
-                        getResources().getString(R.string.navalny)
-                });
         BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[]{
-                new DataPoint(0, 6),
-                new DataPoint(1, 3),
-                new DataPoint(2, 1)
+                new DataPoint(d1, 6),
+                new DataPoint(d2, 3),
+                new DataPoint(d3, 1)
         });
         series.setSpacing(10);
         // styling
@@ -41,14 +44,19 @@ public class TotalStatGraphView extends AppCompatActivity {
             }
         });
         if (graph != null) {
-            graph.setTitle(getResources().getString(R.string.total_stat));
+
+            // set date label formatter
+            graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
+            graph.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
+
+// set manual x bounds to have nice steps
+            graph.getViewport().setMinX(d1.getTime());
+            graph.getViewport().setMaxX(d3.getTime());
+            graph.getViewport().setXAxisBoundsManual(true);
+            graph.setTitle(getResources().getString(R.string.putin));
             graph.setTitleTextSize(getResources().getDimension(R.dimen.head_text));
             graph.setTitleColor(getResources().getColor(R.color.colorAccent));
-            graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
             graph.addSeries(series);
-            graph.getViewport().setXAxisBoundsManual(true);
-            graph.getViewport().setMinX(0);
-            graph.getViewport().setMaxX(2);
         }
         // draw values on top
         series.setDrawValuesOnTop(true);
