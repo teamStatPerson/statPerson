@@ -3,7 +3,7 @@ package com.proba.statperson.presenter.Catalogs;
 import android.os.AsyncTask;
 
 import com.proba.statperson.events.EditCatalogElementsEvent;
-import com.proba.statperson.events.PersonKeywordsListEvent;
+import com.proba.statperson.events.NewPersonKeywordsListEvent;
 import com.proba.statperson.interfaces.ICatalog;
 import com.proba.statperson.interfaces.IView;
 
@@ -11,7 +11,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 import statPerson.element.account.Account;
 import statPerson.element.keyword.Keyword;
@@ -23,15 +22,18 @@ public class KeywordsCatalog implements ICatalog {
 
     private IView view;
 
+    private int personID;
+
     ArrayList<Keyword> keywords;
 
     @Override
-    public void adminGetListOfCatalogElements(String param) {
+    public void adminGetListOfCatalogElements(int personID) {
+        this.personID = personID;
         KeywordsListTask keywordssListTask = new KeywordsListTask();
-        keywordssListTask.execute(param);
+        keywordssListTask.execute(personID);
     }
 
-    class KeywordsListTask extends AsyncTask<String, Void, ArrayList<Keyword>> {
+    class KeywordsListTask extends AsyncTask<Integer, Void, ArrayList<Keyword>> {
 
         @Override
         protected void onPreExecute() {
@@ -39,20 +41,20 @@ public class KeywordsCatalog implements ICatalog {
         }
 
         @Override
-        protected ArrayList<Keyword> doInBackground(String... personName) {
+        protected ArrayList<Keyword> doInBackground(Integer... personID) {
 //            Administrator administrator = new Administrator();
 //            keywords = AdministratorAPI.getKeywords(administrator, person);
             keywords = new ArrayList<>();
             for (int i = 0; i < 5; i++) {
-                Keyword keyword = new Keyword(Arrays.toString(personName) + "'s fakeKeyword #" + i, 0);
+                Keyword keyword = new Keyword("somePerson" + Arrays.toString(personID) + "'s fakeKeyword #" + i, 0);
                 keywords.add(keyword);
             }
 
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                TimeUnit.SECONDS.sleep(2);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
 
             return keywords;
         }
@@ -61,16 +63,16 @@ public class KeywordsCatalog implements ICatalog {
         protected void onPostExecute(ArrayList<Keyword> result) {
             super.onPostExecute(result);
 
-            EventBus.getDefault().post(new PersonKeywordsListEvent(getKeywordsNamesFromArray(result)));
+            EventBus.getDefault().post(new NewPersonKeywordsListEvent(result));
         }
 
-        private String[] getKeywordsNamesFromArray(ArrayList<Keyword> catalogElements) {
-            String[] keywordsNames = new String[catalogElements.size()];
-            for (int i = 0; i < keywordsNames.length; i++) {
-                keywordsNames[i] = catalogElements.get(i).getName();
-            }
-            return keywordsNames;
-        }
+//        private String[] getKeywordsNamesFromArray(ArrayList<Keyword> catalogElements) {
+//            String[] keywordsNames = new String[catalogElements.size()];
+//            for (int i = 0; i < keywordsNames.length; i++) {
+//                keywordsNames[i] = catalogElements.get(i).getName();
+//            }
+//            return keywordsNames;
+//        }
     }
 
     @Override
@@ -108,7 +110,7 @@ public class KeywordsCatalog implements ICatalog {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             EventBus.getDefault().post(new EditCatalogElementsEvent(result));
-            adminGetListOfCatalogElements(null);
+            adminGetListOfCatalogElements(personID);
         }
     }
 
@@ -145,7 +147,7 @@ public class KeywordsCatalog implements ICatalog {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             EventBus.getDefault().post(new EditCatalogElementsEvent(result));
-            adminGetListOfCatalogElements(null);
+            adminGetListOfCatalogElements(personID);
         }
     }
 

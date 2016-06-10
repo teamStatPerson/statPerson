@@ -9,13 +9,13 @@ import statPerson.element.site.Site;
  */
 public interface IPresenter {
     // TODO: 03.06.2016 refactor: do without Person arg (?)
-    void adminGetListOfCatalogElements(int catalogIndex, String param);
+    void adminGetListOfCatalogElements(int catalogIndex, int personID);
 
     void userGetOverallStatistics(Site site);
 
     void userGetDailyStatistics(Site site, Person person, String dateTill, String dateFrom);
 
-    void adminDeleteElement(String name, int catalogIndex, int personId);
+    void adminDeleteElement(int name, int catalogIndex, int personId);
 
     void adminAddElement(String name, int catalogIndex, int personId);
 }

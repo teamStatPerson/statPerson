@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
-import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.events.NewSitesListEvent;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.interfaces.TotalStatSite;
 import com.proba.statperson.presenter.PresenterImpl;
@@ -23,6 +23,8 @@ import com.proba.statperson.view.user.fragments.TotalStatListFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
 
 import statPerson.element.site.Site;
 
@@ -35,7 +37,7 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
     TextView textViewSiteName;
     public static String siteName;
 
-    private String[] sites;
+    private List<Site> sites;
     private static final String KEY_SITE_NAME = "SITE_NAME";
 
     @Override
@@ -66,7 +68,7 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
         setSupportActionBar(toolbar);
 
         presenter = new PresenterImpl();
-        presenter.adminGetListOfCatalogElements(Constants.SITES_CATALOG_INDEX, null);
+        presenter.adminGetListOfCatalogElements(Constants.SITES_CATALOG_INDEX, 0);
 
         textViewPersonName = (TextView) findViewById(R.id.textViewPersonName);
         textViewSiteName = (TextView) findViewById(R.id.textViewSiteName);
@@ -79,7 +81,7 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
     }
 
     @Subscribe
-    public void onReceiveCatalogElements(NewCatalogElementsListEvent catalogElements) {
+    public void onReceiveCatalogElements(NewSitesListEvent catalogElements) {
         removeProgressBar();
 
         sites = catalogElements.message;
@@ -170,12 +172,23 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
         });
     }
 
+    private int getElementID(String sitesName) {
+        int ID = 0;
+        for (int i = 0; i < sites.size(); i++) {
+            if (sites.get(i).getName().equals(sitesName)) {
+                ID = sites.get(i).getId();
+                break;
+            }
+        }
+        return ID;
+    }
+
     private PopupMenu populatePopupMenu(PopupMenu popupMenu) {
         popupMenu.inflate(R.menu.popupmenu_sites);
         popupMenu.getMenu().clear();
 
-        for (String site : sites) {
-            popupMenu.getMenu().add(site);
+        for (int i = 0; i < sites.size(); i++) {
+            popupMenu.getMenu().add(sites.get(i).getName());
         }
 
         return popupMenu;

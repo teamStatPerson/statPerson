@@ -24,8 +24,8 @@ import statPerson.element.site.Site;
 public class DeleteConfirmDialogFragment extends DialogFragment {
 
     public static final String CATALOG_INDEX = "catalogIndex";
-    public static final String ELEMENT_NAME = "elementName";
-    public static final String PERSON_NAME = "personName";
+    public static final String ELEMENT_ID = "elementID";
+    public static final String PERSON_ID = "personID";
     public static final String TITLE = "title";
     private DeleteConfirmListener mDeleteConfirmListenerListener;
     Context mContext;
@@ -37,14 +37,14 @@ public class DeleteConfirmDialogFragment extends DialogFragment {
         mContext = getActivity();
     }
 
-    public static DeleteConfirmDialogFragment newInstance(MenuItem item, int index, String personName) {
+    public static DeleteConfirmDialogFragment newInstance(int elementID, int index, int personID) {
         String title = "";
         DeleteConfirmDialogFragment deleteConfirmDialogFragment = new DeleteConfirmDialogFragment();
         Bundle args = new Bundle();
         args.putString(TITLE, title);
-        args.putString(ELEMENT_NAME, item.getTitle().toString());
+        args.putInt(ELEMENT_ID, elementID);
         args.putInt(CATALOG_INDEX, index);
-        args.putString(PERSON_NAME, personName);
+        args.putInt(PERSON_ID, personID);
         deleteConfirmDialogFragment.setArguments(args);
         return deleteConfirmDialogFragment;
     }

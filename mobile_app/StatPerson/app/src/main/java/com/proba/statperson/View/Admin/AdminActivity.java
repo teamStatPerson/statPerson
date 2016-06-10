@@ -47,8 +47,8 @@ public class AdminActivity extends AppCompatActivity
     FragmentUsers fragmentUsers;
 
     public static final String CATALOG_INDEX = "catalogIndex";
-    public static final String ELEMENT_NAME = "elementName";
-    public static final String PERSON_NAME = "personName";
+    public static final String ELEMENT_ID = "elementID";
+    public static final String PERSON_ID = "personID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,11 +131,11 @@ public class AdminActivity extends AppCompatActivity
         } else if (id == R.id.sites) {
             fab.setImageResource(R.drawable.ic_add_white_24dp);
             fragmentTransaction.replace(R.id.container, fragmentSites);
-            getCatalogElements(Constants.SITES_CATALOG_INDEX, null);
+            getCatalogElements(Constants.SITES_CATALOG_INDEX, 0);
         } else if (id == R.id.persons) {
             fab.setImageResource(R.drawable.ic_add_white_24dp);
             fragmentTransaction.replace(R.id.container, fragmentPersons);
-            getCatalogElements(Constants.PERSONS_CATALOG_INDEX, null);
+            getCatalogElements(Constants.PERSONS_CATALOG_INDEX, 0);
         } else if (id == R.id.total_stat) {
             fragmentTransaction.replace(R.id.container, fragmentTotalStat);
         } else if (id == R.id.daily_stat) {
@@ -145,7 +145,7 @@ public class AdminActivity extends AppCompatActivity
         } else if (id == R.id.key_words) {
             fab.setImageResource(R.drawable.ic_add_white_24dp);
             fragmentTransaction.replace(R.id.container, fragmentKeyWords);
-            getCatalogElements(Constants.PERSONS_CATALOG_INDEX, null);
+            getCatalogElements(Constants.PERSONS_CATALOG_INDEX, 0);
         } else if (id == R.id.users) {
             fragmentTransaction.replace(R.id.container, fragmentUsers);
         }
@@ -156,16 +156,16 @@ public class AdminActivity extends AppCompatActivity
         return true;
     }
 
-    public void getCatalogElements(int catalogIndex, String param) {
+    public void getCatalogElements(int catalogIndex, int personID) {
         switch (catalogIndex) {
             case Constants.PERSONS_CATALOG_INDEX:
-                presenter.adminGetListOfCatalogElements(Constants.PERSONS_CATALOG_INDEX, null);
+                presenter.adminGetListOfCatalogElements(Constants.PERSONS_CATALOG_INDEX, 0);
                 break;
             case Constants.SITES_CATALOG_INDEX:
-                presenter.adminGetListOfCatalogElements(Constants.SITES_CATALOG_INDEX, null);
+                presenter.adminGetListOfCatalogElements(Constants.SITES_CATALOG_INDEX, 0);
                 break;
             case Constants.KEYWORDS_CATALOG_INDEX:
-                presenter.adminGetListOfCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, param);
+                presenter.adminGetListOfCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, personID);
                 break;
         }
     }
@@ -179,24 +179,24 @@ public class AdminActivity extends AppCompatActivity
                 presenter.adminAddElement(input.toString(), catalogIndex, 0);
                 break;
             case Constants.KEYWORDS_CATALOG_INDEX:
-                presenter.adminAddElement(input.toString(), catalogIndex, 0);
+                presenter.adminAddElement(input.toString(), catalogIndex, personId);
                 break;
         }
     }
 
-    public void deleteElement(String elementName, int catalogIndex, String personName) {
+    public void deleteElement(int elementID, int catalogIndex, int personID) {
         switch (catalogIndex) {
             case Constants.PERSONS_CATALOG_INDEX:
 //                                Person person = new Person(elementName);
-                presenter.adminDeleteElement(elementName, Constants.PERSONS_CATALOG_INDEX, 0);
+                presenter.adminDeleteElement(elementID, Constants.PERSONS_CATALOG_INDEX, 0);
                 break;
             case Constants.SITES_CATALOG_INDEX:
 //                                Site site = new Site(elementName, null);
-                presenter.adminDeleteElement(elementName, Constants.SITES_CATALOG_INDEX, 0);
+                presenter.adminDeleteElement(elementID, Constants.SITES_CATALOG_INDEX, 0);
                 break;
             case Constants.KEYWORDS_CATALOG_INDEX:
 //                                Keyword keyword = new Keyword(elementName, 0);
-                presenter.adminDeleteElement(elementName, Constants.KEYWORDS_CATALOG_INDEX, 0);
+                presenter.adminDeleteElement(elementID, Constants.KEYWORDS_CATALOG_INDEX, personID);
                 break;
         }
     }
@@ -204,8 +204,8 @@ public class AdminActivity extends AppCompatActivity
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         Toast.makeText(this, "Вы подтвердили удаление!", Toast.LENGTH_LONG).show();
-        deleteElement(dialog.getArguments().getString(ELEMENT_NAME), dialog.getArguments().getInt(CATALOG_INDEX),
-                dialog.getArguments().getString(PERSON_NAME));
+        deleteElement(dialog.getArguments().getInt(ELEMENT_ID), dialog.getArguments().getInt(CATALOG_INDEX),
+                dialog.getArguments().getInt(PERSON_ID));
     }
 
     @Override
@@ -214,11 +214,11 @@ public class AdminActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFinishEditDialog(String newElementName, String oldElementName, int catalogIndex, String personName) {
+    public void onFinishEditDialog(String newElementName, int oldElementID, int catalogIndex, int personID) {
         Toast.makeText(getApplicationContext(), "Вы ввели, " + newElementName, Toast.LENGTH_SHORT).show();
 
-        deleteElement(oldElementName, catalogIndex, personName);
-        addElement(newElementName, catalogIndex, 0);
+        deleteElement(oldElementID, catalogIndex, personID);
+        addElement(newElementName, catalogIndex, personID);
     }
 
     @Override

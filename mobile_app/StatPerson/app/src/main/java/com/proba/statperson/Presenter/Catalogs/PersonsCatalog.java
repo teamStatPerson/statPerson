@@ -3,26 +3,17 @@ package com.proba.statperson.presenter.Catalogs;
 import android.os.AsyncTask;
 
 import com.proba.statperson.events.EditCatalogElementsEvent;
-import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.events.NewPersonsListEvent;
 import com.proba.statperson.interfaces.ICatalog;
 import com.proba.statperson.interfaces.IView;
-import com.proba.statperson.presenter.FakeWebServiceAPI;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
 
 import statPerson.element.account.Account;
 import statPerson.element.person.Person;
-import statPerson.element.person.PersonAPI_REST_Client;
-import statPerson.element.site.Site;
 
 /**
  * Created by vadik on 01.06.2016.
@@ -32,7 +23,7 @@ public class PersonsCatalog implements ICatalog {
     private IView view;
 
     @Override
-    public void adminGetListOfCatalogElements(String param) {
+    public void adminGetListOfCatalogElements(int personID) {
         PersonsListTask personsListTask = new PersonsListTask();
         personsListTask.execute();
     }
@@ -48,7 +39,7 @@ public class PersonsCatalog implements ICatalog {
         protected List<Person> doInBackground(Void... params) {
 //            Person person = new Person();
 //            person.setName("Васек");
-            List<Person> persons;
+            List<Person> persons = new ArrayList<>();
 //            persons.add(person);
 //            Person person2 = new Person();
 //            person2.setName("Санек");
@@ -68,11 +59,11 @@ public class PersonsCatalog implements ICatalog {
 //            PersonAPI_REST_Client client =  new PersonAPI_REST_Client();
 //            persons =  client.getAllPersons();
 
-            Client client = ClientBuilder.newClient();
-            String REST_SERVICE_URL = "http://146.66.177.105:8080/statPerson/rest/PersonAPI/";
-            GenericType<List<Person>> list = new GenericType<List<Person>>() {
-            };
-            persons  = client.target(REST_SERVICE_URL).request(MediaType.APPLICATION_XML).get(list);
+//            Client client = ClientBuilder.newClient();
+//            String REST_SERVICE_URL = "http://146.66.177.105:8080/statPerson/rest/PersonAPI/";
+//            GenericType<List<Person>> list = new GenericType<List<Person>>() {
+//            };
+//            persons  = client.target(REST_SERVICE_URL).request(MediaType.APPLICATION_XML).get(list);
 
 
 //            persons = client.target(REST_SERVICE_URL).request(MediaType.APPLICATION_XML).get(list);
@@ -83,6 +74,9 @@ public class PersonsCatalog implements ICatalog {
 //            account.setPassword("paswword");
 //            FakeWebServiceAPI fakeWebServiceAPI = new FakeWebServiceAPI();
 //            persons = fakeWebServiceAPI.getPersons(account);
+
+            persons.add(new Person(0, "somePerson1"));
+            persons.add(new Person(1, "somePerson2"));
             return persons;
         }
 
@@ -90,16 +84,16 @@ public class PersonsCatalog implements ICatalog {
         protected void onPostExecute(List<Person> result) {
             super.onPostExecute(result);
 
-            EventBus.getDefault().post(new NewCatalogElementsListEvent(getPersonNamesFromArray(result)));
+            EventBus.getDefault().post(new NewPersonsListEvent(result));
         }
 
-        private String[] getPersonNamesFromArray(List<Person> catalogElements) {
-            String[] personsNames = new String[catalogElements.size()];
-            for (int i = 0; i < personsNames.length; i++) {
-                personsNames[i] = catalogElements.get(i).getName();
-            }
-            return personsNames;
-        }
+//        private String[] getPersonNamesFromArray(List<Person> catalogElements) {
+//            String[] personsNames = new String[catalogElements.size()];
+//            for (int i = 0; i < personsNames.length; i++) {
+//                personsNames[i] = catalogElements.get(i).getName();
+//            }
+//            return personsNames;
+//        }
 
     }
 
@@ -152,7 +146,7 @@ public class PersonsCatalog implements ICatalog {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             EventBus.getDefault().post(new EditCatalogElementsEvent(result));
-            adminGetListOfCatalogElements(null);
+            adminGetListOfCatalogElements(0);
         }
 
     }
@@ -190,7 +184,7 @@ public class PersonsCatalog implements ICatalog {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             EventBus.getDefault().post(new EditCatalogElementsEvent(result));
-            adminGetListOfCatalogElements(null);
+            adminGetListOfCatalogElements(0);
         }
 
     }

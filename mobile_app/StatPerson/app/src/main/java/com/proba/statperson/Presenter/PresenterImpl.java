@@ -21,39 +21,39 @@ public class PresenterImpl implements IPresenter {
     private IModel model;
 
     @Override
-    public void adminGetListOfCatalogElements(int catalogIndex, String param) {
+    public void adminGetListOfCatalogElements(int catalogIndex, int personID) {
         ICatalog catalog;
         switch (catalogIndex) {
             case Constants.PERSONS_CATALOG_INDEX:
                 catalog = new PersonsCatalog();
-                catalog.adminGetListOfCatalogElements(null);
+                catalog.adminGetListOfCatalogElements(0);
                 break;
             case Constants.SITES_CATALOG_INDEX:
                 catalog = new SitesCatalog();
-                catalog.adminGetListOfCatalogElements(null);
+                catalog.adminGetListOfCatalogElements(0);
                 break;
             case Constants.KEYWORDS_CATALOG_INDEX:
                 catalog = new KeywordsCatalog();
-                catalog.adminGetListOfCatalogElements(param);
+                catalog.adminGetListOfCatalogElements(personID);
                 break;
         }
     }
 
     @Override
-    public void adminDeleteElement(String elementName, int catalogIndex, int personId) {
+    public void adminDeleteElement(int elementID, int catalogIndex, int personId) {
         ICatalog catalog;
         switch (catalogIndex) {
             case Constants.PERSONS_CATALOG_INDEX:
                 catalog = new PersonsCatalog();
-                catalog.adminDeleteElement(new Person(elementName));
+                catalog.adminDeleteElement(new Person("elementID"));
                 break;
             case Constants.SITES_CATALOG_INDEX:
                 catalog = new SitesCatalog();
-                catalog.adminDeleteElement(new Site(elementName, null));
+                catalog.adminDeleteElement(new Site("elementID", null));
                 break;
             case Constants.KEYWORDS_CATALOG_INDEX:
                 catalog = new KeywordsCatalog();
-                catalog.adminDeleteElement(new Keyword(elementName, 0));
+                catalog.adminDeleteElement(new Keyword("elementID", personId));
                 break;
         }
     }

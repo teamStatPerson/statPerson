@@ -26,11 +26,15 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.EditCatalogElementsEvent;
-import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.events.NewSitesListEvent;
 import com.proba.statperson.view.admin.AdminActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
+
+import statPerson.element.site.Site;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +58,8 @@ public class FragmentSites extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
     public FloatingActionButton fab;
+
+    List<Site> sites;
 
     public FragmentSites() {
         // Required empty public constructor
@@ -103,13 +109,15 @@ public class FragmentSites extends ListFragment {
         switch (item.getItemId()) {
             case R.id.edit:
                 FragmentManager editManager = getFragmentManager();
-                EditorDialogFragment editorDialogFragment = EditorDialogFragment.newInstance(item.getTitle().toString(),
-                        Constants.SITES_CATALOG_INDEX, null);
+                EditorDialogFragment editorDialogFragment =
+                        EditorDialogFragment.newInstance(getElementID(item.getTitle().toString()),
+                        Constants.SITES_CATALOG_INDEX, 0);
                 editorDialogFragment.show(editManager, "dialog_editor");
                 break;
             case R.id.delete:
-                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance(item,
-                        Constants.SITES_CATALOG_INDEX, null);
+                DeleteConfirmDialogFragment deleteConfirmDialogFragment =
+                        DeleteConfirmDialogFragment.newInstance(getElementID(item.getTitle().toString()),
+                        Constants.SITES_CATALOG_INDEX, 0);
                 FragmentManager deleteManager = getFragmentManager();
                 deleteConfirmDialogFragment.show(deleteManager, "dialog_delete");
                 break;
@@ -117,6 +125,17 @@ public class FragmentSites extends ListFragment {
                 return super.onContextItemSelected(item);
         }
         return true;
+    }
+
+    private int getElementID(String sitesName) {
+        int ID = 0;
+        for (int i = 0; i < sites.size(); i++) {
+            if (sites.get(i).getName().equals(sitesName)) {
+                ID = sites.get(i).getId();
+                break;
+            }
+        }
+        return ID;
     }
 
     @Override
@@ -151,17 +170,28 @@ public class FragmentSites extends ListFragment {
     }
 
     @Subscribe
-    public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
+    public void displayCatalogElements(NewSitesListEvent catalogElements) {
         removeProgressBar();
         // TODO: 03.06.2016 handle exceptions
 
+        sites = catalogElements.message;
+
         ListAdapter adapter = new ArrayAdapter<>(getActivity(),
 //                android.R.layout.simple_list_item_1, catalogElements.message);
-                android.R.layout.simple_list_item_single_choice, catalogElements.message);
+                android.R.layout.simple_list_item_single_choice, getSitesNamesFromArray(sites));
         setListAdapter(adapter);
     }
 
-    @Subscribe
+    private String[] getSitesNamesFromArray(List<Site> catalogElements) {
+            String[] sitesNames = new String[catalogElements.size()];
+            for (int i = 0; i < sitesNames.length; i++) {
+                sitesNames[i] = catalogElements.get(i).getName();
+            }
+            return sitesNames;
+        }
+
+
+        @Subscribe
     public void catalogUpdate(EditCatalogElementsEvent catalogElements) {
         setProgressBar();
         Toast.makeText(getActivity(), catalogElements.message, Toast.LENGTH_SHORT).show();

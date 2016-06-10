@@ -27,12 +27,17 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.EditCatalogElementsEvent;
-import com.proba.statperson.events.NewCatalogElementsListEvent;
-import com.proba.statperson.events.PersonKeywordsListEvent;
+import com.proba.statperson.events.NewPersonsListEvent;
+import com.proba.statperson.events.NewPersonKeywordsListEvent;
 import com.proba.statperson.view.admin.AdminActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
+
+import statPerson.element.keyword.Keyword;
+import statPerson.element.person.Person;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,7 +67,8 @@ public class FragmentKeyWords extends ListFragment {
 //    final String[] keyWordsMedvedev = new String[]{"Медведевым", "Медведеву", "Медведева", "Медведеве"};
 //    final String[] keyWordsNavalny = new String[]{"Навальным", "Навальному", "Навального", "Навальном"};
 
-    private String[] persons;
+    private List<Person> persons;
+    private List<Keyword> keywords;
 
     public FragmentKeyWords() {
         // Required empty public constructor
@@ -130,17 +136,18 @@ public class FragmentKeyWords extends ListFragment {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.edit:
                 FragmentManager editManager = getFragmentManager();
-                EditorDialogFragment editorDialogFragment = EditorDialogFragment.newInstance(item.getTitle().toString(),
-                        Constants.KEYWORDS_CATALOG_INDEX, chosenPerson);
+                EditorDialogFragment editorDialogFragment =
+                        EditorDialogFragment.newInstance(getKeywordID(item.getTitle().toString()),
+                        Constants.KEYWORDS_CATALOG_INDEX, getPersonID(chosenPerson));
                 editorDialogFragment.show(editManager, "dialog_editor");
                 break;
             case R.id.delete:
-                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance(item,
-                        Constants.KEYWORDS_CATALOG_INDEX, chosenPerson);
+                DeleteConfirmDialogFragment deleteConfirmDialogFragment =
+                        DeleteConfirmDialogFragment.newInstance(getKeywordID(item.getTitle().toString()),
+                        Constants.KEYWORDS_CATALOG_INDEX, getPersonID(chosenPerson));
                 FragmentManager deleteManager = getFragmentManager();
                 deleteConfirmDialogFragment.show(deleteManager, "dialog_delete");
                 break;
@@ -149,6 +156,17 @@ public class FragmentKeyWords extends ListFragment {
                 return super.onContextItemSelected(item);
         }
         return true;
+    }
+
+    private int getKeywordID(String keywordName) {
+        int ID = 0;
+        for (int i = 0; i < persons.size(); i++) {
+            if (persons.get(i).getName().equals(keywordName)) {
+                ID = persons.get(i).getId();
+                break;
+            }
+        }
+        return ID;
     }
 
     @Override
@@ -171,7 +189,7 @@ public class FragmentKeyWords extends ListFragment {
     }
 
     @Subscribe
-    public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
+    public void displayCatalogElements(NewPersonsListEvent catalogElements) {
         removeProgressBar();
 
         persons = catalogElements.message;
@@ -183,13 +201,23 @@ public class FragmentKeyWords extends ListFragment {
     }
 
     @Subscribe
-    public void displayPersonsKeywords(PersonKeywordsListEvent catalogElements) {
+    public void displayPersonsKeywords(NewPersonKeywordsListEvent catalogElements) {
         removeProgressBar();
+
+        keywords = catalogElements.message;
 
         ListAdapter adapter = new ArrayAdapter<>(getActivity(),
 //                android.R.layout.simple_list_item_1, catalogElements.message);
-                android.R.layout.simple_list_item_multiple_choice, catalogElements.message);
+                android.R.layout.simple_list_item_multiple_choice, getKeywordsNamesFromArray(keywords));
         setListAdapter(adapter);
+    }
+
+    private String[] getKeywordsNamesFromArray(List<Keyword> catalogElements) {
+        String[] keywordsNames = new String[catalogElements.size()];
+        for (int i = 0; i < keywordsNames.length; i++) {
+            keywordsNames[i] = catalogElements.get(i).getName();
+        }
+        return keywordsNames;
     }
 
     @Subscribe
@@ -240,7 +268,7 @@ public class FragmentKeyWords extends ListFragment {
 //                        Toast.makeText(getActivity(), person.getName(), Toast.LENGTH_SHORT).show();
                         chosenPerson = item.getTitle().toString();
                         ((AdminActivity) getActivity()).
-                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, chosenPerson);
+                                getCatalogElements(Constants.KEYWORDS_CATALOG_INDEX, getPersonID(chosenPerson));
                         tvChoosePerson2.setText(chosenPerson);
                         return false;
                     }
@@ -257,12 +285,23 @@ public class FragmentKeyWords extends ListFragment {
         popupMenu.show();
     }
 
+    private int getPersonID(String personsName) {
+        int ID = 0;
+        for (int i = 0; i < persons.size(); i++) {
+            if (persons.get(i).getName().equals(personsName)) {
+                ID = persons.get(i).getId();
+                break;
+            }
+        }
+        return ID;
+    }
+
     private PopupMenu populatePopupMenu(PopupMenu popupMenu) {
         popupMenu.inflate(R.menu.popupmenu_persons);
         popupMenu.getMenu().clear();
 
-        for (String person : persons) {
-            popupMenu.getMenu().add(person);
+        for (int i = 0; i < persons.size(); i++) {
+            popupMenu.getMenu().add(persons.get(i).getName());
         }
 
         return popupMenu;
@@ -280,7 +319,7 @@ public class FragmentKeyWords extends ListFragment {
                         Toast.makeText(getActivity(), "Вы подтвердили добавление ключевого слова: " + input,
                                 Toast.LENGTH_LONG).show();
                         // TODO: 08.06.2016 handle person ids
-                        ((AdminActivity) getActivity()).addElement(input, Constants.KEYWORDS_CATALOG_INDEX, 0);
+                        ((AdminActivity) getActivity()).addElement(input, Constants.KEYWORDS_CATALOG_INDEX, getPersonID(chosenPerson));
                     }
                 }).show();
     }
@@ -341,7 +380,7 @@ public class FragmentKeyWords extends ListFragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.

@@ -16,7 +16,8 @@ import android.widget.Toast;
 
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
-import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.events.NewPersonsListEvent;
+import com.proba.statperson.events.NewSitesListEvent;
 import com.proba.statperson.events.SetDateFromEvent;
 import com.proba.statperson.events.SetDateTillEvent;
 import com.proba.statperson.interfaces.DailyStatDate;
@@ -29,6 +30,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import statPerson.element.person.Person;
 import statPerson.element.site.Site;
@@ -52,8 +54,8 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
     private int day;
 
     private IPresenter presenter;
-    private String[] sites;
-    private String[] persons;
+    private List<Site> sites;
+    private List<Person> persons;
 
     private FloatingActionButton fab;
     public static boolean isSitesListRetrieved;
@@ -131,7 +133,7 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
 
         isSitesListRetrieved = false;
         presenter = new PresenterImpl();
-        presenter.adminGetListOfCatalogElements(Constants.SITES_CATALOG_INDEX, null);
+        presenter.adminGetListOfCatalogElements(Constants.SITES_CATALOG_INDEX, 0);
     }
 
     private void determineCurrentDate() {
@@ -145,31 +147,34 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
     }
 
     @Subscribe
-    public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
-        if (isSitesListRetrieved) {
-            isSitesListRetrieved = false;
-            removeProgressBar();
-            persons = catalogElements.message;
-            textViewPersonName.setVisibility(View.VISIBLE);
-            textViewDateFrom.setVisibility(View.VISIBLE);
-            textViewDateTill.setVisibility(View.VISIBLE);
-            findViewById(R.id.textViewPerson).setVisibility(View.VISIBLE);
-            findViewById(R.id.linearLayoutPeriodFrom).setVisibility(View.VISIBLE);
-            findViewById(R.id.linearLayoutPeriodTill).setVisibility(View.VISIBLE);
-            setOnClickListenerOnPersonsPopup();
-        } else {
-            isSitesListRetrieved = true;
-            sites = catalogElements.message;
-            textViewSiteName.setVisibility(View.VISIBLE);
-            findViewById(R.id.textViewSite).setVisibility(View.VISIBLE);
-            setOnClickListenerOnSitesPopup();
-
-            if (presenter == null) {
-                presenter = new PresenterImpl();
-            }
-            presenter.adminGetListOfCatalogElements(Constants.PERSONS_CATALOG_INDEX, null);
-        }
+    public void displayPersons(NewPersonsListEvent catalogElements) {
+        isSitesListRetrieved = false;
+        removeProgressBar();
+        persons = catalogElements.message;
+        textViewPersonName.setVisibility(View.VISIBLE);
+        textViewDateFrom.setVisibility(View.VISIBLE);
+        textViewDateTill.setVisibility(View.VISIBLE);
+        findViewById(R.id.textViewPerson).setVisibility(View.VISIBLE);
+        findViewById(R.id.linearLayoutPeriodFrom).setVisibility(View.VISIBLE);
+        findViewById(R.id.linearLayoutPeriodTill).setVisibility(View.VISIBLE);
+        setOnClickListenerOnPersonsPopup();
     }
+
+    @Subscribe
+    public void displaySites(NewSitesListEvent catalogElements) {
+        isSitesListRetrieved = true;
+        sites = catalogElements.message;
+        textViewSiteName.setVisibility(View.VISIBLE);
+        findViewById(R.id.textViewSite).setVisibility(View.VISIBLE);
+        setOnClickListenerOnSitesPopup();
+
+        if (presenter == null) {
+            presenter = new PresenterImpl();
+        }
+        presenter.adminGetListOfCatalogElements(Constants.PERSONS_CATALOG_INDEX, 0);
+
+    }
+
 
     public void removeProgressBar() {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar3);
@@ -237,8 +242,8 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         popupMenu.inflate(R.menu.popupmenu_persons);
         popupMenu.getMenu().clear();
 
-        for (String person : persons) {
-            popupMenu.getMenu().add(person);
+        for (int i = 0; i < persons.size(); i++) {
+            popupMenu.getMenu().add(persons.get(i).getName());
         }
 
         return popupMenu;
@@ -315,8 +320,8 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         popupMenu.inflate(R.menu.popupmenu_sites);
         popupMenu.getMenu().clear();
 
-        for (String site : sites) {
-            popupMenu.getMenu().add(site);
+        for (int i = 0; i < sites.size(); i++) {
+            popupMenu.getMenu().add(sites.get(i).getName());
         }
 
         return popupMenu;
@@ -406,6 +411,28 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
                 presenter.userGetDailyStatistics(new Site(siteName, null), new Person(personName), to_date, from_date);
             }
         });
+    }
+
+    private int getSiteID(String siteName) {
+        int ID = 0;
+        for (int i = 0; i < sites.size(); i++) {
+            if (sites.get(i).getName().equals(siteName)) {
+                ID = sites.get(i).getId();
+                break;
+            }
+        }
+        return ID;
+    }
+
+    private int getPersonID(String personName) {
+        int ID = 0;
+        for (int i = 0; i < persons.size(); i++) {
+            if (persons.get(i).getName().equals(personName)) {
+                ID = persons.get(i).getId();
+                break;
+            }
+        }
+        return ID;
     }
 
     @Override

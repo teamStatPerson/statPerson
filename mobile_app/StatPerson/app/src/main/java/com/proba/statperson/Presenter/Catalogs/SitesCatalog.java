@@ -3,16 +3,14 @@ package com.proba.statperson.presenter.Catalogs;
 import android.os.AsyncTask;
 
 import com.proba.statperson.events.EditCatalogElementsEvent;
-import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.events.NewSitesListEvent;
 import com.proba.statperson.interfaces.ICatalog;
 import com.proba.statperson.interfaces.IView;
-import com.proba.statperson.presenter.CatalogElement.CatalogElement;
-import com.proba.statperson.presenter.CatalogElement.Person;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import statPerson.element.account.Account;
 import statPerson.element.site.Site;
@@ -23,15 +21,15 @@ import statPerson.element.site.Site;
 public class SitesCatalog implements ICatalog {
     private IView view;
 
-    ArrayList<CatalogElement> sitesList;
+    ArrayList<Site> sites;
 
     @Override
-    public void adminGetListOfCatalogElements(String param) {
+    public void adminGetListOfCatalogElements(int personID) {
         SitesListTask sitesListTask = new SitesListTask();
         sitesListTask.execute();
     }
 
-    class SitesListTask extends AsyncTask<Void, Void, ArrayList<CatalogElement>> {
+    class SitesListTask extends AsyncTask<Void, Void, List<Site>> {
 
         @Override
         protected void onPreExecute() {
@@ -39,42 +37,45 @@ public class SitesCatalog implements ICatalog {
         }
 
         @Override
-        protected ArrayList<CatalogElement> doInBackground(Void... params) {
+        protected ArrayList<Site> doInBackground(Void... params) {
 //            Administrator administrator = new Administrator();
 //            keywords = AdministratorAPI.getPersons(administrator);
 
-            sitesList = new ArrayList<>();
+            sites = new ArrayList<>();
 
-            for (int i = 0; i < 10; i++) {
-                CatalogElement person = new Person("FakeSite #_" + i);
-                sitesList.add(person);
+//            for (int i = 0; i < 10; i++) {
+//                CatalogElement person = new Person("FakeSite #_" + i);
+//                sites.add(person);
+//
+//            }
+//
+//            try {
+//                TimeUnit.SECONDS.sleep(2);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
 
-            }
+            sites.add(new Site("someSite1", null));
+            sites.add(new Site("someSite2", null));
 
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            return sitesList;
+            return sites;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<CatalogElement> result) {
+        protected void onPostExecute(List<Site> result) {
             super.onPostExecute(result);
 
-            EventBus.getDefault().post(new NewCatalogElementsListEvent(getSitesNamesFromArray(result)));
+            EventBus.getDefault().post(new NewSitesListEvent(result));
         }
 
         //// TODO: 02.06.2016 ref-ng, trough interface:
-        private String[] getSitesNamesFromArray(ArrayList<CatalogElement> catalogElements) {
-            String[] sitesNames = new String[catalogElements.size()];
-            for (int i = 0; i < sitesNames.length; i++) {
-                sitesNames[i] = catalogElements.get(i).getName();
-            }
-            return sitesNames;
-        }
+//        private String[] getSitesNamesFromArray(ArrayList<CatalogElement> catalogElements) {
+//            String[] sitesNames = new String[catalogElements.size()];
+//            for (int i = 0; i < sitesNames.length; i++) {
+//                sitesNames[i] = catalogElements.get(i).getName();
+//            }
+//            return sitesNames;
+//        }
 
     }
 
@@ -111,7 +112,7 @@ public class SitesCatalog implements ICatalog {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             EventBus.getDefault().post(new EditCatalogElementsEvent(result));
-            adminGetListOfCatalogElements(null);
+            adminGetListOfCatalogElements(0);
         }
     }
 
@@ -148,7 +149,7 @@ public class SitesCatalog implements ICatalog {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             EventBus.getDefault().post(new EditCatalogElementsEvent(result));
-            adminGetListOfCatalogElements(null);
+            adminGetListOfCatalogElements(0);
         }
     }
 }

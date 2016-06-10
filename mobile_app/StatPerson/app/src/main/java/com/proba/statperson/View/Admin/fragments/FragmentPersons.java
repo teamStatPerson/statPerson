@@ -24,12 +24,16 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.proba.statperson.Constants;
 import com.proba.statperson.R;
 import com.proba.statperson.events.EditCatalogElementsEvent;
-import com.proba.statperson.events.NewCatalogElementsListEvent;
+import com.proba.statperson.events.NewPersonsListEvent;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.view.admin.AdminActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
+
+import statPerson.element.person.Person;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +58,8 @@ public class FragmentPersons extends ListFragment {
     private OnFragmentInteractionListener mListener;
 
     private IPresenter presenter;
+
+    List<Person> persons;
 
     public FragmentPersons() {
         // Required empty public constructor
@@ -123,13 +129,15 @@ public class FragmentPersons extends ListFragment {
         switch (item.getItemId()) {
             case R.id.edit:
                 FragmentManager editManager = getFragmentManager();
-                EditorDialogFragment editorDialogFragment = EditorDialogFragment.newInstance(item.getTitle().toString(),
-                        Constants.PERSONS_CATALOG_INDEX, null);
+                EditorDialogFragment editorDialogFragment =
+                        EditorDialogFragment.newInstance(getElementID(item.getTitle().toString()),
+                        Constants.PERSONS_CATALOG_INDEX, 0);
                 editorDialogFragment.show(editManager, "dialog_editor");
                 break;
             case R.id.delete:
-                DeleteConfirmDialogFragment deleteConfirmDialogFragment = DeleteConfirmDialogFragment.newInstance(item,
-                        Constants.PERSONS_CATALOG_INDEX, null);
+                DeleteConfirmDialogFragment deleteConfirmDialogFragment =
+                        DeleteConfirmDialogFragment.newInstance(getElementID(item.getTitle().toString()),
+                        Constants.PERSONS_CATALOG_INDEX, 0);
                 FragmentManager deleteManager = getFragmentManager();
                 deleteConfirmDialogFragment.show(deleteManager, "dialog_delete");
                 break;
@@ -137,6 +145,17 @@ public class FragmentPersons extends ListFragment {
                 return super.onContextItemSelected(item);
         }
         return true;
+    }
+
+    private int getElementID(String personName) {
+        int ID = 0;
+        for (int i = 0; i < persons.size(); i++) {
+            if (persons.get(i).getName().equals(personName)) {
+                ID = persons.get(i).getId();
+                break;
+            }
+        }
+        return ID;
     }
 
     private void setOnClickListenerFab() {
@@ -165,13 +184,23 @@ public class FragmentPersons extends ListFragment {
     }
 
     @Subscribe
-    public void displayCatalogElements(NewCatalogElementsListEvent catalogElements) {
+    public void displayCatalogElements(NewPersonsListEvent catalogElements) {
         removeProgressBar();
+
+        persons = catalogElements.message;
 
         ListAdapter adapter = new ArrayAdapter<>(getActivity(),
 //                android.R.layout.simple_list_item_1, catalogElements.message);
-                android.R.layout.simple_list_item_single_choice, catalogElements.message);
+                android.R.layout.simple_list_item_single_choice, getPersonsNamesFromArray(persons));
         setListAdapter(adapter);
+    }
+
+    private String[] getPersonsNamesFromArray(List<Person> catalogElements) {
+        String[] personsNames = new String[catalogElements.size()];
+        for (int i = 0; i < personsNames.length; i++) {
+            personsNames[i] = catalogElements.get(i).getName();
+        }
+        return personsNames;
     }
 
     @Subscribe
@@ -241,18 +270,18 @@ public class FragmentPersons extends ListFragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+/**
+ * This interface must be implemented by activities that contain this
+ * fragment to allow an interaction in this fragment to be communicated
+ * to the activity and potentially other fragments contained in that
+ * activity.
+ * <p/>
+ * See the Android Training lesson <a href=
+ * "http://developer.android.com/training/basics/fragments/communicating.html"
+ * >Communicating with Other Fragments</a> for more information.
+ */
+public interface OnFragmentInteractionListener {
+    // TODO: Update argument type and name
+    void onFragmentInteraction(Uri uri);
+}
 }
