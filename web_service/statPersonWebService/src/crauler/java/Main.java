@@ -4,25 +4,21 @@ package crauler.java;
  * Created by Андрей on 22.05.2016.
  */
 
-import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.apache.log4j.Logger;
+
+import statPerson.element.person.Person;
+import statPerson.element.site.Site;
 
 public class Main {
 	static Logger log = Logger.getLogger(Main.class.getName());
 
 	public static void main(String[] args) {
 		log.debug("In main(String[] args)");
-		
-		String s1 = "http://www.statperson.webtm.ru";
-		String s2 = "https://lenta.ru";
-		String s3 = "http://www.mvideo.ru/";
-		String s4 = "http://www.mvideo.ru/sitemaps/sitemap-product-www.mvideo.ru-2";
-		String s5 = "http://29.ru/";
-		ArrayList<String> Keywords = new ArrayList<String>();
-		Keywords.add("Путин");
-		Keywords.add("погода");
+		Site site = new Site("https://lenta.ru", Calendar.getInstance());
+		Person testPerson = new Person(5000,"тест персон");
 		Crawler crawler = new Crawler();
-		crawler.doJob(s2, Keywords);
+		crawler.doJob(site, testPerson);
 	}
 }

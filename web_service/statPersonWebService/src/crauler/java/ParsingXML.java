@@ -19,71 +19,61 @@ public class ParsingXML {
 	private List<String> listUrlXMLgz; // файлы архивов gz, например
 										// https://lenta.ru/news/sitemap3.xml.g
 	private String siteName;
-	private Integer countUrl; // счетчик сайтов обхода
-	private Integer countUrlTotal; // максимальное количество сайтов обхода
+	
+	// счетчик сайтов обхода
+	private int countUrl; 
+	
+	// максимальное количество сайтов обхода
+	private static final Integer MAXIMAL_AMOUNT_URL = 150; 
 
 	public ParsingXML(String siteName, String urlXML) {
 		log.debug("In ParsingRobots()");
-		log.debug("siteName = "+siteName);
-		log.debug("urlXML = "+urlXML);
-		
+		log.debug("siteName = " + siteName);
+		log.debug("urlXML = " + urlXML);
+
 		this.urlXML = urlXML;
 		this.listUrl = new ArrayList<String>();
 		this.listUrlXMLgz = new ArrayList<String>();
 		this.siteName = siteName;
-		countUrlTotal = 50;
 		countUrl = 0;
 		doParseXML();
 	}
 
 	public void doParseXML() {
-		log.debug("In ParsingRobots.doParseXML()");
-		// parseXML(urlXML + "/sitemap.xml");
+		log.debug("In ParsingXML.doParseXML()");
+
 		parseXML(urlXML);
 		if (!(listUrlXMLgz.isEmpty())) {
 			parseXMLgz(listUrlXMLgz);
 		}
-		if (listUrl.isEmpty() & (listUrlXMLgz.isEmpty())) { // если sitemap
-															// пустой, то
-															// возвращаем
-															// главную страницу
-			// System.out.println("URL пустой");
-			// System.out.println("siteName " + siteName);
+		// если sitemap пустой, то возвращаем главную страницу
+		if (listUrl.isEmpty() & (listUrlXMLgz.isEmpty())) {
 			listUrl.add(siteName);
 		}
 	}
 
 	private void parseXMLgz(List<String> listUrlXMLgz) {
-		log.debug("In ParsingRobots.parseXMLgz()");
+		log.debug("In ParsingXML.parseXMLgz()");
 		log.debug("listUrlXMLgz ");
-		for(String url:listUrlXMLgz)
+		for (String url : listUrlXMLgz)
 			log.debug(url);
-		
-		for (String urlXMLgz : listUrlXMLgz) {
-			String urlXMLtemp = urlXMLgz.substring(0, urlXMLgz.length() - 3); // приведение
-																				// gz
-																				// архива
-																				// к
-																				// виду
-																				// url
-			parseXML(urlXMLtemp);
-		}
-	}
 
-	public void printUrlTotal() {
-		log.debug("In ParsingRobots.printUrlTotal()");
-		for (String url : listUrl) {
-			System.out.println("url = " + url);
+		for (String urlXMLgz : listUrlXMLgz) {
+			// приведение gz архива к виду url
+			String urlXMLtemp = urlXMLgz.substring(0, urlXMLgz.length() - 3);
+			parseXML(urlXMLtemp);
+			if (countUrl > MAXIMAL_AMOUNT_URL) {
+				return;
+			}
 		}
 	}
 
 	private void parseXML(String urlXML) {
-		//log.debug("In ParsingRobots.parseXML()");
-		//log.debug("urlXML = "+urlXML);
-		// System.out.println("urlXML = " + urlXML);
+		log.debug("In ParsingXML.parseXML()");
+		log.debug("urlXML = " + urlXML);
+
 		Document doc = DownloaderXML.getDoc(urlXML);
 		if (doc != null) {
-			// System.out.println("doc not null" );
 			Elements links = doc.getElementsByTag("loc");
 			if (links != null) {
 				for (Element link : links) {
@@ -92,35 +82,23 @@ public class ParsingXML {
 				}
 			}
 		}
-		// System.out.println("doc null" );
 	}
 
 	private void addUrl(String url) {
-		//log.debug("In ParsingRobots.parseXML()");
-		//log.debug("url = "+url);
-		
-		boolean gzXML = url.matches("^http(.*).[xml.gz]$"); // проверка есть ли
-															// файл с gz архивом
-		if ((gzXML) & (countUrl <= countUrlTotal)) {
+		// проверка есть ли файл с gz архивом
+		boolean gzXML = url.matches("^http(.*).[xml.gz]$");
+		if (countUrl > MAXIMAL_AMOUNT_URL) {
+			return;
+		}
+		countUrl++;
+		if (gzXML) {
 			listUrlXMLgz.add(url);
-			// System.out.println("есть " + url);
-			countUrl++;
 		} else {
-			if (countUrl <= countUrlTotal) {
-				// System.out.println("url = " + url);
-				// System.out.println("countUrl = " + countUrl);
-				listUrl.add(url);
-				countUrl++;
-			}
+			listUrl.add(url);
 		}
 	}
 
 	public List<String> getListUrl() {
-		//log.debug("In ParsingRobots.getListUrl()");
-		//log.debug("listUrl ");
-		//for(String url:listUrl)
-		//	log.debug(url);
-		
 		return listUrl;
 	}
 

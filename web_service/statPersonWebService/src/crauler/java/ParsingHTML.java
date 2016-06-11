@@ -1,8 +1,5 @@
 package crauler.java;
 
-import org.apache.log4j.Logger;
-import org.jsoup.nodes.Document;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,39 +8,18 @@ import java.util.regex.Pattern;
  * Created by Андрей on 31.05.2016.
  */
 public class ParsingHTML {
-	static Logger log = Logger.getLogger(ParsingHTML.class.getName());
-	
-	private List<String> keywords = new ArrayList<String>();
-	private int raiting;
-	private String html;
 
-	public ParsingHTML(String html, List<String> keywords) {
-		log.debug("In ParsingHTML()");
-		log.debug("html = "+html);
-		log.debug("keywords ");
-		for(String keyword:keywords)
-			log.debug(keyword);
-		this.keywords = keywords;
-		
-		this.html = html;
-		raiting = 0;
-	}
-
-	public int raitingPerson() {
-		log.debug("In ParsingHTML.raitingPerson()");
-		
-		Document doc = DownloaderXML.getDoc(html);
-		String pageHTML = doc.html();
-		// System.out.println("url = " + html);
-		for (String keyword : keywords) {
-			// System.out.println(keyword);
-
-			Pattern p = Pattern.compile("\\b" + keyword + "\\b", Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
+	public static int[] rankPerson(String pageHTML, List<String> keywords) {
+		int[] rank = new int[keywords.size()];
+		for (int i = 0; i < rank.length; i++) {
+			rank[i] = 0;
+			Pattern p = Pattern.compile("\\b" + keywords.get(i) + "\\b",
+					Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
 			Matcher m = p.matcher(pageHTML);
-			while (m.find())
-				raiting++;
-			// System.out.println("raiting = " + raiting);
+			while (m.find()) {
+				rank[i]++;
+			}
 		}
-		return raiting;
+		return rank;
 	}
 }

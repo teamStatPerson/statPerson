@@ -1,91 +1,55 @@
 package crauler.java;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import crauler.FakeCraulerApiDatabase;
+import crauler.api.CraulerJob;
+import crauler.api.interfaces.iCraulerAPI;
+import statPerson.element.page.Page;
+import statPerson.element.person.Person;
+import statPerson.element.site.Site;
+
 /**
  * Created by Андрей on 05.06.2016.
  */
-public class Crawler {
+public class Crawler implements CraulerJob {
 	static Logger log = Logger.getLogger(Crawler.class.getName());
 
-	private List<String> urlSites = new ArrayList<String>();
+	private iCraulerAPI db = new FakeCraulerApiDatabase();
 
-	public Crawler() {
-		log.debug("In Crawler()");
-	}
-
-	public void doJob(String site, List<String> keywords) {
+	@Override
+	public void doJob(Site siteDB, Person personDB) {
 		log.debug("In Crawler.doJob ");
-		log.debug("site = "+site);
-		log.debug("keywords ");
-		for(String keyword:keywords)
-			log.debug(keyword);
-		
-		
+		log.debug("site = " + siteDB);
+		log.debug("person =  " + personDB.getName());
+
+		List<String> pages = parsingSite(siteDB.getName());
+		List<String> keywords = db.getKeywords(personDB);
+
+		int[] ranks = new int[keywords.size()];
+		for (String page : pages) {
+			String html = DownloaderXML.getDoc(page).html();
+			if (html.length() > 0) {
+				ranks = ParsingHTML.rankPerson(html, keywords);
+				Page pageDB = db.addPage(siteDB, page, html);
+				for (int i = 0; i < ranks.length; i++) {
+					if (ranks[i] > 0)
+						db.addRank(personDB, pageDB.getId(), keywords.get(i), ranks[i]);
+				}
+			}
+		}
+	}
+
+	private List<String> parsingSite(String site) {
 		ParsingRobots parsingRobots = new ParsingRobots(site);
-		parsingRobots.foundURLSiteMap();
-		// parsingRobots.getRobotsFileFound();
-		if (parsingRobots.getURLsiteMapFound() == true) { // если ссылка на
-															// sitemap найдена в
-															// robots.txt
-			// System.out.println("найдена");
-			// System.out.println("URLSM = " + parsingRobots.getUrlSiteMap());
-			doParsing(site, parsingRobots.getUrlSiteMap());
+		ParsingXML parsingXML = null;
+		if (parsingRobots.getURLsiteMapFound() == true) {
+			parsingXML = new ParsingXML(site, parsingRobots.getUrlSiteMap());
 		} else {
-			doParsing(site, site + "/sitemap.xml");
+			parsingXML = new ParsingXML(site, site + "/sitemap.xml");
 		}
-		// System.out.println("fff");
-		printUrl(urlSites);
-
-		doStatPerson(keywords);
+		return parsingXML.getListUrl();
 	}
-	// raitingPutin - рейтинг персоны на каждой странице сайта
-	// raitngTotal - рейтинг персоны на всем сайте
-
-	private void doStatPerson(List<String> keywords) {
-		log.debug("In Crawler.doStatPerson ");
-		log.debug("keywords ");
-		for(String keyword:keywords)
-			log.debug(keyword);
-		
-		Integer raitngTotal = 0;
-		for (String url : urlSites) {
-			ParsingHTML parsingHTML = new ParsingHTML(url, keywords);
-
-			int raitingPutin = parsingHTML.raitingPerson();
-			raitngTotal = raitngTotal + raitingPutin;
-			// TODO: 05.06.2016 сюда вставить запись в таблицу PagePersonRank
-			// рейтинг личности, url - имя сайта, raitingPutin - рейтинг на
-			// странице url)
-			// System.out.println("На странице " + url + " Рейтинг равен " +
-			// raitingPutin);
-		}
-		System.out.println("Общий рейтинг " + raitngTotal);
-	}
-
-	private void doParsing(String siteName, String urlSiteMap) {
-		log.debug("In Crawler.doParsing ");
-		log.debug("siteName = "+siteName);
-		log.debug("urlSiteMap = "+urlSiteMap);
-		// List<String> urlSites = new ArrayList<String>();
-		ParsingXML parsingXML = new ParsingXML(siteName, urlSiteMap);
-		urlSites = parsingXML.getListUrl();
-		// TODO: 05.06.2016 сюда вставить запись в таблицу Pages сайта (значение
-		// переменной urlSites)
-	}
-
-	public static void printUrl(List<String> listUrl) {
-		log.debug("In Crawler.printUrl ");
-		log.debug("keywords ");
-		for(String url:listUrl)
-			log.debug(url);
-		/*
-		 * for (String url : listUrl) { System.out.println("url= " + url); }
-		 */
-		System.out.println("Количество найденных url = " + listUrl.size());
-	}
-
 }

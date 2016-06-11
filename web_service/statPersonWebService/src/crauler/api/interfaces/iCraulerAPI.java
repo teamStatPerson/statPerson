@@ -6,12 +6,10 @@ import statPerson.element.site.Site;
 
 import java.util.List;
 
-import statPerson.element.keyword.Keyword;
-
 public interface iCraulerAPI {
-	void addPage(Site site, Page page);
+	Page addPage(Site site, String page, String html);
 
-	void addRank(Person person, Page page, int rank);
+	void addRank(Person person, Integer pageId, String keyword, int rank);
 
-	List<Keyword> getKeywords(Person person);
+	List<String> getKeywords(Person person);
 }

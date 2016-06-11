@@ -16,15 +16,14 @@ public class DownloaderXML {
 	private final static String USER_AGENT = "Googlebot-News";
 
 	public static Document getDoc(String url) {
-		log.debug("In DownloaderXML()");
-		log.debug("url = " + url);
+		// log.debug("In DownloaderXML()");
+		// log.debug("url = " + url);
 
 		Document doc = null;
 		try {
 			doc = Jsoup.connect(url).userAgent(USER_AGENT).timeout(TIMEOUT).get();
 		} catch (IOException e) {
-			e.printStackTrace();
-			log.debug("In DownloaderXML() -- Cannot download");
+			log.debug("In DownloaderXML() -- Cannot download --" + url);
 		}
 		return doc;
 	}

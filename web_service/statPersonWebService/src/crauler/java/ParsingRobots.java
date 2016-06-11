@@ -8,45 +8,42 @@ import org.jsoup.nodes.Document;
  */
 public class ParsingRobots {
 	static Logger log = Logger.getLogger(ParsingRobots.class.getName());
-	
+
 	private String urlSite;
 	private String urlSiteMap;
-	private Boolean isRobotsFileFound;
+	//private Boolean isRobotsFileFound;
 	private Boolean isURLsiteMapFound;
 
 	public ParsingRobots(String urlSite) {
 		log.debug("In ParsingRobots()");
-		log.debug("urlSite = "+urlSite);
-		
+		log.debug("urlSite = " + urlSite);
+
 		this.urlSite = urlSite;
-		this.isRobotsFileFound = false;
+		//this.isRobotsFileFound = false;
 		this.isURLsiteMapFound = false;
 		this.urlSiteMap = "";
+		
+		foundURLSiteMap();
 	}
 
 	public String getUrlSiteMap() {
-		log.debug("In ParsingRobots.getUrlSiteMap()");
 		return urlSiteMap;
 	}
 
-	public Boolean getRobotsFileFound() {
-		log.debug("In ParsingRobots.getRobotsFileFound()");
-		return isRobotsFileFound;
-	}
+	//public Boolean getRobotsFileFound() {
+	//	return isRobotsFileFound;
+	//}
 
 	public Boolean getURLsiteMapFound() {
-		log.debug("In ParsingRobots.getURLsiteMapFound()");
 		return isURLsiteMapFound;
 	}
 
-	public void foundURLSiteMap() {
+	private void foundURLSiteMap() {
 		log.debug("In ParsingRobots.foundURLSiteMap()");
 		System.out.println("urlsite " + urlSite);
-		
+
 		Document doc = DownloaderXML.getDoc(urlSite + "/robots.txt");
-
 		if (doc != null) {
-
 			String pageHTML = doc.text();
 			int sitemap = pageHTML.indexOf("Sitemap:");
 			int xml = pageHTML.indexOf("xml");
@@ -54,11 +51,8 @@ public class ParsingRobots {
 			if (((xml != -1)) & (sitemap != -1)) {
 				urlSiteMapTemp = pageHTML.substring(pageHTML.indexOf("Sitemap") + 9, pageHTML.indexOf("xml") + 3);
 			}
-			isURLsiteMapFound = urlSiteMapTemp.matches("^http(.*).[xml.gz]$"); // проверка
-																				// является
-																				// ли
-																				// ссылка
-																				// сайтом
+			// проверка является ли ссылка сайтом
+			isURLsiteMapFound = urlSiteMapTemp.matches("^http(.*).[xml.gz]$");
 			if (isURLsiteMapFound) {
 				urlSiteMap = urlSiteMapTemp;
 				System.out.println("Файл Sitemap найден " + urlSiteMap);
@@ -66,7 +60,7 @@ public class ParsingRobots {
 				System.out.println("Файл Sitemap не найден");
 
 		} else {
-			isRobotsFileFound = false;
+			//isRobotsFileFound = false;
 			System.out.println("Файл robots.txt не найден");
 		}
 

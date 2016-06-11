@@ -12,7 +12,7 @@ public class Page{
     private Calendar lastScanDate;
     private String html;
 
-    Page(){}
+    public Page(){}
 
 	public Page(String url, int siteId, 
 			Calendar foundDateTime, Calendar lastScanDate, 
