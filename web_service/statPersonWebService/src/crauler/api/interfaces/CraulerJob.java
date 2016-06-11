@@ -1,4 +1,4 @@
-package crauler.api;
+package crauler.api.interfaces;
 
 import statPerson.element.person.Person;
 import statPerson.element.site.Site;

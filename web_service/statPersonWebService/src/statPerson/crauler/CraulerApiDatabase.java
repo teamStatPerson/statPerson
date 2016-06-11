@@ -1,10 +1,10 @@
-package crauler.api;
+package statPerson.crauler;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import crauler.api.interfaces.iCraulerAPI;
+import crauler.api.interfaces.iCraulerApiDatabase;
 import statPerson.element.keyword.Keyword;
 import statPerson.element.keyword.KeywordDao;
 import statPerson.element.page.Page;
@@ -14,7 +14,7 @@ import statPerson.element.person.PersonDao;
 import statPerson.element.person_page_rank.PersonPageRankDao;
 import statPerson.element.site.Site;
 
-public class CraulerApiDatabase implements iCraulerAPI {
+public class CraulerApiDatabase implements iCraulerApiDatabase {
 
 	@Override
 	public Page addPage(Site site, String page, String html) {

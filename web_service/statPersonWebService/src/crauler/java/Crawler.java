@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import crauler.FakeCraulerApiDatabase;
-import crauler.api.CraulerJob;
-import crauler.api.interfaces.iCraulerAPI;
+import crauler.api.interfaces.CraulerJob;
+import crauler.api.interfaces.iCraulerApiDatabase;
 import statPerson.element.page.Page;
 import statPerson.element.person.Person;
 import statPerson.element.site.Site;
@@ -16,8 +15,13 @@ import statPerson.element.site.Site;
  */
 public class Crawler implements CraulerJob {
 	static Logger log = Logger.getLogger(Crawler.class.getName());
-
-	private iCraulerAPI db = new FakeCraulerApiDatabase();
+	
+	iCraulerApiDatabase db;
+	
+	public Crawler(iCraulerApiDatabase db) {
+		super();
+		this.db = db;
+	}
 
 	@Override
 	public void doJob(Site siteDB, Person personDB) {

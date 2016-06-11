@@ -3,12 +3,12 @@ package crauler;
 import java.util.ArrayList;
 import java.util.List;
 
-import crauler.api.interfaces.iCraulerAPI;
+import crauler.api.interfaces.iCraulerApiDatabase;
 import statPerson.element.page.Page;
 import statPerson.element.person.Person;
 import statPerson.element.site.Site;
 
-public class FakeCraulerApiDatabase implements iCraulerAPI {
+public class FakeCraulerApiDatabase implements iCraulerApiDatabase {
 
 	private static int idPage = 0;
 	

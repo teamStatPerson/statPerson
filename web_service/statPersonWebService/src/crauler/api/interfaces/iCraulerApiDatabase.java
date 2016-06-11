@@ -6,7 +6,7 @@ import statPerson.element.site.Site;
 
 import java.util.List;
 
-public interface iCraulerAPI {
+public interface iCraulerApiDatabase {
 	Page addPage(Site site, String page, String html);
 
 	void addRank(Person person, Integer pageId, String keyword, int rank);

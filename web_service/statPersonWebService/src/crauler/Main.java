@@ -1,4 +1,4 @@
-package crauler.java;
+package crauler;
 
 /**
  * Created by Андрей on 22.05.2016.
@@ -8,6 +8,7 @@ import java.util.Calendar;
 
 import org.apache.log4j.Logger;
 
+import crauler.java.Crawler;
 import statPerson.element.person.Person;
 import statPerson.element.site.Site;
 
@@ -17,8 +18,8 @@ public class Main {
 	public static void main(String[] args) {
 		log.debug("In main(String[] args)");
 		Site site = new Site("https://lenta.ru", Calendar.getInstance());
-		Person testPerson = new Person(5000,"тест персон");
-		Crawler crawler = new Crawler();
+		Person testPerson = new Person(5000,"Путин");
+		Crawler crawler = new Crawler(new FakeCraulerApiDatabase());
 		crawler.doJob(site, testPerson);
 	}
 }
