@@ -6,9 +6,14 @@ package crauler.java;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 public class Main {
+	static Logger log = Logger.getLogger(Main.class.getName());
 
 	public static void main(String[] args) {
+		log.debug("In main(String[] args)");
+		
 		String s1 = "http://www.statperson.webtm.ru";
 		String s2 = "https://lenta.ru";
 		String s3 = "http://www.mvideo.ru/";

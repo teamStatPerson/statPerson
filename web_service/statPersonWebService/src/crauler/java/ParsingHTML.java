@@ -1,5 +1,6 @@
 package crauler.java;
 
+import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,19 +11,28 @@ import java.util.regex.Pattern;
  * Created by Андрей on 31.05.2016.
  */
 public class ParsingHTML {
+	static Logger log = Logger.getLogger(ParsingHTML.class.getName());
+	
 	private List<String> keywords = new ArrayList<String>();
 	private int raiting;
 	private String html;
 
 	public ParsingHTML(String html, List<String> keywords) {
+		log.debug("In ParsingHTML()");
+		log.debug("html = "+html);
+		log.debug("keywords ");
+		for(String keyword:keywords)
+			log.debug(keyword);
 		this.keywords = keywords;
+		
 		this.html = html;
 		raiting = 0;
 	}
 
 	public int raitingPerson() {
-		DownloaderXML downloaderXML = new DownloaderXML(html);
-		Document doc = downloaderXML.getDoc();
+		log.debug("In ParsingHTML.raitingPerson()");
+		
+		Document doc = DownloaderXML.getDoc(html);
 		String pageHTML = doc.html();
 		// System.out.println("url = " + html);
 		for (String keyword : keywords) {

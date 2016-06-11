@@ -2,6 +2,8 @@ package crauler.java;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -10,6 +12,7 @@ import org.jsoup.select.Elements;
  * Created by Андрей on 29.05.2016.
  */
 public class ParsingXML {
+	static Logger log = Logger.getLogger(ParsingXML.class.getName());
 
 	private String urlXML;
 	private List<String> listUrl;
@@ -20,6 +23,10 @@ public class ParsingXML {
 	private Integer countUrlTotal; // максимальное количество сайтов обхода
 
 	public ParsingXML(String siteName, String urlXML) {
+		log.debug("In ParsingRobots()");
+		log.debug("siteName = "+siteName);
+		log.debug("urlXML = "+urlXML);
+		
 		this.urlXML = urlXML;
 		this.listUrl = new ArrayList<String>();
 		this.listUrlXMLgz = new ArrayList<String>();
@@ -30,6 +37,7 @@ public class ParsingXML {
 	}
 
 	public void doParseXML() {
+		log.debug("In ParsingRobots.doParseXML()");
 		// parseXML(urlXML + "/sitemap.xml");
 		parseXML(urlXML);
 		if (!(listUrlXMLgz.isEmpty())) {
@@ -46,6 +54,11 @@ public class ParsingXML {
 	}
 
 	private void parseXMLgz(List<String> listUrlXMLgz) {
+		log.debug("In ParsingRobots.parseXMLgz()");
+		log.debug("listUrlXMLgz ");
+		for(String url:listUrlXMLgz)
+			log.debug(url);
+		
 		for (String urlXMLgz : listUrlXMLgz) {
 			String urlXMLtemp = urlXMLgz.substring(0, urlXMLgz.length() - 3); // приведение
 																				// gz
@@ -58,15 +71,17 @@ public class ParsingXML {
 	}
 
 	public void printUrlTotal() {
+		log.debug("In ParsingRobots.printUrlTotal()");
 		for (String url : listUrl) {
 			System.out.println("url = " + url);
 		}
 	}
 
 	private void parseXML(String urlXML) {
+		//log.debug("In ParsingRobots.parseXML()");
+		//log.debug("urlXML = "+urlXML);
 		// System.out.println("urlXML = " + urlXML);
-		DownloaderXML downloaderXML = new DownloaderXML(urlXML);
-		Document doc = downloaderXML.getDoc();
+		Document doc = DownloaderXML.getDoc(urlXML);
 		if (doc != null) {
 			// System.out.println("doc not null" );
 			Elements links = doc.getElementsByTag("loc");
@@ -81,6 +96,9 @@ public class ParsingXML {
 	}
 
 	private void addUrl(String url) {
+		//log.debug("In ParsingRobots.parseXML()");
+		//log.debug("url = "+url);
+		
 		boolean gzXML = url.matches("^http(.*).[xml.gz]$"); // проверка есть ли
 															// файл с gz архивом
 		if ((gzXML) & (countUrl <= countUrlTotal)) {
@@ -98,6 +116,11 @@ public class ParsingXML {
 	}
 
 	public List<String> getListUrl() {
+		//log.debug("In ParsingRobots.getListUrl()");
+		//log.debug("listUrl ");
+		//for(String url:listUrl)
+		//	log.debug(url);
+		
 		return listUrl;
 	}
 

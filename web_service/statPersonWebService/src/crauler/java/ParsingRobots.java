@@ -1,21 +1,23 @@
 package crauler.java;
 
+import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
-
-import java.nio.channels.Pipe;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Андрей on 01.06.2016.
  */
 public class ParsingRobots {
+	static Logger log = Logger.getLogger(ParsingRobots.class.getName());
+	
 	private String urlSite;
 	private String urlSiteMap;
 	private Boolean isRobotsFileFound;
 	private Boolean isURLsiteMapFound;
 
 	public ParsingRobots(String urlSite) {
+		log.debug("In ParsingRobots()");
+		log.debug("urlSite = "+urlSite);
+		
 		this.urlSite = urlSite;
 		this.isRobotsFileFound = false;
 		this.isURLsiteMapFound = false;
@@ -23,21 +25,25 @@ public class ParsingRobots {
 	}
 
 	public String getUrlSiteMap() {
+		log.debug("In ParsingRobots.getUrlSiteMap()");
 		return urlSiteMap;
 	}
 
 	public Boolean getRobotsFileFound() {
+		log.debug("In ParsingRobots.getRobotsFileFound()");
 		return isRobotsFileFound;
 	}
 
 	public Boolean getURLsiteMapFound() {
+		log.debug("In ParsingRobots.getURLsiteMapFound()");
 		return isURLsiteMapFound;
 	}
 
 	public void foundURLSiteMap() {
+		log.debug("In ParsingRobots.foundURLSiteMap()");
 		System.out.println("urlsite " + urlSite);
-		DownloaderXML downloaderXML = new DownloaderXML(urlSite + "/robots.txt");
-		Document doc = downloaderXML.getDoc();
+		
+		Document doc = DownloaderXML.getDoc(urlSite + "/robots.txt");
 
 		if (doc != null) {
 
