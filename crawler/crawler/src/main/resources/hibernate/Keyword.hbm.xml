@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 5, 2016 8:33:04 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="statPerson.element.keyword">
+    <class name="Keyword" table="KEYWORD">
+        <id name="id" type="int">
+            <column name="ID" />
+			<generator class="native" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="personId" type="int">
+            <column name="PERSONID" />
+        </property>
+    </class>
+</hibernate-mapping>
