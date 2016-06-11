@@ -2,6 +2,10 @@ package crauler.java;
 
 import org.jsoup.nodes.Document;
 
+import java.nio.channels.Pipe;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by Андрей on 01.06.2016.
  */
