@@ -4,15 +4,6 @@
              android:layout_height="match_parent"
              tools:context="com.proba.statperson.view.user.fragments.DailyStatGrafFragment">
 
-    <TextView
-        android:id="@+id/textViewDailyStat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="@string/daily_stat"
-        android:textColor="#03A9F4"
-        android:textSize="@dimen/head_text"/>
-
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
         xmlns:android="http://schemas.android.com/apk/res/android"

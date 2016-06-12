@@ -237,7 +237,6 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
             fragmentTransaction.replace(R.id.container_user, grafFragment,
                     TAG_GRAF);
             fragmentTransaction.commit();
-
             return true;
         }
         return super.onOptionsItemSelected(item);

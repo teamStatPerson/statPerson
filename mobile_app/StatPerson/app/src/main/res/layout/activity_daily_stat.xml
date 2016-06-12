@@ -157,15 +157,6 @@
         </TableRow>
     </TableLayout>
 
-<!--    <fragment   -->
-<!--        android:id="@+id/dailyStatListFragment"   -->
-<!--        android:name="com.proba.statperson.view.user.fragments.DailyStatListFragment"   -->
-<!--        android:layout_width="match_parent"   -->
-<!--        android:layout_height="wrap_content"   -->
-<!--        android:layout_below="@+id/tableDailyStat"   -->
-<!--        tools:layout="@android:layout/list_content">   -->
-<!--    </fragment>   -->
-
     <FrameLayout
         android:id="@+id/container_user_daily"
         xmlns:app="http://schemas.android.com/apk/res-auto"

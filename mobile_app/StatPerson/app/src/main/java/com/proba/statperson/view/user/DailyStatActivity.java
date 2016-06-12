@@ -2,11 +2,11 @@ package com.proba.statperson.view.user;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -132,8 +132,15 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
             return true;
         }
         if (id == R.id.daily_stat_graph) {
-            Intent intent = new Intent(DailyStatActivity.this, DailyStatGraphView.class);
-            startActivity(intent);
+//            Intent intent = new Intent(DailyStatActivity.this, DailyStatGraphView.class);
+//            startActivity(intent);
+            DailyStatGrafFragment fragment = (DailyStatGrafFragment) getFragmentManager()
+                    .findFragmentByTag(TAG_DAILY_GRAF);
+            FragmentTransaction fragmentTransaction = getFragmentManager()
+                    .beginTransaction();
+            fragmentTransaction.replace(R.id.container_user_daily, dailyGrafFragment,
+                    TAG_DAILY_GRAF);
+            fragmentTransaction.commit();
             return true;
         }
         return super.onOptionsItemSelected(item);

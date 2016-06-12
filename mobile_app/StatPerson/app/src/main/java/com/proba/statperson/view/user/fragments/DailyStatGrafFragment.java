@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,7 @@ import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.proba.statperson.R;
+import com.proba.statperson.interfaces.DailyStatDate;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -38,6 +39,7 @@ public class DailyStatGrafFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private DailyStatDate mCallback;
 
     public DailyStatGrafFragment() {
         // Required empty public constructor
@@ -130,11 +132,11 @@ public class DailyStatGrafFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+        try {
+            mCallback = (DailyStatDate) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + "must implement DailyStatDate");
         }
     }
 
