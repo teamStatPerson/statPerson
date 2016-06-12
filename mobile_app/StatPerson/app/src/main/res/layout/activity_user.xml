@@ -63,17 +63,6 @@
 
     </LinearLayout>
 
-    <!--    <fragment  -->
-    <!--        android:id="@+id/totalStatListFragment"  -->
-    <!--        android:name="com.proba.statperson.view.user.fragments.TotalStatListFragment"  -->
-    <!--        android:layout_width="match_parent"  -->
-    <!--        android:layout_height="wrap_content"  -->
-    <!--        android:layout_below="@+id/linearLayoutSite"  -->
-    <!--        tools:layout="@android:layout/list_content">  -->
-    <!--    </fragment>  -->
-
-    <!--    12 июня  -->
-
     <FrameLayout
         android:id="@+id/container_user"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -87,8 +76,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:layout="@android:layout/list_content">
     </FrameLayout>
-
-    <!--    12 июня  -->
 
     <ProgressBar
         android:id="@+id/progressBar2"

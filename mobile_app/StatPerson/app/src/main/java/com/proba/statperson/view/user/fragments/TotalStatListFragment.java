@@ -1,8 +1,8 @@
 package com.proba.statperson.view.user.fragments;
 
-import android.app.Activity;
+import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 
@@ -22,7 +22,6 @@ import java.util.Map;
  */
 public class TotalStatListFragment extends ListFragment {
 
-    //    private DailyStatDate mCallback;
     private TotalStatSite mCallback;
 
     ArrayList<TotalStatHashMap> totalStatList;
@@ -65,14 +64,13 @@ public class TotalStatListFragment extends ListFragment {
         setListAdapter(adapter);
     }
 
-
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            mCallback = (TotalStatSite) activity;
+            mCallback = (TotalStatSite) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + "must implement DailyStatDate");
         }
     }

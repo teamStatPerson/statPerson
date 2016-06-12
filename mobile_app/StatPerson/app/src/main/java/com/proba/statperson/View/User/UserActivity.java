@@ -1,14 +1,15 @@
 package com.proba.statperson.view.user;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.proba.statperson.events.NewCatalogElementsListEvent;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.interfaces.TotalStatSite;
 import com.proba.statperson.presenter.PresenterImpl;
+import com.proba.statperson.view.user.fragments.TotalStatGrafFragment;
 import com.proba.statperson.view.user.fragments.TotalStatListFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -29,6 +31,12 @@ import statPerson.element.site.Site;
 public class UserActivity extends AppCompatActivity implements TotalStatSite {
 
     private IPresenter presenter;
+
+    FrameLayout container_user;
+    TotalStatListFragment listFragment;
+    TotalStatGrafFragment grafFragment;
+    final static String TAG_LIST = "FRAGMENT_LIST";
+    final static String TAG_GRAF = "FRAGMENT_GRAF";
 
     private FloatingActionButton fab;
     TextView textViewPersonName;
@@ -43,6 +51,10 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         init();
+        container_user = (FrameLayout) findViewById(R.id.container_user);
+        listFragment = new TotalStatListFragment();
+        grafFragment = new TotalStatGrafFragment();
+
         if (savedInstanceState != null) {
             siteName = savedInstanceState.getString(KEY_SITE_NAME, getString(R.string.fragment_sites));
             textViewSiteName.setText(siteName);
@@ -147,10 +159,10 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
 
     @Override
     public void onSiteSelected(String date) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+/*       FragmentManager fragmentManager = getSupportFragmentManager();
         TotalStatListFragment totalStatListFragment = (TotalStatListFragment) fragmentManager
                 .findFragmentById(R.id.totalStatListFragment);
-/*
+
         if (totalStatListFragment != null && totalStatListFragment.isInLayout()) {
             totalStatListFragment.userGetOverallStatistics(site);
         }
@@ -166,6 +178,15 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
                 setProgressBar();
 //                Toast.makeText(getApplicationContext(), "siteName: " + siteName, Toast.LENGTH_LONG).show();
                 presenter.userGetOverallStatistics(new Site(siteName, null));
+
+                TotalStatListFragment fragment = (TotalStatListFragment) getFragmentManager()
+                        .findFragmentByTag(TAG_LIST);
+
+                    FragmentTransaction fragmentTransaction = getFragmentManager()
+                            .beginTransaction();
+                    fragmentTransaction.replace(R.id.container_user, listFragment,
+                            TAG_LIST);
+                    fragmentTransaction.commit();
             }
         });
     }
@@ -207,8 +228,16 @@ public class UserActivity extends AppCompatActivity implements TotalStatSite {
             return true;
         }
         if (id == R.id.total_stat_graph) {
-            Intent intent = new Intent(UserActivity.this, TotalStatGraphView.class);
-            startActivity(intent);
+//            Intent intent = new Intent(UserActivity.this, TotalStatGraphView.class);
+//            startActivity(intent);
+            TotalStatGrafFragment fragment = (TotalStatGrafFragment) getFragmentManager()
+                    .findFragmentByTag(TAG_GRAF);
+            FragmentTransaction fragmentTransaction = getFragmentManager()
+                    .beginTransaction();
+            fragmentTransaction.replace(R.id.container_user, grafFragment,
+                    TAG_GRAF);
+            fragmentTransaction.commit();
+
             return true;
         }
         return super.onOptionsItemSelected(item);
