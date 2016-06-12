@@ -2,15 +2,17 @@ package com.proba.statperson.view.user;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
+import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ import com.proba.statperson.events.SetDateTillEvent;
 import com.proba.statperson.interfaces.DailyStatDate;
 import com.proba.statperson.interfaces.IPresenter;
 import com.proba.statperson.presenter.PresenterImpl;
+import com.proba.statperson.view.user.fragments.DailyStatGrafFragment;
 import com.proba.statperson.view.user.fragments.DailyStatListFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -57,6 +60,12 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
     private String[] sites;
     private String[] persons;
 
+    FrameLayout container_user_daily;
+    DailyStatListFragment dailyListFragment;
+    DailyStatGrafFragment dailyGrafFragment;
+    final static String TAG_DAILY_LIST = "FRAGMENT_DAILY_LIST";
+    final static String TAG_DAILY_GRAF = "FRAGMENT_DAILY_GRAF";
+
     private FloatingActionButton fab;
     public static boolean isSitesListRetrieved;
     public static String siteName;
@@ -77,6 +86,10 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
 
         init();
         determineCurrentDate();
+        container_user_daily = (FrameLayout) findViewById(R.id.container_user);
+        dailyListFragment = new DailyStatListFragment();
+        dailyGrafFragment = new DailyStatGrafFragment();
+
 
         if (savedInstanceState != null) {
             siteName = savedInstanceState.getString(KEY_SITE_NAME, getString(R.string.fragment_sites));
@@ -88,13 +101,11 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
             textViewDateFrom.setText(from_date);
             textViewDateTill.setText(to_date);
             initFAB();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            DailyStatListFragment dailyStatListFragment = (DailyStatListFragment) fragmentManager
-                    .findFragmentById(R.id.dailyStatListFragment);
-
+            FragmentManager fragmentManager = getFragmentManager();
+//            DailyStatListFragment dailyStatListFragment = (DailyStatListFragment) fragmentManager
+//                    .findFragmentById(R.id.dailyStatListFragment);
         }
     }
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -110,7 +121,6 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
         getMenuInflater().inflate(R.menu.user_daily_menu, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -429,19 +439,29 @@ public class DailyStatActivity extends AppCompatActivity implements DailyStatDat
             public void onClick(View view) {
                 setProgressBar();
                 presenter.userGetDailyStatistics(new Site(siteName, null), new Person(personName), to_date, from_date);
+
+                DailyStatListFragment fragment = (DailyStatListFragment) getFragmentManager()
+                        .findFragmentByTag(TAG_DAILY_LIST);
+
+                FragmentTransaction fragmentTransaction = getFragmentManager()
+                        .beginTransaction();
+                fragmentTransaction.replace(R.id.container_user_daily, dailyListFragment,
+                        TAG_DAILY_LIST);
+                fragmentTransaction.commit();
             }
         });
     }
 
     @Override
     public void onDateSelected(String date) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+/*        FragmentManager fragmentManager = getFragmentManager();
         DailyStatListFragment dailyStatListFragment = (DailyStatListFragment) fragmentManager
                 .findFragmentById(R.id.dailyStatListFragment);
 
         if (dailyStatListFragment != null && dailyStatListFragment.isInLayout()) {
             dailyStatListFragment.getStartDate(from_date);
         }
+*/
     }
 
     @Override

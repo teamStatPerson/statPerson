@@ -2,7 +2,7 @@ package com.proba.statperson.view.user.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.app.ListFragment;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 
